@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- mailAuth -->
+	<bean id="mailAuthService" class="com.cn.dsyg.service.impl.MailAuthServiceImpl" >
+		<property name="mailAuthDao">
+			<ref local="mailAuthDao"/>
+		</property>
+	</bean>
+	
+	<bean id="mailAuthDao" class="com.cn.dsyg.dao.impl.MailAuthDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- 用户 -->
+	<bean id="userService" class="com.cn.dsyg.service.impl.UserServiceImpl" >
+		<property name="userDao">
+			<ref local="userDao"/>
+		</property>
+	</bean>
+	
+	<bean id="userDao" class="com.cn.dsyg.dao.impl.UserDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+</beans>
