@@ -28,12 +28,12 @@ public class LoginInterceptor extends AbstractInterceptor {
 		if(StringUtil.isBlank(islogin)) {
 			//未登录
 			log.info("user is not login.");
-			return "timeout";
+			return "product";
 		} else {
 			if(!Constants.SESSION_FLAG_IS_LOGIN.equals(islogin)) {
 				//session过期
 				log.info("session is time out.");
-				return "timeout";
+				return "product";
 			}
 			return arg0.invoke();
 		}

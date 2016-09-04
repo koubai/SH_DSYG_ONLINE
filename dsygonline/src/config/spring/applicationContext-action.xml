@@ -2,8 +2,48 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<!-- order -->
+	<bean id="orderAction" class="com.cn.dsyg.action.OrderAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="orderService">
+			<ref bean="orderService" />
+		</property>
+	</bean>
+	
+	<!-- shoppingcart -->
+	<bean id="shoppingCartAction" class="com.cn.dsyg.action.ShoppingCartAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="productService">
+			<ref bean="productService" />
+		</property>
+	</bean>
+	
+	<!-- product -->
+	<bean id="productAction" class="com.cn.dsyg.action.ProductAction" scope="session">
+		<property name="dict01Service">
+			<ref bean="dict01Service" />
+		</property>
+		<property name="productService">
+			<ref bean="productService" />
+		</property>
+	</bean>
+
 	<!-- mailAuth -->
 	<bean id="mailAuthAction" class="com.cn.dsyg.action.MailAuthAction" scope="session">
+		<property name="mailAuthService">
+			<ref bean="mailAuthService" />
+		</property>
+	</bean>
+	
+	<!-- customer -->
+	<bean id="customerAction" class="com.cn.dsyg.action.CustomerAction" scope="session">
+		<property name="customerService">
+			<ref bean="customerService" />
+		</property>
 		<property name="mailAuthService">
 			<ref bean="mailAuthService" />
 		</property>
@@ -25,6 +65,9 @@
 	
 	<!-- 验证码 -->
 	<bean id="randomActionBean" class="com.cn.dsyg.action.ValidateCodeAction" />
+	
+	<!-- 多语言拦截器 -->
+	<bean id="languageInterceptorBean" class="com.cn.dsyg.interceptor.LanguageInterceptor"/>
 	
 	<!-- 登录拦截器 -->
 	<bean id="loginInterceptorBean" class="com.cn.dsyg.interceptor.LoginInterceptor"/>

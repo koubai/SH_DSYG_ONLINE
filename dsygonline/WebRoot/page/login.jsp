@@ -24,8 +24,51 @@ a { color:#FFF}
 	});
 
 	function login() {
-		document.mainform.action = '<%=request.getContextPath()%>/login/loginAction.action';
-		document.mainform.submit();
+		$(document).ready(function() {
+			//使用jQuery异步提交表单
+			$('#mainform').submit(function() {
+				$.ajax({
+		            type: "post",
+		            url: "<%=request.getContextPath()%>/customer/loginAction.action",
+					async:false,
+		            dataType: "json",
+		            data: { 
+						"customeremail":$("#customeremail").val(),
+						"customerpsd":$("#password").val()
+					},
+					success:function(data) {
+		                if (data.msg != ""){
+							alert(data.msg);
+		                } else {
+							//刷新父窗口的网页
+							window.dialogArguments.refresh();   
+							//关闭子窗口
+							window.close();
+		                }
+					},
+					error:function(data) {
+		                alert("系统出现错误，请联系管理员");
+					}
+		        });
+				return false;
+			});
+		});
+	}
+
+	function showMsg() {
+		var msg = document.getElementById("message").innerText;
+		alert(msg);
+		if(msg == ""){
+			//初始登录页面
+		} else if(msg == " "){
+			alert("eeeee");
+			//刷新父窗口的网页
+			window.dialogArguments.refresh();   
+			//关闭子窗口
+			window.close();
+		} else {
+			//alert(msg);
+		}
 	}
 	
 	/**
@@ -55,15 +98,14 @@ a { color:#FFF}
 	}
 </script>
 </head>
-<body>
-		<div class="classname">DSYG_东升盈港企业内部管理系统</div> 
-		<div class="content">
+<body onload="">
+	<div class="content">
 		<s:form id="mainform" name="mainform" method="POST">
 			<table class="login_tab" border="0" cellpadding="0" cellspacing="15">
 				<tr>
 					<td colspan="2">
 						<div style="font-size: 15px; ; position:absolute; margin-left: 20px; margin-top: -40px; text-align: center; color: red;">
-							<s:actionmessage />
+							<span id="message"><s:actionmessage /></span>
 						</div>
 					</td>
 				</tr>
@@ -81,18 +123,15 @@ a { color:#FFF}
 					</div>
 					<td>
 -->
-				<input name="userDto.belongto" type="hidden" style="width:200px;" maxlength="20" id="belongto" value="0"/>
+				<input name="customerDto.belongto" type="hidden" style="width:200px;" maxlength="20" id="belongto" value="0"/>
 				</tr>
 				<tr>
-					<td align="right">用户名</td>
+					<td align="right">登录邮件名</td>
 					<td>
 						<div class="box1">
 							<div class="box1_left"></div>
 							<div class="box1_center">
-								<div>
-									
-								</div>
-								<input name="userDto.userid" type="text" style="width:200px;" maxlength="20" id="userid" value="<s:property value="userDto.userid"/>"/>
+								<input name="customerDto.customeremail" type="text" style="width:200px;" maxlength="20" id="customeremail" value="<s:property value="customerDto.customeremail"/>"/>
 							</div>
 							<div class="box1_right"></div>
 						</div>
@@ -104,13 +143,13 @@ a { color:#FFF}
 						<div class="box1">
 							<div class="box1_left"></div>
 							<div class="box1_center">
-								<input name="userDto.password" style="width:200px;" maxlength="16" type="password" id="password" />
+								<input name="customerDto.password" style="width:200px;" maxlength="16" type="password" id="password" />
 							</div>
 							<div class="box1_right"></div>
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<%-- <tr>
 					<td align="right">验证码</td>
 					<td>
 						<div class="box1">
@@ -122,7 +161,7 @@ a { color:#FFF}
 						</div>
 						<img title="看不清点我" id="randomImg" name="random" src="<%=request.getContextPath()%>/index/rand.action" onclick="changeValidateCode(this)" class="yzhm" />
 					</td>
-				</tr>
+				</tr> --%>
 				<tr>
 					<td align="right">&nbsp;</td>
 					<td>
@@ -136,27 +175,13 @@ a { color:#FFF}
 						<div class="btn">
 							<div class="box1_left"></div>
 							<div class="box1_center">
-								<input name="重置" type="button" class="input80" value="重置" onclick="reset();" />
+								<input name="取消" type="button" class="input80" value="取消" onclick="window.close();" />
 							</div>
 							<div class="box1_right"></div>
 						</div>
 					</td>
 				</tr>
-			</table>
-			
-			<div class="yzk_bottom2">
-				<p>上海東升盈港企業发展有限公司 <span style=" margin-left:40px; font-weight:normal; font-size:12px; color:#959595;">Copyright＠ D.S.Y.G Trade LTD. ALL Rights Reserved.</span></p>
-				<div class="contactus">
-					<ul>
-						<li><a href="#">联系我们</a><span><img src="<%=request.getContextPath()%>/images/line.jpg" /></span></li>
-						<li><a href="#">网站地图</a><span><img src="<%=request.getContextPath()%>/images/line.jpg" /></span></li>
-						<li><a href="#">隐私条款</a></li>
-					</ul>
-					<ul>
-						<li style="padding-left:40px;">沪ICP备13004291号</li>
-					</ul>
-				</div>
-			</div>			
+			</table>	
 		</s:form>
 	</div>
 </body>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="customer" extends="struts-default, json-default" namespace="/customer">
+        <!-- 用户注册 -->
+        <!-- 用户注册画面 -->
+        <action name="showAddCustomerAction" class="customerAction" method="showAddCustomerAction">
+            <result name="*">/page/customer/registry.jsp</result>
+        </action>
+        <!-- 使用条款画面 -->
+        <action name="showClause">
+            <result name="*">/page/customer/clause.jsp</result>
+        </action>
+        <!-- 预注册  -->
+        <action name="addCustomerAction" class="customerAction" method="addCustomerAction">
+            <result name="success">/page/customer/preregistry.jsp</result>
+            <result name="*">/page/customer/registry.jsp</result>
+        </action>
+        <!-- 执行注册  -->
+        <action name="doRegistryAction" class="customerAction" method="doRegistryAction">
+            <result name="success">/page/customer/doregistry.jsp</result>
+            <result name="*" type="redirectAction">../product/showSearchProductAction.action</result>
+        </action>
+        <!-- 显示用户信息  -->
+		<action name="showUpdCustomerAction" class="customerAction" method="showUpdCustomerAction">
+            <result name="success">/page/customer/updcustomer.jsp</result>
+            <result name="*" type="redirectAction">../product/showSearchProductAction.action</result>
+		</action>
+        <!-- 修改用户信息 （注册时用） -->
+		<action name="updCustomerAction" class="customerAction" method="updCustomerAction">
+            <result name="success" type="redirectAction">../product/showSearchProductAction.action</result>
+            <result name="*">/page/customer/doregistry.jsp</result>
+		</action>
+        <!-- 修改用户信息  -->
+		<action name="updateCustomerAction" class="customerAction" method="updCustomerAction">
+            <result name="success">/page/customer/doupdcustomer.jsp</result>
+            <result name="*">/page/customer/updcustomer.jsp</result>
+		</action>
+        <!-- 发送受理交期确认邮件  -->
+		<action name="sendConfirmMailAction" class="customerAction" method="sendConfirmMailAction">
+            <result name="success">/page/customer/confirmcustomer.jsp</result>
+            <result name="*">/page/customer/doupdcustomer.jsp</result>
+		</action>
+        
+        <!-- 用户登录 -->
+		<action name="showLoginAction" class="customerAction" method="showLoginAction">
+			<result name="*">/page/login.jsp</result>
+		</action>
+		<action name="loginAction" class="customerAction" method="loginAction">
+			<result type="json"></result>
+		</action>
+		<action name="logoutAction" class="customerAction" method="logoutAction">
+			<result name="*" type="redirectAction">../product/showSearchProductAction.action</result>
+		</action>
+        
+        <!-- 修改密码 -->
+		<action name="showUpdCustomerPsdAction" class="customerAction" method="showUpdCustomerPsdAction">
+			<result name="*">/page/customer/updcuspsd.jsp</result>
+		</action>
+		<action name="updCustomerPsdAction" class="customerAction" method="updCustomerPsdAction">
+			<result type="json"></result>
+		</action>
+        
+        <!-- 用户注销 -->
+		<action name="showDelCustomerAction">
+			<result name="*">/page/customer/cancel.jsp</result>
+		</action>
+		<action name="delCustomerAction" class="customerAction" method="delCustomerAction">
+			<result name="success">/page/customer/docancel.jsp</result>
+			<result name="*">/page/customer/cancel.jsp</result>
+		</action>
+        
+	</package>
+
+</struts>

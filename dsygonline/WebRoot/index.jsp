@@ -1,2 +1,2 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<jsp:forward page="/login/showLoginAction.action"></jsp:forward>
+<jsp:forward page="/product/showSearchProductAction.action"></jsp:forward>

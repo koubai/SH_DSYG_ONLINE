@@ -4,14 +4,14 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-	<package name="login" extends="struts-default, json-default" namespace="/login">
+	<package name="login" extends="struts-language" namespace="/login">
 	
 		<action name="showLoginAction" class="userLoginAction" method="showLoginAction">
 			<result name="*">/page/login.jsp</result>
 		</action>
 		
 		<action name="loginAction" class="userLoginAction" method="loginAction">
-			<result name="success">/page/home/home.jsp</result>
+			<result name="success" type="redirectAction">../product/showSearchProductAction.action</result>
 			<result name="error">/page/login.jsp</result>
 		</action>
 		

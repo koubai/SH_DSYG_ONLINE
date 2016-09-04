@@ -7,5 +7,10 @@
 
 	<sqlMap resource="/config/ibatis/dsyg-user.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-mailauth.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-dict01.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-product.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-customer.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-order.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-orderdetail.xml" />
 	
 </sqlMapConfig>

@@ -21,7 +21,6 @@
 					</div>
 				</div>
 			</div>
-			<jsp:include page="../head_manage.jsp" flush="true" />
 			<div class="main_body">
 				<div class="error">
 					<img src="<%=request.getContextPath()%>/images/error.png" />

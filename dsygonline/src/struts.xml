@@ -13,7 +13,17 @@
 	
 	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
+	<!-- order -->
+	<include file="struts-order.xml"></include>
+	<!-- shoppingcart -->
+	<include file="struts-shoppingcart.xml"></include>
+	<!-- product -->
+	<include file="struts-product.xml"></include>
+	<!-- mailauth -->
 	<include file="struts-mailauth.xml"></include>
+	<!-- customer -->
+	<include file="struts-customer.xml"></include>
+	<!-- login -->
 	<include file="struts-login.xml"></include>
 	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
@@ -26,6 +36,42 @@
 		        <param name="inputName">inputStream</param>
 			</result>
 		</action>
+		
+	</package>
+	
+	<!-- 多语言拦截器 -->
+	<package name="struts-language" extends="struts-default, json-default" namespace="/">
+	
+		<interceptors>
+			<interceptor name="languageInterceptor" class="languageInterceptorBean"></interceptor>
+			<interceptor-stack name="languageStack">
+				<interceptor-ref name="languageInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="languageStack"></default-interceptor-ref>
+
+	</package>
+	
+	<!-- 登录拦截器 -->
+	<package name="struts-login" extends="struts-default, json-default" namespace="/">
+	
+		<interceptors>
+			<interceptor name="loginInterceptor" class="loginInterceptorBean"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		
+		<global-results>
+			<!-- productlist -->
+			<result name="product" type="redirectAction">../product/showSearchProductAction.action</result>
+			
+		</global-results>
 		
 	</package>
 	

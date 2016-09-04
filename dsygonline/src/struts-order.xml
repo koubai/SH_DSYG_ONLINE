@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="order" extends="struts-login" namespace="/order">
+
+		<action name="showOrderListAction" class="orderAction" method="showOrderListAction">
+			<result name="*">/page/order/orderlist.jsp</result>
+		</action>
+		
+		<action name="queryOrderListAction" class="orderAction" method="queryOrderListAction">
+			<result name="*">/page/order/orderlist.jsp</result>
+		</action>
+		
+		<action name="turnOrderListAction" class="orderAction" method="turnOrderListAction">
+			<result name="*">/page/order/orderlist.jsp</result>
+		</action>
+		
+		<action name="showOrderDetailAction" class="orderAction" method="showOrderDetailAction">
+			<result name="*">/page/order/orderdetail.jsp</result>
+		</action>
+        
+	</package>
+
+</struts>

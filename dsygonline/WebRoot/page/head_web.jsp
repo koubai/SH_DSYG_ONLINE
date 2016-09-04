@@ -44,15 +44,15 @@
 	<div class="top">
 		<div class="menu">
 			<ul>
-				<li><a href="home.shtml">首页</a></li>
-				<li><a href="searchhome.shtml">产品信息</a></li>
-				<li><a href="showInformation.shtml">相关技术情报</a></li>
-				<li><a href="companyinfo.shtml">公司信息</a></li>
-				<li><a href="companynews.shtml">公司新闻</a></li>
-				<li><a href="qa.shtml">咨询信息Q/A</a></li>
-				<li><a href="case_p01.shtml">案例介绍</a></li>
-				<li><a href="showsearchsarehouse.shtml">库存信息</a></li>
-				<li><a href="showOnline.shtml">线上购买</a></li>
+				<li><a href="../../dsyg/home.shtml">首页</a></li>
+				<li><a href="../../dsyg/searchhome.shtml">产品信息</a></li>
+				<li><a href="../../dsyg/showInformation.shtml">相关技术情报</a></li>
+				<li><a href="../../dsyg/companyinfo.shtml">公司信息</a></li>
+				<li><a href="../../dsyg/companynews.shtml">公司新闻</a></li>
+				<li><a href="../../dsyg/qa.shtml">咨询信息Q/A</a></li>
+				<li><a href="../../dsyg/case_p01.shtml">案例介绍</a></li>
+				<li><a href="../../dsyg/showsearchsarehouse.shtml">库存信息</a></li>
+				<li><a href="../product/showSearchProductAction.action">线上购买</a></li>
 				<!--
 				<li><a href="<c:url value="/home/goHomeAction.action"></c:url>">首页</a></li>
 				<li><a href="<c:url value="/search/showSearchAction.action"></c:url>">产品信息</a></li>

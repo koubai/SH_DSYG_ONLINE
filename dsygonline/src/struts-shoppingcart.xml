@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="shoppingcart" extends="struts-language" namespace="/shoppingcart">
+	
+		<action name="showShoppingCartAction" class="shoppingCartAction" method="showShoppingCartAction">
+			<result name="success">/page/shoppingcart/shoppingcartlist.jsp</result>
+		</action>
+	
+		<action name="getShoppingCartAmount" class="shoppingCartAction" method="getShoppingCartAmount">
+			<result type="json"></result>
+		</action>
+		
+		<action name="addShoppingCart" class="shoppingCartAction" method="addShoppingCart">
+			<result type="json"></result>
+		</action>
+		
+		<action name="delShoppingCartAjax" class="shoppingCartAction" method="delShoppingCartAjax">
+			<result type="json"></result>
+		</action>
+		
+		<action name="delShoppingCart" class="shoppingCartAction" method="delShoppingCart">
+			<result name="success">/page/shoppingcart/shoppingcartlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

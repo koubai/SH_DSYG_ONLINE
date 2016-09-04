@@ -8,6 +8,8 @@ package com.cn.common.util;
  * @version 1.0
  */
 public class Constants {
+	
+	public final static String SESSION_SHOPPING_CART = "shopping_cart";
 
 	//当前系统所属地
 	public final static String SYSTEM_BELONG = "belongto";

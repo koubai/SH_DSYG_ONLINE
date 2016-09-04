@@ -3,6 +3,64 @@
 
 <beans>
 
+	<!-- orderDetail -->
+	<bean id="orderDetailService" class="com.cn.dsyg.service.impl.OrderDetailServiceImpl" >
+		<property name="orderDetailDao">
+			<ref local="orderDetailDao"/>
+		</property>
+	</bean>
+	
+	<bean id="orderDetailDao" class="com.cn.dsyg.dao.impl.OrderDetailDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- order -->
+	<bean id="orderService" class="com.cn.dsyg.service.impl.OrderServiceImpl" >
+		<property name="orderDao">
+			<ref local="orderDao"/>
+		</property>
+		<property name="orderDetailDao">
+			<ref local="orderDetailDao"/>
+		</property>
+	</bean>
+	
+	<bean id="orderDao" class="com.cn.dsyg.dao.impl.OrderDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 线上用户 -->
+	<bean id="customerService" class="com.cn.dsyg.service.impl.CustomerServiceImpl" >
+		<property name="customerDao">
+			<ref local="customerDao"/>
+		</property>
+	</bean>
+	
+	<bean id="customerDao" class="com.cn.dsyg.dao.impl.CustomerDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- Product -->
+	<bean id="productService" class="com.cn.dsyg.service.impl.ProductServiceImpl" >
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
+	</bean>
+	
+	<bean id="productDao" class="com.cn.dsyg.dao.impl.ProductDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	<!-- mailAuth -->
 	<bean id="mailAuthService" class="com.cn.dsyg.service.impl.MailAuthServiceImpl" >
 		<property name="mailAuthDao">
@@ -11,6 +69,19 @@
 	</bean>
 	
 	<bean id="mailAuthDao" class="com.cn.dsyg.dao.impl.MailAuthDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 字典表 -->
+	<bean id="dict01Service" class="com.cn.dsyg.service.impl.Dict01ServiceImpl" >
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
+	</bean>
+	
+	<bean id="dict01Dao" class="com.cn.dsyg.dao.impl.Dict01DaoImpl">
 		<property name="sqlMapClient">
 			<ref bean="sqlMapClient"/>
 		</property>
