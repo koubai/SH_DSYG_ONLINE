@@ -376,11 +376,13 @@ public class CustomerAction extends BaseAction {
 				this.addActionMessage("此邮件数据不存在！");
 				return "checkerror";
 			}
+			log.info("params=queryMailAuthByLogicId");
 			//判断该code是否已被验证
 			if(Constants.STATUS_NORMAL != mailAuth.getStatus()) {
 				this.addActionMessage("此邮件内容已完成验证！");
 				return "checkerror";
 			}
+			log.info("params=getStatus");
 			updCustomerDto = customerService.queryCustomerByID(Integer.parseInt(customerid));
 			if(updCustomerDto == null){
 				this.addActionMessage("此邮件地址未注册！");
@@ -394,6 +396,7 @@ public class CustomerAction extends BaseAction {
 				this.addActionMessage("此邮件地址已注册完成！");
 				return "checkerror";
 			}
+			log.info("params=queryCustomerByID");
 			//当前操作用户ID
 			updCustomerDto.setUpdateuid(customerid);
 			updCustomerDto.setStatus(2);
