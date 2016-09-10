@@ -18,6 +18,7 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.EncryptionDecryption;
 import com.cn.common.util.MD5Util;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.MailAuthDto;
@@ -34,11 +35,22 @@ import com.opensymphony.xwork2.ActionContext;
 public class CustomerAction extends BaseAction {
 	
 	private static final long serialVersionUID = -5612888385888878291L;
-
 	private static final Logger log = LogManager.getLogger(CustomerAction.class);
+	private static String hostInfo = "";
 	
 	private CustomerService customerService;
 	private MailAuthService mailAuthService;
+
+	// 默认HOST_INFO
+	private static String HOST_INFO = PropertiesConfig.getPropertiesValueByKey("HOST_INFO");
+
+	static {
+		// HOST_INFO
+		hostInfo = PropertiesConfig.getPropertiesValueByKey("HOST_INFO");
+		if (StringUtil.isBlank(hostInfo)) {
+			hostInfo = HOST_INFO;
+		}
+	}
 	
 	//页码
 	private int startIndex;
@@ -325,7 +337,7 @@ public class CustomerAction extends BaseAction {
 			String body = "";
 			body += "平日里承蒙对东升盈港的厚爱，我司对此表示诚挚感谢。<br/>";
 			body += "目前为临时登录，请点击以下页面，进行正式登录。<br/><br/>";
-			body += "http://localhost:8080/dsygonline/customer/doRegistryAction.action"
+			body += hostInfo + "/dsygonline/customer/doRegistryAction.action"
 				+ "?hash=" + hash + "<br/><br/><br/><br/><br/>";
 			body += "==========================================<br/>";
 			body += "东升盈港<br/>";
@@ -417,10 +429,11 @@ public class CustomerAction extends BaseAction {
 			body += "感谢您成为东升盈港正式会员<br/><br/>";
 			body += "用户登录EMAIL:[ " + email + " ]<br/>";
 			body += "登录密码是新会员在注册时所输入的密码。<br/><br/>";
-			body += "http://localhost:8080/dsygonline/customer/showShop.action<br/><br/><br/><br/><br/>";
+			body += hostInfo + "/dsygonline/customer/showShop.action<br/><br/><br/><br/><br/>";
 			body += "==========================================<br/>";
 			body += "东升盈港<br/>";
 			body += "==========================================<br/>";
+			System.out.println(body);
 			MailSender.send("", email, subject, body, "东升盈港", "");
 			
 		} catch(Exception e) {
