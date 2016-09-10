@@ -32,7 +32,7 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class ShoppingCartAction extends BaseAction {
 
-	private static final long serialVersionUID = 3135633283613545852L;
+	private static final long serialVersionUID = -7104477336164041584L;
 	private static final Logger log = LogManager.getLogger(ShoppingCartAction.class);
 	
 	private ProductService productService;

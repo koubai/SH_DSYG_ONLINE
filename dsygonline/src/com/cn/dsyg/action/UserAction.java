@@ -23,9 +23,8 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class UserAction extends BaseAction {
 
+	private static final long serialVersionUID = 3752688586006563241L;
 	private static final Logger log = LogManager.getLogger(UserAction.class);
-	private static final long serialVersionUID = -36067602288448902L;
-	
 	private UserService userService;
 	
 	//页码

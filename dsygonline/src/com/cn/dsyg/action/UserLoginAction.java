@@ -22,9 +22,9 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class UserLoginAction extends BaseAction {
 
+	private static final long serialVersionUID = -1208697202690984613L;
+
 	private static final Logger log = LogManager.getLogger(UserLoginAction.class);
-	
-	private static final long serialVersionUID = -3307892137806702480L;
 	
 	private UserService userService;
 	

@@ -19,7 +19,7 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class ValidateCodeAction extends BaseAction {
 
-	private static final long serialVersionUID = -3878770196579795834L;
+	private static final long serialVersionUID = 7331245463051025504L;
 	private ByteArrayInputStream inputStream;
 	private static final Logger log = LogManager.getLogger(ValidateCodeAction.class);
 

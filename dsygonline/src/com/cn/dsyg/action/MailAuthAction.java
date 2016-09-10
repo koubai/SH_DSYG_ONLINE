@@ -27,7 +27,8 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class MailAuthAction extends BaseAction {
 
-	private static final long serialVersionUID = -6381211594507792419L;
+	private static final long serialVersionUID = 6601550709224872258L;
+
 	private static final Logger log = LogManager.getLogger(MailAuthAction.class);
 	
 	private MailAuthService mailAuthService;

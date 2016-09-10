@@ -34,7 +34,7 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class CustomerAction extends BaseAction {
 	
-	private static final long serialVersionUID = -5612888385888878291L;
+	private static final long serialVersionUID = 213673874531334690L;
 	private static final Logger log = LogManager.getLogger(CustomerAction.class);
 	private static String hostInfo = "";
 	

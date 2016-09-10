@@ -22,7 +22,8 @@ import com.opensymphony.xwork2.ActionContext;
  */
 public class OrderAction extends BaseAction {
 
-	private static final long serialVersionUID = 3375240951345822458L;
+	private static final long serialVersionUID = -2987610703607959959L;
+
 	private static final Logger log = LogManager.getLogger(OrderAction.class);
 	
 	private Dict01Service dict01Service;
