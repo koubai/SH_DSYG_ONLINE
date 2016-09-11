@@ -17,7 +17,7 @@
 	$(document).ready(function(){
 		$.getJSON('<%=request.getContextPath()%>/shoppingcart/getShoppingCartAmount.action' + "?date=" + new Date(),{},
 			function(data, status) {
-				$("#shoppingcartdetail").html(data.count + "件商品，价值" + data.amount + "元");
+				$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.amount+"元</p>");
 			}
 		);
 	});
@@ -102,7 +102,7 @@
 		var productInfo = id + "##" + amount + "##" + price;
 		$.getJSON('<%=request.getContextPath()%>/shoppingcart/addShoppingCart.action' + "?date=" + new Date(),{productInfo:productInfo},
 			function(data, status) {
-				$("#shoppingcartdetail").html(data.count + "件商品，价值" + data.amount + "元");
+				$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.amount+"元</p>");
 				$("#buyNum_" + id).val("");
 				alert("添加购物车成功！");
 			}
@@ -128,13 +128,16 @@
 							</div>
 						</s:if>
 						<s:if test='firstfalg != "1"'>
-							<div style="position:fixed; top:120px; right:140px; width: 160px; height: 30px; background: #f30;">
+							<div style="position:fixed; top:120px; right:140px; width: 130px; height: 150px; background:  url(<%=request.getContextPath()%>/images/cart1-1.jpg )  no-repeat;" onclick="javascript:window.location.href='<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action'">
 						</s:if>
 						<s:else>
-							<div style="position:fixed; top:120px; right:140px; width: 160px; height: 30px; background: #f30; display: none;">
+							<div style="position:fixed; top:120px; right:140px; width: 300px; height: 100px; background: #f30 url(<%=request.getContextPath()%>/images/cart1-1.jpg); display: none;">
 						</s:else>
 								<s:if test="#session.shopping_cart == null">
-									<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action">0件商品，价值0元</a>
+									<div class="product_h3"><p>
+									<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action">
+									<!-- <p>商品:&nbsp0件</p><p>金额:&nbsp0元</p> --></a>
+									</div>
 								</s:if>
 								<s:else>
 									<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action"><s:property value="#session.shopping_cart.size()"/>件商品</a>
