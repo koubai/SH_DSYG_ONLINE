@@ -6,6 +6,11 @@
 
 	<package name="customer" extends="struts-default, json-default" namespace="/customer">
         <!-- 用户注册 -->
+        <!-- 使用说明 -->
+        <action name="showShopHelpAction" class="customerAction" method="showShopHelpAction">
+            <result name="*">/page/shop_help.jsp</result>
+        </action>
+        
         <!-- 用户注册画面 -->
         <action name="showAddCustomerAction" class="customerAction" method="showAddCustomerAction">
             <result name="*">/page/customer/registry.jsp</result>

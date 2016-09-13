@@ -61,12 +61,20 @@
 	function orderlist() {
 		window.location.href = '../order/queryOrderListAction.action';
 	}
+
+	function shop_help() {
+		var url = '<%=request.getContextPath()%>/customer/showShopHelpAction.action';
+		url += "?date=" + new Date();
+		window.showModalDialog(url, window, "dialogheight:1000px;dialogwidth:1200px;dialogLeft:500px;dialogTop:200px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+
 </script>
-<div style="font-size: 18px;">
-	<span style="float: left;">
-		东升盈港线上购物网站（DSYG online store）
+<div style="font-size: 18px; font-family:"微软雅黑"">
+	<span style="float: left; margin-top: 10px;">
+		东升盈港产品线上购买（DSYG online store）
 	</span>
-	<span style="float: right;">
+	<span style="float: right; margin-top: 10px;">
+		<a href="#" name="shop_help" onclick="shop_help();">使用说明 </a> /
 		<s:if test="#session.user_id == null">
 			<a href="#" name="login" onclick="login();">登录 </a> /
 			<a href="#" name="register" onclick="register();">注册</a>

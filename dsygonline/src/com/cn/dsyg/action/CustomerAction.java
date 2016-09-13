@@ -634,6 +634,23 @@ public class CustomerAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/* 
+	 * show Shop Purchase Information
+	 * 
+	 */
+	public String showShopHelpAction() {
+		try {
+			this.clearMessages();
+			//不能直接清空所有SESSION，有购物车内容。
+			//ActionContext.getContext().getSession().clear();
+		} catch(Exception e) {
+			log.error("showShopHelpAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	
 	public CustomerService getCustomerService() {
 		return customerService;
 	}

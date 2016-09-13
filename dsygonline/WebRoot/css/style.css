@@ -205,6 +205,14 @@ ul.pagination li a:hover{background-position: 0px 100%; color: #fff; text-decora
 .product_search .search_content .search_bgc .content{width:950px;}
 .product_search .search_content .search_bgc .content dl{ margin:0; padding:0;}
 .product_search .search_content .search_bgc .content dl dt{ font-size:14px; font-weight:600;}
+.product_search .pfont1{ margin-left:70px;color:#636363; font-size:20px; font-family:"微软雅黑"}
+.product_search .pfont2{ margin-left:200px; color:#636363; font-size:15px; font-family:"微软雅黑"}
+
+.online_help{ padding:10px 10px 40px 10px;}
+.online_help .pfont0{ margin-left:10px;color:#000000; font-size:15px; font-family:"微软雅黑"}
+.online_help .pfont1{ margin-left:100px;color:#636363; font-size:20px; font-family:"微软雅黑"}
+.online_help .pfont2{ margin-left:200px; color:#636363; font-size:15px; font-family:"微软雅黑"}
+
 .buttons{ text-align:center; margin-top:10px;}
 .keyword{ width:400px; height:30px; border-radius:5px; border:none; border:1px solid #dddddd;}
 .num{  width:30px; height:20px; margin:0 3px; border:none; border:1px solid #dddddd;}

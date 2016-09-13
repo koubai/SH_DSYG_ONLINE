@@ -124,7 +124,17 @@
 					<div class="product_search">
 						<s:if test='firstfalg == "1"'>
 							<div style="margin-top: 60px;">
-								<img src="<%=request.getContextPath()%>/images/dsyg_online.png" alt="" />
+								<div class="pfont1">
+								东升盈港的网上商店成立了。 仅用于中国国内大陆地区销售。 旨在做到全球富有竞争力的单价<br>
+								(交易条件请参考使用说明)。 在确认付款情况后,安排发送货物。<br>
+								</div>
+								<img src="<%=request.getContextPath()%>/images/dsyg_online.png" style="width: 800px;" alt="" />
+							</div>
+								<div class="pfont2">
+							1.交期确认: 请将所需产品加入购物车后提交给我司<br>
+							2.交期回复: 我司会以电邮形式回复商品交期<br>
+							3.订单,汇款: 请使用交期回复中的链接进行订单提交<br>
+							4.自提,送货: 我司会在确认汇款信息后,安排送货或恭候自提<br>	
 							</div>
 						</s:if>
 						<s:if test='firstfalg != "1"'>
