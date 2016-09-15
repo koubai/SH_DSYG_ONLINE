@@ -143,15 +143,10 @@
 						<s:else>
 							<div style="position:fixed; top:120px; right:140px; width: 300px; height: 100px; background: #f30 url(<%=request.getContextPath()%>/images/cart1-1.jpg); display: none;">
 						</s:else>
-								<s:if test="#session.shopping_cart == null">
-									<div class="product_h3"><p>
-									<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action">
-									<!-- <p>商品:&nbsp0件</p><p>金额:&nbsp0元</p> --></a>
-									</div>
-								</s:if>
-								<s:else>
-									<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action"><s:property value="#session.shopping_cart.size()"/>件商品</a>
-								</s:else>
+								<div class="product_h3">
+								<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action">
+								</a>
+								</div>
 							</div>
 						<div class="tittle" style="margin-top: 60px;">
 						</div>

@@ -46,77 +46,99 @@
 				<jsp:include page="../userinfo.jsp" flush="true" />
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="delProductID" id="delProductID"></s:hidden>
-					<div class="product_search">
-						<div style="margin-top: 60px; font-size: 18px;">
-							商品<br />
-							稍后会发送“交期说明”的邮件<br />
-							如果对交期说明邮件中所记录的交期没有疑问的话，请使用同一份邮件的订单手续进行下单。
+					<s:if test="shoppingCartList == null || shoppingCartList.size() == 0">
+						<div class="product_search">
+							<div style="margin-top: 60px; font-size: 18px;">
+								购物车为空
+							</div>
+							<div>
+								<input type="button" value="添加商品" onclick="goProductlist();"/>
+							</div>
 						</div>
-						<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
-							<tr class="tab_tittle">
-								<td>&nbsp;</td>
-								<td>商品</td>
-								<td>单价</td>
-								<td>订单数</td>
-								<td>金额</td>
-								<td></td>
-							</tr>
-							<s:iterator value="shoppingCartList" id="shoppingCartList" status="st2">
-								<s:if test="#st2.odd==true">
-									<tr>
-								</s:if>
-								<s:else>
-									<tr class="bg2">
-								</s:else>
-									<td><s:property value="#st2.index + 1"/></td>
-									<td>
-										<span>产品名称</span><s:property value="tradename"/><br />
-										<span>产品规格</span><s:property value="typeno"/>　
-										<s:iterator value="colorList" id="colorList" status="st1">
-											<s:if test="%{colorList[#st1.index].code == shoppingCartList[#st2.index].color}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator>　　
-										<s:iterator value="makeareaList" id="makeareaList" status="st1">
-											<s:if test="%{makeareaList[#st1.index].code == shoppingCartList[#st2.index].makearea}">
-												<s:property value="fieldname"/>
-											</s:if>
-										</s:iterator><br />
-										<span>包装数</span><s:property value="minnum"/>
-										<s:iterator value="unitList" id="unitList" status="st3">
-											<s:if test="%{unitList[#st3.index].code == shoppingCartList[#st2.index].unit}"><s:property value="fieldname"/></s:if>
-										</s:iterator>
-									</td>
-									<td>
-										<s:property value="price"/>元
-									</td>
-									<td>
-										<input name="buyNum" id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;" value="<s:property value="productNum"/>"/>
-										<s:iterator value="unitList" id="unitList" status="st3">
-											<s:if test="%{unitList[#st3.index].code == shoppingCartList[#st2.index].unit}"><s:property value="fieldname"/></s:if>
-										</s:iterator>
-									</td>
-									<td>
-										<s:property value="money"/>元
-									</td>
-									<td>
-										<input type="button" value="Delete" onclick="deleteProduct('<s:property value="productid"/>');"/>
+					</s:if>
+					<s:else>
+						<div class="product_search">
+							<div style="margin-top: 60px; font-size: 18px;">
+								商品<br />
+								稍后会发送“交期说明”的邮件<br />
+								如果对交期说明邮件中所记录的交期没有疑问的话，请使用同一份邮件的订单手续进行下单。
+							</div>
+							<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
+								<tr class="tab_tittle">
+									<td>&nbsp;</td>
+									<td>商品</td>
+									<td>单价</td>
+									<td>订单数</td>
+									<td>金额</td>
+									<td></td>
+								</tr>
+								<s:iterator value="shoppingCartList" id="shoppingCartList" status="st2">
+									<s:if test="#st2.odd==true">
+										<tr>
+									</s:if>
+									<s:else>
+										<tr class="bg2">
+									</s:else>
+										<td><s:property value="#st2.index + 1"/></td>
+										<td>
+											<span style="font-weight: bold; font-size: 14px;">产品名称：</span><s:property value="tradename"/><br />
+											<span style="font-weight: bold; font-size: 14px;">产品规格：</span><s:property value="typeno"/>　
+											<s:iterator value="colorList" id="colorList" status="st1">
+												<s:if test="%{colorList[#st1.index].code == shoppingCartList[#st2.index].color}">
+													<s:property value="fieldname"/>
+												</s:if>
+											</s:iterator>　　
+											<span style="font-weight: bold; font-size: 14px;">
+												<s:iterator value="makeareaList" id="makeareaList" status="st1">
+													<s:if test="%{makeareaList[#st1.index].code == shoppingCartList[#st2.index].makearea}">
+														<s:property value="fieldname"/>
+													</s:if>
+												</s:iterator>
+											</span>
+											<br />
+											<span style="font-weight: bold; font-size: 14px;">包装数：</span><s:property value="minnum"/>
+											<s:iterator value="unitList" id="unitList" status="st3">
+												<s:if test="%{unitList[#st3.index].code == shoppingCartList[#st2.index].unit}"><s:property value="fieldname"/></s:if>
+											</s:iterator>
+										</td>
+										<td>
+											<s:property value="price"/>元
+										</td>
+										<td>
+											<input name="buyNum" id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;" value="<s:property value="productNum"/>"/>
+											<s:iterator value="unitList" id="unitList" status="st3">
+												<s:if test="%{unitList[#st3.index].code == shoppingCartList[#st2.index].unit}"><s:property value="fieldname"/></s:if>
+											</s:iterator>
+										</td>
+										<td align="right">
+											<s:property value="money"/>元<br />
+											（含增值税）<s:property value="taxmoney"/>元
+										</td>
+										<td>
+											<input type="button" value="Delete" onclick="deleteProduct('<s:property value="productid"/>');"/>
+										</td>
+									</tr>
+								</s:iterator>
+								<tr style="height: 40px;">
+									<td align="right" colspan="4" style="font-size: 20px;font-weight: bold;">合计</td>
+									<td align="right" colspan="2" style="font-size: 20px;font-weight: bold;">
+										<s:property value="totalMoney"/>元<br />
+										（含增值税）<s:property value="totalTaxMoney"/>元
 									</td>
 								</tr>
-							</s:iterator>
-							<tr style="height: 40px;">
-								<td align="right" colspan="4" style="font-size: 20px;font-weight: bold;">合计</td>
-								<td align="right" colspan="2" style="font-size: 20px;font-weight: bold;">
-									<s:property value="totalMoney"/>元<br />
-									（含增值税）<s:property value="totalTaxMoney"/>元
-								</td>
-							</tr>
-						</table>
-						<div>
-							<input type="button" value="继续购买" onclick="goProductlist();"/>
-							<input type="button" value="下一步" onclick="nextStep();"/>
+							</table>
+							<div>
+								<input type="button" value="继续购买" onclick="goProductlist();"/>
+								<s:if test='#session.user_id != null && #session.user_id != ""'>
+									<input type="button" value="下一步" onclick="nextStep();"/>
+								</s:if>
+								<s:else>
+									<input type="button" value="新会员注册" onclick="register();"/>
+									<input type="button" value="登录后进入" onclick="login();"/>
+								</s:else>
+							</div>
 						</div>
-					</div>
+					</s:else>
 				</s:form>
 			</div>
 		</div>
