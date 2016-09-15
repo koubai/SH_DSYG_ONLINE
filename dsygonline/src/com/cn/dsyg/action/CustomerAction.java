@@ -263,7 +263,11 @@ public class CustomerAction extends BaseAction {
 			body += "非常感谢本次与东升盈港确认交期。<br/>";
 			body += "在确认在库状况后，会尽快答复您的。但是，根据产品不同，答复所需的时间也会不同，这一点还请理解。<br/><br/>";
 			body += "==========================================<br/>";
-			body += "东升盈港<br/>";
+			body += "东升盈港企业发展有限公司<br/>";
+			body += "上海市杨浦区控江路760号<br/>";
+			body += "电话：021－65388038－0（总机）<br/>";
+			body += "Mail：sales@shdsyg.com<br/>";
+			body += "http://www.shdsyg.cn<br/>";			
 			body += "==========================================<br/>";
 			MailSender.send("", updCustomerDto.getCustomeremail(), subject, body, "东升盈港", "");
 			
@@ -340,7 +344,11 @@ public class CustomerAction extends BaseAction {
 			body += hostInfo + "/dsygonline/customer/doRegistryAction.action"
 				+ "?hash=" + hash + "<br/><br/><br/><br/><br/>";
 			body += "==========================================<br/>";
-			body += "东升盈港<br/>";
+			body += "东升盈港企业发展有限公司<br/>";
+			body += "上海市杨浦区控江路760号<br/>";
+			body += "电话：021－65388038－0（总机）<br/>";
+			body += "Mail：sales@shdsyg.com<br/>";
+			body += "http://www.shdsyg.cn<br/>";			
 			body += "==========================================<br/>";
 			MailSender.send("", addCustomerDto.getCustomeremail(), subject, body, "东升盈港", "");
 			
@@ -431,7 +439,11 @@ public class CustomerAction extends BaseAction {
 			body += "登录密码是新会员在注册时所输入的密码。<br/><br/>";
 			body += hostInfo + "/dsygonline/customer/showShop.action<br/><br/><br/><br/><br/>";
 			body += "==========================================<br/>";
-			body += "东升盈港<br/>";
+			body += "东升盈港企业发展有限公司<br/>";
+			body += "上海市杨浦区控江路760号<br/>";
+			body += "电话：021－65388038－0（总机）<br/>";
+			body += "Mail：sales@shdsyg.com<br/>";
+			body += "http://www.shdsyg.cn<br/>";			
 			body += "==========================================<br/>";
 			System.out.println(body);
 			MailSender.send("", email, subject, body, "东升盈港", "");
