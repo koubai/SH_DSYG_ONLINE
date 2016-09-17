@@ -13,12 +13,13 @@ public interface ProductService {
 
 	/**
 	 * 翻页查询信息
+	 * @param keyword
 	 * @param fieldno
 	 * @param stockfalg
 	 * @param page
 	 * @return
 	 */
-	public Page queryOnlineProductByPage(String fieldno, String stockfalg, Page page);
+	public Page queryOnlineProductByPage(String keyword, String fieldno, String stockfalg, Page page);
 	
 	/**
 	 * 根据ID查询数据

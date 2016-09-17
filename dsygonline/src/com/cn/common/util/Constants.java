@@ -33,6 +33,17 @@ public class Constants {
 	//最多显示N年的新闻
 	public final static int SHOW_NEWS_YEAR_COUNT = 5;
 	
+	//ORDER STATUS
+	public final static int ONLINE_ORDER_STATUS_NEW = 10;//新增
+	public final static int ONLINE_ORDER_STATUS_DELIVERY = 20;//交期确认
+	public final static int ONLINE_ORDER_STATUS_REF_DELIVERY = 30;//交期回复
+	public final static int ONLINE_ORDER_STATUS_ORDER = 40;//下单成功
+	public final static int ONLINE_ORDER_STATUS_PAY = 50;//付款成功
+	public final static int ONLINE_ORDER_STATUS_CONFIRM = 60;//收款成功
+	public final static int ONLINE_ORDER_STATUS_SEND = 70;//已发货
+	public final static int ONLINE_ORDER_STATUS_RECEIVE = 80;//已收货订单完成
+	public final static int ONLINE_ORDER_STATUS_CLOSE = 99;//订单关闭
+	
 	//dict01
 	//产品分类
 	public final static String DICT_GOODS_TYPE = "goods";
@@ -89,6 +100,9 @@ public class Constants {
 
 	//快递商番号
 	public final static String DICT_EXPRESSER_ORDER = "expresserorder";
+	
+	//online订单番号
+	public final static String DICT_ONLINE_ORDER = "onlineorder";
 	
 	//财务主题
 	public final static String FINANCE_THEME = "financetheme";

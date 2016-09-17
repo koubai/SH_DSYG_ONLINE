@@ -9,9 +9,11 @@
 		<result property="orderid" column="orderid" />
 		<result property="batchno" column="batchno" />
 		<result property="productid" column="productid" />
-		<result property="amount" column="amount" />
+		<result property="num" column="num" />
 		<result property="price" column="price" />
 		<result property="taxprice" column="taxprice" />
+		<result property="amount" column="amount" />
+		<result property="taxamount" column="taxamount" />
 		<result property="status" column="status" />
 		<result property="res01" column="res01" />
 		<result property="res02" column="res02" />
@@ -26,7 +28,7 @@
 	</resultMap>
 	
 	<select id="queryOrderDetailByOrderid" parameterClass="java.util.Map" resultMap="OrderDetailDto">
-		SELECT * FROM otb_orderdetail T WHERE 1 = 1 T.orderid = #orderid# and T.status = 1
+		SELECT * FROM otb_orderdetail T WHERE 1 = 1 and T.orderid = #orderid# and T.status = 1
 		order by T.id
 	</select>
 	
@@ -35,9 +37,9 @@
 	</select>
 	
 	<insert id="insertOrderDetail" parameterClass="com.cn.dsyg.dto.OrderDetailDto">
-		insert into otb_orderdetail(orderid,batchno,productid,amount,price,taxprice,status,
+		insert into otb_orderdetail(orderid,batchno,productid,num,price,taxprice,amount,taxamount,status,
 			res01,res02,res03,res04,res05,updateip,createuid,createdate,updateuid,updatedate)
-		values(#orderid#,#batchno#,#productid#,#amount#,#price#,#taxprice#,#status#,
+		values(#orderid#,#batchno#,#productid#,#num#,#price#,#taxprice#,#amount#,#taxamount#,#status#,
 			#res01#,#res02#,#res03#,#res04#,#res05#,#updateip#,#createuid#,NOW(),#updateuid#,NOW())
 		<selectKey resultClass="int" keyProperty="id" >
 			select LAST_INSERT_ID() as value
@@ -60,9 +62,11 @@
 		update otb_orderdetail
 		set batchno = #batchno#,
 			productid = #productid#,
-			amount = #amount#,
+			num = #num#,
 			price = #price#,
 			taxprice = #taxprice#,
+			amount = #amount#,
+			taxamount = #taxamount#,
 			status = #status#,
 			res01 = #res01#,
 			res02 = #res02#,

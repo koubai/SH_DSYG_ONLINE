@@ -25,6 +25,11 @@ public class ShoppingCartDto extends BaseDto {
 	private BigDecimal productNum;
 	
 	/**
+	 * 批号（生成warehouse记录用）
+	 */
+	private String batchno;
+	
+	/**
 	 * 单价
 	 */
 	private BigDecimal price;
@@ -33,6 +38,11 @@ public class ShoppingCartDto extends BaseDto {
 	 * 金额
 	 */
 	private BigDecimal money;
+	
+	/**
+	 * 金额（含税）
+	 */
+	private BigDecimal taxmoney;
 
 	/**
 	 * 产品名
@@ -185,5 +195,21 @@ public class ShoppingCartDto extends BaseDto {
 
 	public void setMoney(BigDecimal money) {
 		this.money = money;
+	}
+
+	public BigDecimal getTaxmoney() {
+		return taxmoney;
+	}
+
+	public void setTaxmoney(BigDecimal taxmoney) {
+		this.taxmoney = taxmoney;
+	}
+
+	public String getBatchno() {
+		return batchno;
+	}
+
+	public void setBatchno(String batchno) {
+		this.batchno = batchno;
 	}
 }

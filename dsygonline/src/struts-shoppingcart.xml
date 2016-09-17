@@ -18,12 +18,32 @@
 			<result type="json"></result>
 		</action>
 		
+		<action name="changeProductAmount" class="shoppingCartAction" method="changeProductAmount">
+			<result type="json"></result>
+		</action>
+		
 		<action name="delShoppingCartAjax" class="shoppingCartAction" method="delShoppingCartAjax">
 			<result type="json"></result>
 		</action>
 		
 		<action name="delShoppingCart" class="shoppingCartAction" method="delShoppingCart">
 			<result name="success">/page/shoppingcart/shoppingcartlist.jsp</result>
+		</action>
+		
+		<action name="showOrderCustomerInfo" class="shoppingCartAction" method="showOrderCustomerInfo">
+			<result name="checkerror">/page/shoppingcart/shoppingcartlist.jsp</result>
+			<result name="success">/page/shoppingcart/confirmstep1.jsp</result>
+		</action>
+		
+		<action name="showOrderConfirm" class="shoppingCartAction" method="showOrderConfirm">
+			<result name="error">/page/shoppingcart/shoppingcartlist.jsp</result>
+			<result name="checkerror">/page/shoppingcart/confirmstep1.jsp</result>
+			<result name="success">/page/shoppingcart/confirmstep2.jsp</result>
+		</action>
+		
+		<action name="submitOrder" class="shoppingCartAction" method="submitOrder">
+			<result name="checkerror">/page/shoppingcart/shoppingcartlist.jsp</result>
+			<result name="success">/page/shoppingcart/confirmsucc.jsp</result>
 		</action>
 		
 	</package>

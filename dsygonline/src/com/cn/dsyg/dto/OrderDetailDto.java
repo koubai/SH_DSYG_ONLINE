@@ -38,7 +38,7 @@ public class OrderDetailDto extends BaseDto {
 	/**
 	 * 数量
 	 */
-	private BigDecimal amount;
+	private BigDecimal num;
 
 	/**
 	 * 单价
@@ -49,6 +49,16 @@ public class OrderDetailDto extends BaseDto {
 	 * 含税单价
 	 */
 	private BigDecimal taxprice;
+	
+	/**
+	 * 金额
+	 */
+	private BigDecimal amount;
+	
+	/**
+	 * 含税金额
+	 */
+	private BigDecimal taxamount;
 
 	/**
 	 * 1有效，0无效
@@ -247,5 +257,21 @@ public class OrderDetailDto extends BaseDto {
 
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public BigDecimal getNum() {
+		return num;
+	}
+
+	public void setNum(BigDecimal num) {
+		this.num = num;
+	}
+
+	public BigDecimal getTaxamount() {
+		return taxamount;
+	}
+
+	public void setTaxamount(BigDecimal taxamount) {
+		this.taxamount = taxamount;
 	}
 }

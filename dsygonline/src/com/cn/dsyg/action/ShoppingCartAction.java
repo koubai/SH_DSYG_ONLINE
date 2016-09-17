@@ -16,11 +16,16 @@ import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FeatureDto;
+import com.cn.dsyg.dto.OrderDto;
 import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.ShoppingCartDto;
+import com.cn.dsyg.service.CustomerService;
 import com.cn.dsyg.service.Dict01Service;
+import com.cn.dsyg.service.MailAuthService;
+import com.cn.dsyg.service.OrderService;
 import com.cn.dsyg.service.ProductService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -37,6 +42,9 @@ public class ShoppingCartAction extends BaseAction {
 	
 	private ProductService productService;
 	private Dict01Service dict01Service;
+	private CustomerService customerService;
+	private MailAuthService mailAuthService;
+	private OrderService orderService;
 	
 	private List<ShoppingCartDto> shoppingCartList;
 	//格式：productid##amount##price
@@ -61,17 +69,86 @@ public class ShoppingCartAction extends BaseAction {
 	//颜色
 	private List<Dict01Dto> colorList;
 	
+	//客户信息
+	private CustomerDto customerInfoDto;
+	
+	//单号
+	private String strOrderCode;
+	
 	/**
-	 * 生成假订单
+	 * SETP1显示购买方,收件人信息
 	 * @return
 	 */
-	public String submitShoppingCart() {
+	public String showOrderCustomerInfo() {
 		try {
 			this.clearMessages();
-			//生成假订单
-			//发送MAIL
+			//客户信息
+			customerInfoDto = new CustomerDto();
+			String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			if(StringUtil.isNotBlank(customerid)) {
+				customerInfoDto = customerService.queryCustomerByID(Integer.valueOf(customerid));
+			} else {
+				return "checkerror";
+			}
 		} catch(Exception e) {
-			log.error("submitShoppingCart error:" + e);
+			log.error("showOrderCustomerInfo error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * SETP2显示购物车->订单确认页面
+	 * @return
+	 */
+	public String showOrderConfirm() {
+		try {
+			this.clearMessages();
+			initData();
+			
+			//从session中获得购物车列表数据
+			initShoppingCartList();
+			
+			//判断是否收件人与购买人信息一致
+			if("1".equals(customerInfoDto.getThesame())) {
+				customerInfoDto.setCompanycn2(customerInfoDto.getCompanycn());
+				customerInfoDto.setCompanyen2(customerInfoDto.getCompanyen());
+				customerInfoDto.setDepartment2(customerInfoDto.getDepartment());
+				customerInfoDto.setName2(customerInfoDto.getName());
+				customerInfoDto.setPostcode2(customerInfoDto.getPostcode());
+				customerInfoDto.setAddress2(customerInfoDto.getAddress());
+				customerInfoDto.setTell2(customerInfoDto.getTell());
+			}
+		} catch(Exception e) {
+			log.error("showOrderConfirm error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * SETP3生成假订单
+	 * @return
+	 */
+	public String submitOrder() {
+		try {
+			this.clearMessages();
+			//从session中获得购物车列表数据
+			initShoppingCartList();
+			
+			if(customerInfoDto == null) {
+				//SESSION失效
+				return "checkerror";
+			}
+			
+			//创建订单
+			OrderDto order = orderService.createOrder(customerInfoDto, shoppingCartList);
+			strOrderCode = order.getOrdercode();
+			
+			//清空购物车信息
+			ActionContext.getContext().getSession().remove(Constants.SESSION_SHOPPING_CART);
+		} catch(Exception e) {
+			log.error("submitOrder error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -102,7 +179,7 @@ public class ShoppingCartAction extends BaseAction {
 		} catch(Exception e) {
 			log.error("getShoppingCartAmount error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount) + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -192,7 +269,59 @@ public class ShoppingCartAction extends BaseAction {
 		} catch(Exception e) {
 			log.error("addShoppingCart error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount) + "}";
+		out = response.getWriter();
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
+	
+	/**
+	 * 更改购物车产品数量
+	 * @return
+	 * @throws IOException 
+	 */
+	public String changeProductAmount() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		int count = 0;
+		BigDecimal amount = new BigDecimal(0);
+		BigDecimal curramount = new BigDecimal(0);
+		try {
+			this.clearMessages();
+			@SuppressWarnings("unchecked")
+			List<ShoppingCartDto> list = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
+			//解析productInfo
+			//格式：productid##amount##price
+			String ll[] = productInfo.split("##");
+			if(list != null && list.size() > 0) {
+				for(ShoppingCartDto shoppingCart : list) {
+					if(shoppingCart.getProductid().equals(ll[0])) {
+						//存在该产品，数量更改
+						shoppingCart.setProductNum(new BigDecimal(ll[1]));
+						curramount = shoppingCart.getMoney();
+					}
+				}
+			} else {
+				//要考虑session过期情况
+			}
+			
+			if(list != null && list.size() > 0) {
+				count = list.size();
+				//计算总额
+				for(ShoppingCartDto shoppingCart : list) {
+					amount = amount.add(shoppingCart.getMoney());
+				}
+			}
+			
+			ActionContext.getContext().getSession().put(Constants.SESSION_SHOPPING_CART, list);
+		} catch(Exception e) {
+			log.error("changeProductAmount error:" + e);
+		}
+		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount)
+				+ ",\"curramount\":" + curramount + ",\"currtaxamount\":" + calcTaxMount(curramount) + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -231,7 +360,7 @@ public class ShoppingCartAction extends BaseAction {
 		} catch(Exception e) {
 			log.error("delShoppingCartAjax error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount) + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -265,28 +394,9 @@ public class ShoppingCartAction extends BaseAction {
 			//初期化购物车列表页面
 			initData();
 			delProductID = "";
-			totalMoney = new BigDecimal(0);
-			totalTaxMoney = new BigDecimal(0);
 			
-			shoppingCartList = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
-			if(shoppingCartList != null && shoppingCartList.size() > 0) {
-				for(ShoppingCartDto shoppingCart : shoppingCartList) {
-					//查询产品信息
-					ProductDto product = productService.queryProductByID(shoppingCart.getProductid());
-					shoppingCart.setFieldno(product.getFieldno());
-					shoppingCart.setTypeno(product.getTypeno());
-					shoppingCart.setColor(product.getColor());
-					shoppingCart.setBrand(product.getBrand());
-					shoppingCart.setMakearea(product.getMakearea());
-					shoppingCart.setPackaging(product.getPackaging());
-					shoppingCart.setUnit(product.getUnit());
-					shoppingCart.setMinnum(product.getItem12());
-					shoppingCart.setTradename(product.getTradename());
-					totalMoney = totalMoney.add(shoppingCart.getMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
-				}
-				//合计含税=合计*(1 + 税率)
-				totalTaxMoney = totalMoney.multiply(new BigDecimal(1).add(new BigDecimal(common_rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
-			}
+			//从session中获得购物车列表数据
+			initShoppingCartList();
 		} catch(Exception e) {
 			log.error("delShoppingCart error:" + e);
 		}
@@ -297,39 +407,57 @@ public class ShoppingCartAction extends BaseAction {
 	 * 显示购物车内容
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public String showShoppingCartAction() {
 		try {
 			this.clearMessages();
 			initData();
 			delProductID = "";
-			totalMoney = new BigDecimal(0);
-			totalTaxMoney = new BigDecimal(0);
 			
-			shoppingCartList = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
-			if(shoppingCartList != null && shoppingCartList.size() > 0) {
-				for(ShoppingCartDto shoppingCart : shoppingCartList) {
-					//查询产品信息
-					ProductDto product = productService.queryProductByID(shoppingCart.getProductid());
-					shoppingCart.setFieldno(product.getFieldno());
-					shoppingCart.setTypeno(product.getTypeno());
-					shoppingCart.setColor(product.getColor());
-					shoppingCart.setBrand(product.getBrand());
-					shoppingCart.setMakearea(product.getMakearea());
-					shoppingCart.setPackaging(product.getPackaging());
-					shoppingCart.setUnit(product.getUnit());
-					shoppingCart.setMinnum(product.getItem12());
-					shoppingCart.setTradename(product.getTradename());
-					totalMoney = totalMoney.add(shoppingCart.getMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
-				}
-				//合计含税=合计*(1 + 税率)
-				totalTaxMoney = totalMoney.multiply(new BigDecimal(1).add(new BigDecimal(common_rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
-			}
+			//假登录
+//			ActionContext.getContext().getSession().put(Constants.SESSION_USER_ID, "100019");
+//			ActionContext.getContext().getSession().put(Constants.SESSION_USER_NAME, "gqchen");
+//			ActionContext.getContext().getSession().put(Constants.SESSION_LOGIN_TIME, DateUtil.dateToLogintime(new Date()));
+//			ActionContext.getContext().getSession().put(Constants.SESSION_ISLOGIN, Constants.SESSION_FLAG_IS_LOGIN);
+			
+			//从session中获得购物车列表数据
+			initShoppingCartList();
 		} catch(Exception e) {
 			log.error("showShoppingCartAction error:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 从session中获得购物车列表数据
+	 */
+	@SuppressWarnings("unchecked")
+	private void initShoppingCartList() {
+		totalMoney = new BigDecimal(0);
+		totalTaxMoney = new BigDecimal(0);
+		shoppingCartList = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
+		if(shoppingCartList != null && shoppingCartList.size() > 0) {
+			for(ShoppingCartDto shoppingCart : shoppingCartList) {
+				//查询产品信息
+				ProductDto product = productService.queryProductByID(shoppingCart.getProductid());
+				shoppingCart.setFieldno(product.getFieldno());
+				shoppingCart.setTypeno(product.getTypeno());
+				shoppingCart.setColor(product.getColor());
+				shoppingCart.setBrand(product.getBrand());
+				shoppingCart.setMakearea(product.getMakearea());
+				shoppingCart.setPackaging(product.getPackaging());
+				shoppingCart.setUnit(product.getUnit());
+				shoppingCart.setMinnum(product.getItem12());
+				shoppingCart.setTradename(product.getTradename());
+				//含税金额
+				BigDecimal taxmoney = shoppingCart.getMoney().multiply(new BigDecimal(1).add(new BigDecimal(common_rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
+				shoppingCart.setTaxmoney(taxmoney);
+				totalMoney = totalMoney.add(shoppingCart.getMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+				totalTaxMoney = totalTaxMoney.add(shoppingCart.getTaxmoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+			}
+			//合计含税=合计*(1 + 税率)
+			//totalTaxMoney = totalMoney.multiply(new BigDecimal(1).add(new BigDecimal(common_rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
 	}
 	
 	private void initData() {
@@ -363,6 +491,25 @@ public class ShoppingCartAction extends BaseAction {
 			//颜色
 			colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
 		}
+	}
+	
+	/**
+	 * 计算税后金额
+	 * @param amount
+	 * @return
+	 */
+	private BigDecimal calcTaxMount(BigDecimal amount) {
+		BigDecimal taxamount = new BigDecimal(0);
+		if(amount != null) {
+			//税率
+			List<Dict01Dto> listRate = dict01Service.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			String rate = "0";
+			if(listRate != null && listRate.size() > 0) {
+				rate = listRate.get(0).getCode();
+			}
+			taxamount = amount.multiply(new BigDecimal(1).add(new BigDecimal(rate)));
+		}
+		return taxamount;
 	}
 
 	public List<ShoppingCartDto> getShoppingCartList() {
@@ -467,5 +614,45 @@ public class ShoppingCartAction extends BaseAction {
 
 	public void setTotalTaxMoney(BigDecimal totalTaxMoney) {
 		this.totalTaxMoney = totalTaxMoney;
+	}
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	public MailAuthService getMailAuthService() {
+		return mailAuthService;
+	}
+
+	public void setMailAuthService(MailAuthService mailAuthService) {
+		this.mailAuthService = mailAuthService;
+	}
+
+	public CustomerDto getCustomerInfoDto() {
+		return customerInfoDto;
+	}
+
+	public void setCustomerInfoDto(CustomerDto customerInfoDto) {
+		this.customerInfoDto = customerInfoDto;
+	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
+	public String getStrOrderCode() {
+		return strOrderCode;
+	}
+
+	public void setStrOrderCode(String strOrderCode) {
+		this.strOrderCode = strOrderCode;
 	}
 }

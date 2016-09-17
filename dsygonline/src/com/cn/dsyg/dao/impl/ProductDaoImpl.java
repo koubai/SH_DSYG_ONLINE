@@ -18,8 +18,9 @@ import com.cn.dsyg.dto.ProductDto;
 public class ProductDaoImpl extends BaseDao implements ProductDao {
 	
 	@Override
-	public List<ProductDto> queryOnlineProductByPage(String fieldno, String stockfalg, int start, int end) {
+	public List<ProductDto> queryOnlineProductByPage(String keyword, String fieldno, String stockfalg, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("keyword", keyword);
 		paramMap.put("fieldno", fieldno);
 		paramMap.put("stockfalg", stockfalg);
 		paramMap.put("start", start);
@@ -30,8 +31,9 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	}
 
 	@Override
-	public int queryOnlineProductCountByPage(String fieldno, String stockfalg) {
+	public int queryOnlineProductCountByPage(String keyword, String fieldno, String stockfalg) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("keyword", keyword);
 		paramMap.put("fieldno", fieldno);
 		paramMap.put("stockfalg", stockfalg);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryOnlineProductCountByPage", paramMap);

@@ -24,6 +24,12 @@
 		<property name="orderDetailDao">
 			<ref local="orderDetailDao"/>
 		</property>
+		<property name="dict01Dao">
+			<ref local="dict01Dao"/>
+		</property>
+		<property name="customerDao">
+			<ref local="customerDao"/>
+		</property>
 	</bean>
 	
 	<bean id="orderDao" class="com.cn.dsyg.dao.impl.OrderDaoImpl">

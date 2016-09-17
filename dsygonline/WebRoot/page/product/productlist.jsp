@@ -36,9 +36,9 @@
 	}
 
 	//页跳转
-	function turnPage() {
+	function turnPage(id) {
 		var totalPage = "${page.totalPage}";
-		var turnPage = document.getElementById("pagenum").value;
+		var turnPage = document.getElementById(id).value;
 		//判断是否输入页码
 		if ('' != turnPage) {
 			//判断页码是否是大于0的数字
@@ -138,10 +138,10 @@
 							</div>
 						</s:if>
 						<s:if test='firstfalg != "1"'>
-							<div style="position:fixed; top:120px; right:140px; width: 130px; height: 150px; background:  url(<%=request.getContextPath()%>/images/cart1-1.jpg )  no-repeat;" onclick="javascript:window.location.href='<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action'">
+							<div style="position:fixed; top:110px; right:50px; width: 130px; height: 150px; background:  url(<%=request.getContextPath()%>/images/cart1-1.jpg )  no-repeat;" onclick="javascript:window.location.href='<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action'">
 						</s:if>
 						<s:else>
-							<div style="position:fixed; top:120px; right:140px; width: 300px; height: 100px; background: #f30 url(<%=request.getContextPath()%>/images/cart1-1.jpg); display: none;">
+							<div style="position:fixed; top:110px; right:50px; width: 300px; height: 100px; background: #f30 url(<%=request.getContextPath()%>/images/cart1-1.jpg); display: none;">
 						</s:else>
 								<div class="product_h3">
 								<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action">
@@ -224,13 +224,16 @@
 								</s:else>
 							</s:if></s:iterator></tr>
 						</table>
-						<div class="buttons"><a href="#">
-							<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" /></a>
+						<div class="buttons" style="float: left;">
+							<s:text name="keywordsearch"/><s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="16" theme="simple"></s:textfield>
+							<a href="#">
+								<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" />
+							</a>
 						</div>
 						<s:if test='firstfalg != "1"'>
 							<div class="page">
 								<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
-								<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage();"><s:text name="go"/></a>　　
+								<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage('pagenum1');"><s:text name="go"/></a>　　
 								<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
 								<s:if test="%{page.startIndex <= 0}">
 									<a href="javascript:void(0);"><s:text name="previous"/></a>
@@ -324,7 +327,7 @@
 							</table>
 							<div class="page">
 								<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
-								<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage();"><s:text name="go"/></a>　　
+								<span><s:text name="skiptopage"/><input class="num" id="pagenum2" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage('pagenum2');"><s:text name="go"/></a>　　
 								<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
 								<s:if test="%{page.startIndex <= 0}">
 									<a href="javascript:void(0);"><s:text name="previous"/></a>
