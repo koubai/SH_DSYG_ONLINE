@@ -91,11 +91,19 @@ public class CustomerAction extends BaseAction {
 	//邮件记录
 	private MailAuthDto mailAuthDto;
 
-	//用户登录邮件
+	//登录用
+	//邮件
 	private String customeremail;
-
-	//用户登录密码
+	//密码
 	private String customerpsd;
+	
+	//注册用
+	//邮件
+	private String customeremailR;
+	//密码
+	private String customerpsdR;
+	//密码(确认)
+	private String customerrepsdR;
 	
 	/**
 	 * 显示修改密码页面
@@ -188,10 +196,6 @@ public class CustomerAction extends BaseAction {
 	public String updCustomerAction() {
 		try {
 			this.clearMessages();
-			//数据验证
-			if(!checkData(updCustomerDto, "2")) {
-				return "checkerror";
-			}
 			//当前操作用户ID
 			String currUser = String.valueOf(updCustomerDto.getCustomerid());
 			updCustomerDto.setUpdateuid(currUser);
@@ -292,37 +296,61 @@ public class CustomerAction extends BaseAction {
 	/**
 	 * 新增用户
 	 * @return
+	 * @throws IOException 
 	 */
-	public String addCustomerAction() {
+	public String addCustomerAction() throws IOException {
+		String msg = "";
 		try {
 			this.clearMessages();
 			//数据验证
-			if(!checkData(addCustomerDto, "1")) {
+			/*if(!checkData(addCustomerDto, "1")) {
 				return "checkerror";
+			}*/
+			if(StringUtil.isBlank(customeremailR)) {
+				msg = "用户邮件地址不能为空！";
+				loginMsg(msg);
+				return null;
+			}
+			if(StringUtil.isBlank(customerpsdR)) {
+				msg = "用户密码不能为空！";
+				loginMsg(msg);
+				return null;
+			}
+			if(!customerpsdR.equals(customerrepsdR)) {
+				msg = "两次输入的密码不一致！";
+				loginMsg(msg);
+				return null;
 			}
 			//逻辑主键check
-			List<CustomerDto> customerList = customerService.queryCustomerByMail(addCustomerDto.getCustomeremail());
+			List<CustomerDto> customerList = customerService.queryCustomerByMail(customeremailR);
 			for (CustomerDto customer : customerList){
 				if(customer.getStatus() == 1){
-					this.addActionMessage("此邮件地址已被注册，请根据邮件内容激活正式会员！");
-					return "checkerror";
+					msg = "此邮件地址已被注册，请根据邮件内容激活正式会员！";
+					loginMsg(msg);
+					return null;
 				}
 				if(customer.getStatus() == 2){
-					this.addActionMessage("此邮件地址已被注册！");
-					return "checkerror";
+					msg = "此邮件地址已被注册！";
+					loginMsg(msg);
+					return null;
 				}
 			}
 			//新增用户
+			addCustomerDto = new CustomerDto();
+			addCustomerDto.setStatus(1);
+			addCustomerDto.setCustomeremail(customeremailR);
+			addCustomerDto.setPassword(customerpsdR);
 			customerService.insertCustomer(addCustomerDto);
 			//取得用户ID
 			CustomerDto cus = customerService.queryCustomerByMailStatus(addCustomerDto.getCustomeremail(), 1);
 			if(cus == null){
-				this.addActionMessage("用户数据不存在！");
-				return "checkerror";
+				msg = "用户数据不存在！";
+				loginMsg(msg);
+				return null;
 			}
 			int customerid = cus.getCustomerid();
 			//新增用户成功
-			this.addActionMessage("添加成功！");
+			log.error("添加成功！");
 			
 			//发送临时登录邮件
 			//邮件标题
@@ -365,9 +393,10 @@ public class CustomerAction extends BaseAction {
 			mailAuthDto = new MailAuthDto();
 		} catch(Exception e) {
 			log.error("addCustomerAction error:" + e);
-			return ERROR;
+			msg = "注册产生系统异常！请联系管理员。";
 		}
-		return SUCCESS;
+		loginMsg(msg);
+		return null;
 	}
 	
 	/**
@@ -477,22 +506,28 @@ public class CustomerAction extends BaseAction {
 	/**
 	 * 删除用户
 	 * @return
+	 * @throws IOException 
 	 */
-	public String delCustomerAction() {
+	public String delCustomerAction() throws IOException {
+		String msg = "";
 		try {
 			this.clearMessages();
+			delCustomerid = Integer.valueOf(ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID)+"");
+			log.error("delCustomerid=" + delCustomerid);
 			if(StringUtil.isBlank(String.valueOf(delCustomerid))) {
-				this.addActionMessage("用户登录ID不能为空！");
-				return "checkerror";
+				msg = "用户登录ID不能为空！";
+				loginMsg(msg);
+				return null;
 			}
 			CustomerDto customer = customerService.queryCustomerByID(delCustomerid);
 			if(customer == null){
-				this.addActionMessage("用户数据不存在！");
-				return "checkerror";
+				msg = "用户数据不存在！";
+				loginMsg(msg);
+				return null;
 			}
 			//删除用户
 			customerService.deleteCustomer(delCustomerid);
-			this.addActionMessage("删除成功！");
+			log.error("删除成功！");
 			//刷新页面
 			startIndex = 0;
 			delCustomerid = 0;
@@ -500,9 +535,11 @@ public class CustomerAction extends BaseAction {
 			logoutAction();
 		} catch(Exception e) {
 			log.error("delCustomerAction error:" + e);
-			return ERROR;
+			msg = "注销产生系统异常！请联系管理员。";
+			//return ERROR;
 		}
-		return SUCCESS;
+		loginMsg(msg);
+		return null;
 	}
 
 	/**
@@ -514,19 +551,15 @@ public class CustomerAction extends BaseAction {
 	private boolean checkData(CustomerDto customer, String flag) {
 		if("1".equals(flag)) {
 			//新增
-			if(customer == null) {
+			if(StringUtil.isBlank(customeremailR)) {
 				this.addActionMessage("用户邮件地址不能为空！");
 				return false;
 			}
-			if(StringUtil.isBlank(customer.getCustomeremail())) {
-				this.addActionMessage("用户邮件地址不能为空！");
-				return false;
-			}
-			if(StringUtil.isBlank(customer.getPassword())) {
+			if(StringUtil.isBlank(customerpsdR)) {
 				this.addActionMessage("用户密码不能为空！");
 				return false;
 			}
-			if(!customer.getPassword().equals(customer.getRepassword())) {
+			if(!customerpsdR.equals(customerrepsdR)) {
 				this.addActionMessage("两次输入的密码不一致！");
 				return false;
 			}
@@ -829,5 +862,29 @@ public class CustomerAction extends BaseAction {
 
 	public void setRepassword(String repassword) {
 		this.repassword = repassword;
+	}
+
+	public String getCustomeremailR() {
+		return customeremailR;
+	}
+
+	public void setCustomeremailR(String customeremailR) {
+		this.customeremailR = customeremailR;
+	}
+
+	public String getCustomerpsdR() {
+		return customerpsdR;
+	}
+
+	public void setCustomerpsdR(String customerpsdR) {
+		this.customerpsdR = customerpsdR;
+	}
+
+	public String getCustomerrepsdR() {
+		return customerrepsdR;
+	}
+
+	public void setCustomerrepsdR(String customerrepsdR) {
+		this.customerrepsdR = customerrepsdR;
 	}
 }
