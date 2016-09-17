@@ -5,6 +5,7 @@ import java.util.List;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dto.ProductDto;
@@ -22,9 +23,10 @@ public class ProductServiceImpl implements ProductService {
 	private Dict01Dao dict01Dao;
 
 	@Override
-	public Page queryOnlineProductByPage(String fieldno, String stockfalg, Page page) {
+	public Page queryOnlineProductByPage(String keyword, String fieldno, String stockfalg, Page page) {
+		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
 		//查询总记录数
-		int totalCount = productDao.queryOnlineProductCountByPage(fieldno, stockfalg);
+		int totalCount = productDao.queryOnlineProductCountByPage(keyword, fieldno, stockfalg);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -32,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<ProductDto> list = productDao.queryOnlineProductByPage(fieldno, stockfalg,
+		List<ProductDto> list = productDao.queryOnlineProductByPage(keyword, fieldno, stockfalg,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		
 		if(list != null && list.size() > 0) {

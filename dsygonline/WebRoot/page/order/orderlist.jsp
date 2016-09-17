@@ -76,10 +76,8 @@
 					<div class="product_search">
 						<table>
 							<tr>
-								<td>订单号：</td>
-								<td><input type="text" name="strOrdercode" id="strOrdercode" maxlength="32"/></td>
-								<td>状态：</td>
-								<td><input type="text" name="strStatus" id="strStatus" maxlength="32"/></td>
+								<td valign="middle" style="">订单号：</td>
+								<td valign="bottom"><input type="text" name="strOrdercode" id="strOrdercode" maxlength="32"/></td>
 								<td>
 									<div class="buttons">
 										<a href="#">

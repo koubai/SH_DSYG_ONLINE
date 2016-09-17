@@ -14,21 +14,23 @@ public interface ProductDao {
 
 	/**
 	 * 翻页查询信息
+	 * @param keyword
 	 * @param fieldno
 	 * @param stockfalg
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public List<ProductDto> queryOnlineProductByPage(String fieldno, String stockfalg, int start, int end);
+	public List<ProductDto> queryOnlineProductByPage(String keyword, String fieldno, String stockfalg, int start, int end);
 	
 	/**
 	 * 查询翻页数据数量
+	 * @param keyword
 	 * @param fieldno
 	 * @param stockfalg
 	 * @return
 	 */
-	public int queryOnlineProductCountByPage(String fieldno, String stockfalg);
+	public int queryOnlineProductCountByPage(String keyword, String fieldno, String stockfalg);
 	
 	/**
 	 * 根据ID查询数据

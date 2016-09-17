@@ -1,7 +1,11 @@
 package com.cn.dsyg.service;
 
+import java.util.List;
+
 import com.cn.common.util.Page;
+import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.OrderDto;
+import com.cn.dsyg.dto.ShoppingCartDto;
 
 /**
  * OrderService
@@ -34,6 +38,15 @@ public interface OrderService {
 	 * @return
 	 */
 	public OrderDto queryOrderByOrdercode(String ordercode);
+	
+	/**
+	 * 生成订单数据
+	 * @param customer
+	 * @param shoppingcartlist
+	 * @return
+	 * @throws Exception
+	 */
+	public OrderDto createOrder(CustomerDto customer, List<ShoppingCartDto> shoppingcartlist) throws Exception;
 	
 	/**
 	 * 新增数据

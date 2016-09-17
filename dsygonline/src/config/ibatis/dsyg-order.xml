@@ -12,12 +12,26 @@
 		<result property="taxamount" column="taxamount" />
 		<result property="deliverydate" column="deliverydate" />
 		<result property="cashdate" column="cashdate" />
-		<result property="bank" column="bank" />
-		<result property="bankaccount" column="bankaccount" />
-		<result property="receive" column="receive" />
-		<result property="receivecode" column="receivecode" />
-		<result property="receivetell" column="receivetell" />
-		<result property="receiveaddress" column="receiveaddress" />
+		<result property="accounttype" column="accounttype" />
+		<result property="companytax" column="companytax" />
+		<result property="accountbank" column="accountbank" />
+		<result property="accountid" column="accountid" />
+		<result property="receipttype" column="receipttype" />
+		<result property="companycn" column="companycn" />
+		<result property="companyen" column="companyen" />
+		<result property="department" column="department" />
+		<result property="name" column="name" />
+		<result property="postcode" column="postcode" />
+		<result property="address" column="address" />
+		<result property="tell" column="tell" />
+		<result property="companycn2" column="companycn2" />
+		<result property="companyen2" column="companyen2" />
+		<result property="department2" column="department2" />
+		<result property="name2" column="name2" />
+		<result property="postcode2" column="postcode2" />
+		<result property="address2" column="address2" />
+		<result property="tell2" column="tell2" />
+		<result property="paytype" column="paytype" />
 		<result property="note" column="note" />
 		<result property="status" column="status" />
 		<result property="res01" column="res01" />
@@ -69,12 +83,14 @@
 	</select>
 	
 	<insert id="insertOrder" parameterClass="com.cn.dsyg.dto.OrderDto">
-		insert into otb_order(ordercode,customerid,amount,taxamount,deliverydate,cashdate,bank,
-			bankaccount,receive,receivecode,receivetell,receiveaddress,note,status,res01,res02,res03,
-			res04,res05,updateip,createuid,createdate,updateuid,updatedate)
-		values(#ordercode#,#customerid#,#amount#,#taxamount#,#deliverydate#,#cashdate#,#bank#,
-			#bankaccount#,#receive#,#receivecode#,#receivetell#,#receiveaddress#,#note#,#status#,#res01#,#res02#,#res03#,
-			#res04#,#res05#,#updateip#,#createuid#,NOW(),#updateuid#,NOW())
+		insert into otb_order(ordercode,customerid,amount,taxamount,deliverydate,cashdate,accounttype,
+			companytax,accountbank,accountid,receipttype,companycn,companyen,department,name,postcode,address,tell,
+			companycn2,companyen2,department2,name2,postcode2,address2,tell2,paytype,note,status,res01,
+			res02,res03,res04,res05,updateip,createuid,createdate,updateuid,updatedate)
+		values(#ordercode#,#customerid#,#amount#,#taxamount#,#deliverydate#,#cashdate#,#accounttype#,
+			#companytax#,#accountbank#,#accountid#,#receipttype#,#companycn#,#companyen#,#department#,#name#,#postcode#,#address#,#tell#,
+			#companycn2#,#companyen2#,#department2#,#name2#,#postcode2#,#address2#,#tell2#,#paytype#,#note#,#status#,#res01#,
+			#res02#,#res03#,#res04#,#res05#,#updateip#,#createuid#,NOW(),#updateuid#,NOW())
 		<selectKey resultClass="int" keyProperty="id" >
 			select LAST_INSERT_ID() as value
 		</selectKey>
@@ -86,12 +102,26 @@
 			taxamount = #taxamount#,
 			deliverydate = #deliverydate#,
 			cashdate = #cashdate#,
-			bank = #bank#,
-			bankaccount = #bankaccount#,
-			receive = #receive#,
-			receivecode = #receivecode#,
-			receivetell = #receivetell#,
-			receiveaddress = #receiveaddress#,
+			accounttype = #accounttype#,
+			companytax = #companytax#,
+			accountbank = #accountbank#,
+			accountid = #accountid#,
+			receipttype = #receipttype#,
+			companycn = #companycn#,
+			companyen = #companyen#,
+			department = #department#,
+			name = #name#,
+			postcode = #postcode#,
+			address = #address#,
+			tell = #tell#,
+			companycn2 = #companycn2#,
+			companyen2 = #companyen2#,
+			department2 = #department2#,
+			name2 = #name2#,
+			postcode2 = #postcode2#,
+			address2 = #address2#,
+			tell2 = #tell2#,
+			paytype = #paytype#,
 			note = #note#,
 			status = #status#,
 			res01 = #res01#,

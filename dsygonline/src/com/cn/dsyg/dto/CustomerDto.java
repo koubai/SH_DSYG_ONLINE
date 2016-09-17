@@ -83,6 +83,11 @@ public class CustomerDto extends BaseDto {
 	private String tell;
 	
 	/**
+	 * 1为相同，其他为不同。收件人信息同购买方信息（购物车确定时用）--add by Frank
+	 */
+	private String thesame;
+	
+	/**
 	 * 收件人公司名
 	 */
 	private String companycn2;
@@ -569,5 +574,13 @@ public class CustomerDto extends BaseDto {
 
 	public void setVerificationcode(String verificationcode) {
 		this.verificationcode = verificationcode;
+	}
+
+	public String getThesame() {
+		return thesame;
+	}
+
+	public void setThesame(String thesame) {
+		this.thesame = thesame;
 	}
 }

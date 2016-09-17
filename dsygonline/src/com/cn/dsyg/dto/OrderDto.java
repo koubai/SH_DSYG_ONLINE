@@ -16,75 +16,145 @@ public class OrderDto extends BaseDto {
 
 	private static final long serialVersionUID = -5277224653340637835L;
 
-	/**
+ 	/**
 	 * ID
 	 */
 	private Integer id;
 
-	/**
+ 	/**
 	 * 订单号，逻辑主键
 	 */
 	private String ordercode;
 	
 	/**
-	 * 订单明细
+	 * 订单产品明细
 	 */
 	private List<OrderDetailDto> orderDetailList;
 
-	/**
+ 	/**
 	 * 线上客户ID
 	 */
 	private Integer customerid;
 
-	/**
+ 	/**
 	 * 总金额
 	 */
 	private BigDecimal amount;
 
-	/**
+ 	/**
 	 * 总金额含税
 	 */
 	private BigDecimal taxamount;
 
-	/**
+ 	/**
 	 * 交期日
 	 */
 	private Date deliverydate;
 
-	/**
+ 	/**
 	 * 付款日
 	 */
 	private Date cashdate;
 
-	/**
-	 * 收款银行
+ 	/**
+	 * 账户类型，1为企业，2为个人
 	 */
-	private String bank;
+	private String accounttype;
 
-	/**
-	 * 收款银行帐号
+ 	/**
+	 * 公司税号
 	 */
-	private String bankaccount;
+	private String companytax;
 
-	/**
-	 * 收货人
+ 	/**
+	 * 公司开户行
 	 */
-	private String receive;
+	private String accountbank;
 
-	/**
-	 * 收货邮编
+ 	/**
+	 * 开户行账号
 	 */
-	private String receivecode;
+	private String accountid;
 
-	/**
-	 * 收货人电话
+ 	/**
+	 * 发票类型，1为普通发票，2为专用发票
 	 */
-	private String receivetell;
+	private Integer receipttype;
 
-	/**
-	 * 收货地址
+ 	/**
+	 * 购买方公司名
 	 */
-	private String receiveaddress;
+	private String companycn;
+
+ 	/**
+	 * 购买方英文公司名或拼音
+	 */
+	private String companyen;
+
+ 	/**
+	 * 购买方所属部门
+	 */
+	private String department;
+
+ 	/**
+	 * 购买方姓名
+	 */
+	private String name;
+
+ 	/**
+	 * 购买方邮编
+	 */
+	private String postcode;
+
+ 	/**
+	 * 购买方地址
+	 */
+	private String address;
+
+ 	/**
+	 * 购买方电话号码
+	 */
+	private String tell;
+
+ 	/**
+	 * 收件人公司名
+	 */
+	private String companycn2;
+
+ 	/**
+	 * 收件人英文公司名或拼音
+	 */
+	private String companyen2;
+
+ 	/**
+	 * 所属部门
+	 */
+	private String department2;
+
+ 	/**
+	 * 收件人姓名
+	 */
+	private String name2;
+
+ 	/**
+	 * 收件人邮编
+	 */
+	private String postcode2;
+
+ 	/**
+	 * 收件人地址
+	 */
+	private String address2;
+
+ 	/**
+	 * 收件人电话号码
+	 */
+	private String tell2;
+
+ 	/**
+	 * 交货方法2：自提，1：配送
+	 */
+	private String paytype;
 	
 	/**
 	 * 备注
@@ -154,6 +224,14 @@ public class OrderDto extends BaseDto {
 		this.id = id;
 	}
 
+	public String getOrdercode() {
+		return ordercode;
+	}
+
+	public void setOrdercode(String ordercode) {
+		this.ordercode = ordercode;
+	}
+
 	public Integer getCustomerid() {
 		return customerid;
 	}
@@ -194,52 +272,156 @@ public class OrderDto extends BaseDto {
 		this.cashdate = cashdate;
 	}
 
-	public String getBank() {
-		return bank;
+	public String getCompanytax() {
+		return companytax;
 	}
 
-	public void setBank(String bank) {
-		this.bank = bank;
+	public void setCompanytax(String companytax) {
+		this.companytax = companytax;
 	}
 
-	public String getBankaccount() {
-		return bankaccount;
+	public String getAccountbank() {
+		return accountbank;
 	}
 
-	public void setBankaccount(String bankaccount) {
-		this.bankaccount = bankaccount;
+	public void setAccountbank(String accountbank) {
+		this.accountbank = accountbank;
 	}
 
-	public String getReceive() {
-		return receive;
+	public String getAccountid() {
+		return accountid;
 	}
 
-	public void setReceive(String receive) {
-		this.receive = receive;
+	public void setAccountid(String accountid) {
+		this.accountid = accountid;
 	}
 
-	public String getReceivecode() {
-		return receivecode;
+	public Integer getReceipttype() {
+		return receipttype;
 	}
 
-	public void setReceivecode(String receivecode) {
-		this.receivecode = receivecode;
+	public void setReceipttype(Integer receipttype) {
+		this.receipttype = receipttype;
 	}
 
-	public String getReceivetell() {
-		return receivetell;
+	public String getCompanycn() {
+		return companycn;
 	}
 
-	public void setReceivetell(String receivetell) {
-		this.receivetell = receivetell;
+	public void setCompanycn(String companycn) {
+		this.companycn = companycn;
 	}
 
-	public String getReceiveaddress() {
-		return receiveaddress;
+	public String getCompanyen() {
+		return companyen;
 	}
 
-	public void setReceiveaddress(String receiveaddress) {
-		this.receiveaddress = receiveaddress;
+	public void setCompanyen(String companyen) {
+		this.companyen = companyen;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTell() {
+		return tell;
+	}
+
+	public void setTell(String tell) {
+		this.tell = tell;
+	}
+
+	public String getCompanycn2() {
+		return companycn2;
+	}
+
+	public void setCompanycn2(String companycn2) {
+		this.companycn2 = companycn2;
+	}
+
+	public String getCompanyen2() {
+		return companyen2;
+	}
+
+	public void setCompanyen2(String companyen2) {
+		this.companyen2 = companyen2;
+	}
+
+	public String getDepartment2() {
+		return department2;
+	}
+
+	public void setDepartment2(String department2) {
+		this.department2 = department2;
+	}
+
+	public String getName2() {
+		return name2;
+	}
+
+	public void setName2(String name2) {
+		this.name2 = name2;
+	}
+
+	public String getPostcode2() {
+		return postcode2;
+	}
+
+	public void setPostcode2(String postcode2) {
+		this.postcode2 = postcode2;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	public String getTell2() {
+		return tell2;
+	}
+
+	public void setTell2(String tell2) {
+		this.tell2 = tell2;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public Integer getStatus() {
@@ -330,27 +512,27 @@ public class OrderDto extends BaseDto {
 		this.updatedate = updatedate;
 	}
 
-	public String getOrdercode() {
-		return ordercode;
-	}
-
-	public void setOrdercode(String ordercode) {
-		this.ordercode = ordercode;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
 	public List<OrderDetailDto> getOrderDetailList() {
 		return orderDetailList;
 	}
 
 	public void setOrderDetailList(List<OrderDetailDto> orderDetailList) {
 		this.orderDetailList = orderDetailList;
+	}
+
+	public String getAccounttype() {
+		return accounttype;
+	}
+
+	public void setAccounttype(String accounttype) {
+		this.accounttype = accounttype;
+	}
+
+	public String getPaytype() {
+		return paytype;
+	}
+
+	public void setPaytype(String paytype) {
+		this.paytype = paytype;
 	}
 }

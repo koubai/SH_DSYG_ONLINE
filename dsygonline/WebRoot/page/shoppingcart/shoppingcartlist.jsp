@@ -34,6 +34,57 @@
 			alert("购物车中没有产品！");
 			return;
 		}
+		document.mainform.action = '<%=request.getContextPath()%>/shoppingcart/showOrderCustomerInfo.action';
+		document.mainform.submit();
+	}
+	
+	function showChangeInput(id) {
+		$("#buyNum_" + id).show();
+		$("#showbuyNum_" + id).hide();
+		$("#changebtn_" + id).hide();
+		$("#okbtn_" + id).show();
+	}
+	
+	function confirmChange(id) {
+		var amount = $("#buyNum_" + id).val();
+		var price = $("#onlinePrice_" + id).val();
+		var minnum = $("#minnum_" + id).val();
+		//验证数据
+		if(amount == "") {
+			alert("请输入购买数量！");
+			$("#buyNum_" + id).focus();
+			return;
+		}
+		if(!iscInteger(amount)){
+			alert("购买数量必须是大于0的整数！");
+			$("#buyNum_" + id).focus();
+			return;
+		}
+		//验证公倍数
+		if(parseInt(amount) % parseInt(minnum) != 0) {
+			alert("购买数量必须是最小单位的整数倍！");
+			$("#buyNum_" + id).focus();
+			return;
+		}
+		var productInfo = id + "##" + amount + "##" + price;
+		$.getJSON('<%=request.getContextPath()%>/shoppingcart/changeProductAmount.action' + "?date=" + new Date(),{productInfo:productInfo},
+			function(data, status) {
+				$("#moneyinfo_" + id).html("" + data.curramount + "元<br />（含增值税）" + data.currtaxamount + "元");
+				$("#totalmoney").html("" + data.amount + "元<br />（含增值税）" + data.taxamount + "元");
+				
+				$("#showbuyNum_" + id).html(amount);
+				$("#buyNum_" + id).val(amount);
+				
+				$("#buyNum_" + id).hide();
+				$("#showbuyNum_" + id).show();
+				$("#changebtn_" + id).show();
+				$("#okbtn_" + id).hide();
+		
+				//$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.amount+"元</p>");
+				//$("#buyNum_" + id).val("");
+				//alert("添加购物车成功！");
+			}
+		);
 	}
 </script>
 </head>
@@ -104,13 +155,19 @@
 										<td>
 											<s:property value="price"/>元
 										</td>
-										<td>
-											<input name="buyNum" id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;" value="<s:property value="productNum"/>"/>
+										<td align="right">
+											<span id="showbuyNum_<s:property value="productid"/>"><s:property value="productNum"/></span>
+											<input id="minnum_<s:property value="productid"/>" style="display: none;" value="<s:property value="minnum"/>"/>
+											<input id="onlinePrice_<s:property value="productid"/>" style="display: none;" value="<s:property value="price"/>"/>
+											<input name="buyNum" id="buyNum_<s:property value="productid"/>" type="text" style="width: 55px; display: none;" value="<s:property value="productNum"/>"/>
 											<s:iterator value="unitList" id="unitList" status="st3">
 												<s:if test="%{unitList[#st3.index].code == shoppingCartList[#st2.index].unit}"><s:property value="fieldname"/></s:if>
 											</s:iterator>
+											<br />
+											<input type="button" id="changebtn_<s:property value="productid"/>" value="变更数量" onclick="showChangeInput('<s:property value="productid"/>');"/>
+											<input type="button" id="okbtn_<s:property value="productid"/>" style="display: none;" value="确定变更" onclick="confirmChange('<s:property value="productid"/>');"/>
 										</td>
-										<td align="right">
+										<td align="right" id="moneyinfo_<s:property value="productid"/>">
 											<s:property value="money"/>元<br />
 											（含增值税）<s:property value="taxmoney"/>元
 										</td>
@@ -121,7 +178,7 @@
 								</s:iterator>
 								<tr style="height: 40px;">
 									<td align="right" colspan="4" style="font-size: 20px;font-weight: bold;">合计</td>
-									<td align="right" colspan="2" style="font-size: 20px;font-weight: bold;">
+									<td align="right" colspan="2" style="font-size: 20px;font-weight: bold;" id="totalmoney">
 										<s:property value="totalMoney"/>元<br />
 										（含增值税）<s:property value="totalTaxMoney"/>元
 									</td>
@@ -144,6 +201,7 @@
 		</div>
 	</div>
 </div>
+
 <jsp:include page="../foot_web.jsp" flush="true" />
 </body>
 </html>

@@ -51,6 +51,8 @@ public class ProductAction extends BaseAction {
 	//firstfalg=1为第一次进入产品查询页面
 	private String firstfalg;
 	
+	private String strKeyword;
+	
 	/**
 	 * 大产品分类
 	 */
@@ -77,6 +79,7 @@ public class ProductAction extends BaseAction {
 			//默认第一页
 			startIndex = 0;
 			fieldno = "";
+			strKeyword = "";
 			//默认查询所有产品
 			stockfalg = "";
 			firstfalg = "1";
@@ -130,7 +133,7 @@ public class ProductAction extends BaseAction {
 		
 		//翻页查询所有委托公司
 		this.page.setStartIndex(startIndex);
-		page = productService.queryOnlineProductByPage(fieldno, stockfalg, page);
+		page = productService.queryOnlineProductByPage(strKeyword, fieldno, stockfalg, page);
 		productList = (List<ProductDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 				
@@ -285,5 +288,13 @@ public class ProductAction extends BaseAction {
 
 	public void setFirstfalg(String firstfalg) {
 		this.firstfalg = firstfalg;
+	}
+
+	public String getStrKeyword() {
+		return strKeyword;
+	}
+
+	public void setStrKeyword(String strKeyword) {
+		this.strKeyword = strKeyword;
 	}
 }
