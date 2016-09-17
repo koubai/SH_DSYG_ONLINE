@@ -17,7 +17,7 @@
 	function deleteProduct(id) {
 		if(confirm("确定删除该产品吗？")) {
 			$("#delProductID").val(id);
-			document.mainform.action = '<%=request.getContextPath()%>/shoppingcart/delShoppingCart.action';
+			document.mainform.action = '<%=request.getContextPath()%>/shoppingcart/delShoppingCart.action?date=' + new Date();
 			document.mainform.submit();
 		}
 	}
@@ -34,7 +34,7 @@
 			alert("购物车中没有产品！");
 			return;
 		}
-		document.mainform.action = '<%=request.getContextPath()%>/shoppingcart/showOrderCustomerInfo.action';
+		document.mainform.action = '<%=request.getContextPath()%>/shoppingcart/showOrderCustomerInfo.action?date=' + new Date();
 		document.mainform.submit();
 	}
 	
@@ -153,7 +153,7 @@
 											</s:iterator>
 										</td>
 										<td>
-											<s:property value="price"/>元
+											<span title="${showOnlinePriceTip}"><s:property value="saleprice"/></span>元
 										</td>
 										<td align="right">
 											<span id="showbuyNum_<s:property value="productid"/>"><s:property value="productNum"/></span>

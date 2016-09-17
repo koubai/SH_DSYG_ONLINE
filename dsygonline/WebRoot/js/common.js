@@ -1,3 +1,28 @@
+//根据最小购买数量和当前购买数量，匹配出价格
+//价格格式：1-55;20-50;40-48;60-46;80-44;100-42;120-40;140-38;160-36;180-34;200-32;
+function getPrice(basenum, buynum, pricestr, baseprice) {
+	var result = parseFloat(baseprice);
+	var pecent = "0";
+	var base = parseInt(basenum);
+	var buy = parseInt(buynum);
+	//计算出倍数
+	var n = buy / base;
+	var list = pricestr.split(";");
+	for(var i = 0; i < list.length; i++) {
+		if(list[i] != "") {
+			var ll = list[i].split("-");
+			var m = parseInt(ll[0]);
+			if(n >= m) {
+				pecent = ll[0];
+			} else {
+				break;
+			}
+		}
+	}
+	result = result * (1 + parseFloat(pecent));
+	return result;
+}
+
 /**
  * 取得时间
  * @return 返回格式为yyyyMMddHHmmss的字符串

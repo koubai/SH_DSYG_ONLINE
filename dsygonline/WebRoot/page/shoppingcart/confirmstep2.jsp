@@ -82,7 +82,7 @@
 									</s:iterator>
 								</td>
 								<td>
-									<s:property value="price"/>元
+									<span title="${showOnlinePriceTip}" style="color: black;"><s:property value="saleprice"/></span>元
 								</td>
 								<td align="right">
 									<span id="showbuyNum_<s:property value="productid"/>" style="color: black;"><s:property value="productNum"/></span>

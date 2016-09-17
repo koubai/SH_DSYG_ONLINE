@@ -41,12 +41,12 @@ public class OrderDetailDto extends BaseDto {
 	private BigDecimal num;
 
 	/**
-	 * 单价
+	 * 销售基础含税单价
 	 */
 	private BigDecimal price;
 	
 	/**
-	 * 含税单价
+	 * 实际销售含税单价
 	 */
 	private BigDecimal taxprice;
 	

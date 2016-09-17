@@ -17,7 +17,7 @@
 	$(document).ready(function(){
 		$.getJSON('<%=request.getContextPath()%>/shoppingcart/getShoppingCartAmount.action' + "?date=" + new Date(),{},
 			function(data, status) {
-				$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.amount+"元</p>");
+				$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.taxamount+"元</p>");
 			}
 		);
 	});
@@ -78,6 +78,8 @@
 		var amount = $("#buyNum_" + id).val();
 		var price = $("#onlinePrice_" + id).val();
 		var minnum = $("#minNum_" + id).val();
+		var basetaxprice = $("#baseTaxPrice_" + id).val();
+		var pricelist = $("#onlinePriceList_" + id).val();
 		if(price == "") {
 			alert("该产品单价为空！");
 			return;
@@ -99,10 +101,11 @@
 			$("#buyNum_" + id).focus();
 			return;
 		}
-		var productInfo = id + "##" + amount + "##" + price;
+		//var productInfo = id + "##" + amount + "##" + basetaxprice + "##" + pricelist;
+		var productInfo = id + "##" + amount
 		$.getJSON('<%=request.getContextPath()%>/shoppingcart/addShoppingCart.action' + "?date=" + new Date(),{productInfo:productInfo},
 			function(data, status) {
-				$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.amount+"元</p>");
+				$("#shoppingcartdetail").html("<p>商品:&nbsp"+data.count+"件</p><p>金额:&nbsp"+data.taxamount+"元</p>");
 				$("#buyNum_" + id).val("");
 				alert("添加购物车成功！");
 			}
@@ -141,10 +144,10 @@
 							<div style="position:fixed; top:110px; right:50px; width: 130px; height: 150px; background:  url(<%=request.getContextPath()%>/images/cart1-1.jpg )  no-repeat;" onclick="javascript:window.location.href='<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action'">
 						</s:if>
 						<s:else>
-							<div style="position:fixed; top:110px; right:50px; width: 300px; height: 100px; background: #f30 url(<%=request.getContextPath()%>/images/cart1-1.jpg); display: none;">
+							<div style="position:fixed; top:110px; right:50px; width: 300px; height: 100px; background: #f30 url(<%=request.getContextPath()%>/images/cart1-1.jpg); display: none;" onclick="javascript:window.location.href='<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action'">
 						</s:else>
 								<div class="product_h3">
-								<a id="shoppingcartdetail" href="<%=request.getContextPath()%>/shoppingcart/showShoppingCartAction.action">
+								<a id="shoppingcartdetail" href="javascript:void(0);">
 								</a>
 								</div>
 							</div>
@@ -304,7 +307,8 @@
 											</s:iterator>
 										</td>
 										<td>
-											<s:property value="item13"/>
+											<!-- <s:property value="item13"/> -->
+											<span title="${showOnlinePriceTip}"><s:property value="onlineprice"/></span>
 										</td>
 										<td>
 											<s:iterator value="unitList" id="unitList" status="st3">
@@ -314,7 +318,9 @@
 										<td>
 											<s:property value="item12"/>
 											<input id="minNum_<s:property value="id"/>" type="hidden" value="<s:property value="item12"/>"/>
-											<input id="onlinePrice_<s:property value="id"/>" type="hidden" value="<s:property value="item13"/>"/>
+											<input id="onlinePriceList_<s:property value="id"/>" type="hidden" value="<s:property value="item13"/>"/>
+											<input id="onlinePrice_<s:property value="id"/>" type="hidden" value="<s:property value="onlineprice"/>"/>
+											<input id="baseTaxPrice_<s:property value="id"/>" type="hidden" value="<s:property value="basetaxprice"/>"/>
 										</td>
 										<td>
 											<input id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;"/>
