@@ -133,8 +133,10 @@ public class OrderServiceImpl implements OrderService {
 				detail.setBatchno(shoppingCart.getBatchno());
 				//数量
 				detail.setNum(shoppingCart.getProductNum());
-				//单价
+				//销售基础含税单价
 				detail.setPrice(shoppingCart.getPrice());
+				//实际销售含税单价
+				detail.setTaxprice(shoppingCart.getSaleprice());
 				//金额
 				detail.setAmount(shoppingCart.getMoney());
 				//含税金额

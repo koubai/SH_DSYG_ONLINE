@@ -10,6 +10,7 @@
 		<result property="fieldno" column="fieldno" />
 		<result property="brand" column="brand" />
 		<result property="quantity" column="quantity" />
+		<result property="basetaxprice" column="basetaxprice" />
 		<result property="item1" column="item1" />
 		<result property="item2" column="item2" />
 		<result property="item3" column="item3" />
@@ -156,14 +157,19 @@
 	</resultMap>
 	
 	<select id="queryOnlineProductByPage" parameterClass="java.util.Map" resultMap="ProductQuantityDto">
-		SELECT * FROM
+		SELECT T.* FROM
 		(	
 			SELECT B.*,
 			(
 				SELECT A.quantity FROM
 				(SELECT W.productid,SUM(W.quantity) AS quantity FROM etb_warehouse W WHERE 1 = 1 GROUP BY W.productid) A
 				WHERE A.productid = B.id
-			) AS quantity
+			) AS quantity,
+			(
+				SELECT A.basetaxprice FROM
+				(SELECT W.productid,SUM(W.taxamount)/SUM(W.quantity) AS basetaxprice FROM etb_warehouse W WHERE 1 = 1 and W.warehousetype = '1' GROUP BY W.productid) A
+				WHERE A.productid = B.id
+			) AS basetaxprice
 			FROM etb_product B where B.rank <![CDATA[<=]]> 50
 		) T WHERE 1 = 1
 		<isNotEmpty prepend="and" property="keyword">
@@ -187,7 +193,12 @@
 				SELECT A.quantity FROM
 				(SELECT W.productid,SUM(W.quantity) AS quantity FROM etb_warehouse W WHERE 1 = 1 GROUP BY W.productid) A
 				WHERE A.productid = B.id
-			) AS quantity
+			) AS quantity,
+			(
+				SELECT A.basetaxprice FROM
+				(SELECT W.productid,SUM(W.taxamount)/SUM(W.quantity) AS basetaxprice FROM etb_warehouse W WHERE 1 = 1 and W.warehousetype = '1' GROUP BY W.productid) A
+				WHERE A.productid = B.id
+			) AS basetaxprice
 			FROM etb_product B where B.rank <![CDATA[<=]]> 50
 		) T WHERE 1 = 1
 		<isNotEmpty prepend="and" property="keyword">
@@ -201,8 +212,22 @@
 		</isNotEmpty>
 	</select>
 	
-	<select id="queryProductByID" parameterClass="java.util.Map" resultMap="ProductDto">
-		select * from etb_product where id = #id#
+	<select id="queryProductByID" parameterClass="java.util.Map" resultMap="ProductQuantityDto">
+		SELECT * FROM
+		(	
+			SELECT B.*,
+			(
+				SELECT A.quantity FROM
+				(SELECT W.productid,SUM(W.quantity) AS quantity FROM etb_warehouse W WHERE 1 = 1 GROUP BY W.productid) A
+				WHERE A.productid = B.id
+			) AS quantity,
+			(
+				SELECT A.basetaxprice FROM
+				(SELECT W.productid,SUM(W.taxamount)/SUM(W.quantity) AS basetaxprice FROM etb_warehouse W WHERE 1 = 1 and W.warehousetype = '1' GROUP BY W.productid) A
+				WHERE A.productid = B.id
+			) AS basetaxprice
+			FROM etb_product B where B.rank <![CDATA[<=]]> 50 and B.id = #id#
+		) T where 1 = 1
 	</select>
 	
 </sqlMap>

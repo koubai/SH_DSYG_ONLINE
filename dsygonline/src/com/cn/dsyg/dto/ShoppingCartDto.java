@@ -3,6 +3,7 @@ package com.cn.dsyg.dto;
 import java.math.BigDecimal;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.DsygOnlineUtil;
 
 /**
  * ShoppingCartDto
@@ -33,6 +34,16 @@ public class ShoppingCartDto extends BaseDto {
 	 * 单价
 	 */
 	private BigDecimal price;
+	
+	/**
+	 * 实际单价（根据销售数量和对应的价格列表计算出价格）
+	 */
+	private BigDecimal saleprice;
+	
+	/**
+	 * ONLINE价格鼠标移上去显示的提示内容
+	 */
+	private String showOnlinePriceTip;
 	
 	/**
 	 * 金额
@@ -88,6 +99,11 @@ public class ShoppingCartDto extends BaseDto {
 	 * 最小单位
 	 */
 	private String minnum;
+	
+	/**
+	 * 单价列表
+	 */
+	private String item13;
 
 	public String getProductid() {
 		return productid;
@@ -186,10 +202,6 @@ public class ShoppingCartDto extends BaseDto {
 	}
 
 	public BigDecimal getMoney() {
-		money = new BigDecimal(0);
-		if(productNum != null && price != null) {
-			money = productNum.multiply(price).setScale(2, BigDecimal.ROUND_HALF_UP);
-		}
 		return money;
 	}
 
@@ -198,6 +210,10 @@ public class ShoppingCartDto extends BaseDto {
 	}
 
 	public BigDecimal getTaxmoney() {
+		taxmoney = new BigDecimal(0);
+		if(productNum != null && getSaleprice() != null) {
+			taxmoney = productNum.multiply(getSaleprice()).setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
 		return taxmoney;
 	}
 
@@ -211,5 +227,30 @@ public class ShoppingCartDto extends BaseDto {
 
 	public void setBatchno(String batchno) {
 		this.batchno = batchno;
+	}
+
+	public BigDecimal getSaleprice() {
+		saleprice = DsygOnlineUtil.calcOnlinePrice(price, item13, minnum, productNum);
+		return saleprice;
+	}
+
+	public void setSaleprice(BigDecimal saleprice) {
+		this.saleprice = saleprice;
+	}
+
+	public String getItem13() {
+		return item13;
+	}
+
+	public void setItem13(String item13) {
+		this.item13 = item13;
+	}
+
+	public String getShowOnlinePriceTip() {
+		return showOnlinePriceTip;
+	}
+
+	public void setShowOnlinePriceTip(String showOnlinePriceTip) {
+		this.showOnlinePriceTip = showOnlinePriceTip;
 	}
 }

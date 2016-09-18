@@ -33,9 +33,10 @@ function goProductlist() {
 						<div style="margin-top: 50px;">
 							<div class="pfont0">
 							<br>
-							会员账户已注销。 感谢您使用本网站。
-							<br>		
-							<br>		
+								<span id="message">
+									<s:actionmessage />
+								</span>
+							 <br>		
 							</div>
 						</div>
 					</div>

@@ -40,6 +40,19 @@ public class ProductDto extends BaseDto {
 	 */
 	private BigDecimal quantity;
 	
+	//含税成本价格
+	private BigDecimal basetaxprice;
+	
+	/**
+	 * ONLINE价格鼠标移上去显示的提示内容
+	 */
+	private String showOnlinePriceTip;
+	
+	/**
+	 * 线上销售价
+	 */
+	private BigDecimal onlineprice;
+	
 	/**
 	 * 购买数量
 	 */
@@ -119,11 +132,6 @@ public class ProductDto extends BaseDto {
 	 * 采购价
 	 */
 	private String purchaseprice;
-	
-	/**
-	 * 线上销售价
-	 */
-	private String onlineprice;
 	
 	//数量（入出库单显示用）
 	private String num;
@@ -1092,13 +1100,62 @@ public class ProductDto extends BaseDto {
 		this.buyamount = buyamount;
 	}
 
-	public String getOnlineprice() {
-		//暂时设置为ERP的销售价格
-		onlineprice = this.salesprice;
+	public BigDecimal getBasetaxprice() {
+		return basetaxprice;
+	}
+
+	public void setBasetaxprice(BigDecimal basetaxprice) {
+		this.basetaxprice = basetaxprice;
+	}
+
+	public String getShowOnlinePriceTip() {
+		showOnlinePriceTip = "";
+		if(basetaxprice != null) {
+			if(item13 != null && !"".equals(item13) && item12 != null && !"".equals(item12)) {
+				int basenum = Integer.valueOf(item12);
+				int startnum = 0;
+				String[] list = item13.split(";");
+				for(int i = 1; i < list.length; i++) {
+					if(!"".equals(list[i])) {
+						//取上一个标签的内容
+						String[] startll = list[i - 1].split("-");
+						startnum = Integer.valueOf(startll[0]) * basenum;
+						BigDecimal price = basetaxprice.multiply(new BigDecimal(1).add(new BigDecimal(startll[1]).divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+						
+						String[] ll = list[i].split("-");
+						int endnum = Integer.valueOf(ll[0]) * basenum;
+						//showOnlinePriceTip += "" + startnum + "-" + endnum + "，单价：" + price + "[" + startll[1] + "]&#13;";
+						showOnlinePriceTip += "" + startnum + "-" + endnum + "，单价：" + price + "&#13;";
+						if(i == list.length - 1) {
+							//最后一条记录
+							BigDecimal lastprice = basetaxprice.multiply(new BigDecimal(1).add(new BigDecimal(ll[1]).divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+							//showOnlinePriceTip += "" + endnum + "以上单价：" + lastprice + "[" + ll[1] + "]";
+							showOnlinePriceTip += "" + endnum + "以上单价：" + lastprice + "";
+						}
+					}
+				}
+			}
+		}
+		return showOnlinePriceTip;
+	}
+
+	public void setShowOnlinePriceTip(String showOnlinePriceTip) {
+		this.showOnlinePriceTip = showOnlinePriceTip;
+	}
+
+	public BigDecimal getOnlineprice() {
+		onlineprice = null;
+		if(basetaxprice != null) {
+			if(item13 != null && !"".equals(item13)) {
+				String[] list = item13.split(";");
+				String[] startll = list[0].split("-");
+				onlineprice = basetaxprice.multiply(new BigDecimal(1).add(new BigDecimal(startll[1]).divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+			}
+		}
 		return onlineprice;
 	}
 
-	public void setOnlineprice(String onlineprice) {
+	public void setOnlineprice(BigDecimal onlineprice) {
 		this.onlineprice = onlineprice;
 	}
 }

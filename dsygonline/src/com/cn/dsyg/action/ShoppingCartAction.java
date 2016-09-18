@@ -47,7 +47,7 @@ public class ShoppingCartAction extends BaseAction {
 	private OrderService orderService;
 	
 	private List<ShoppingCartDto> shoppingCartList;
-	//格式：productid##amount##price
+	//格式：productid##amount
 	private String productInfo;
 	//删除
 	private String delProductID;
@@ -164,7 +164,7 @@ public class ShoppingCartAction extends BaseAction {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		int count = 0;
-		BigDecimal amount = new BigDecimal(0);
+		BigDecimal taxamount = new BigDecimal(0);
 		try {
 			this.clearMessages();
 			@SuppressWarnings("unchecked")
@@ -173,13 +173,13 @@ public class ShoppingCartAction extends BaseAction {
 				count = list.size();
 				//计算总额
 				for(ShoppingCartDto shoppingCart : list) {
-					amount = amount.add(shoppingCart.getPrice().multiply(shoppingCart.getProductNum()));
+					taxamount = taxamount.add(shoppingCart.getTaxmoney());
 				}
 			}
 		} catch(Exception e) {
 			log.error("getShoppingCartAmount error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount) + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + calcMount(taxamount) + ",\"taxamount\":" + taxamount + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -197,13 +197,13 @@ public class ShoppingCartAction extends BaseAction {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		int count = 0;
-		BigDecimal amount = new BigDecimal(0);
+		BigDecimal taxamount = new BigDecimal(0);
 		try {
 			this.clearMessages();
 			@SuppressWarnings("unchecked")
 			List<ShoppingCartDto> list = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
 			//解析productInfo
-			//格式：productid##amount##price
+			//格式：productid##amount
 			String ll[] = productInfo.split("##");
 			if(list != null && list.size() > 0) {
 				boolean flag = false;
@@ -219,8 +219,11 @@ public class ShoppingCartAction extends BaseAction {
 					//不存在该产品，则新增记录
 					ShoppingCartDto shoppingCart = new ShoppingCartDto();
 					shoppingCart.setProductid(ll[0]);
+					ProductDto product = productService.queryProductByID(ll[0]);
 					shoppingCart.setProductNum(new BigDecimal(ll[1]));
-					shoppingCart.setPrice(new BigDecimal(ll[2]));
+					shoppingCart.setPrice(product.getBasetaxprice());
+					shoppingCart.setMinnum(product.getItem12());
+					shoppingCart.setItem13(product.getItem13());
 					
 //					shoppingCart.setProductid(ll[0]);
 //					shoppingCart.setProductNum(new BigDecimal(ll[1]));
@@ -240,8 +243,11 @@ public class ShoppingCartAction extends BaseAction {
 				list = new ArrayList<ShoppingCartDto>();
 				ShoppingCartDto shoppingCart = new ShoppingCartDto();
 				shoppingCart.setProductid(ll[0]);
+				ProductDto product = productService.queryProductByID(ll[0]);
 				shoppingCart.setProductNum(new BigDecimal(ll[1]));
-				shoppingCart.setPrice(new BigDecimal(ll[2]));
+				shoppingCart.setPrice(product.getBasetaxprice());
+				shoppingCart.setMinnum(product.getItem12());
+				shoppingCart.setItem13(product.getItem13());
 				
 //				shoppingCart.setProductid(ll[0]);
 //				shoppingCart.setProductNum(new BigDecimal(ll[1]));
@@ -262,14 +268,14 @@ public class ShoppingCartAction extends BaseAction {
 				count = list.size();
 				//计算总额
 				for(ShoppingCartDto shoppingCart : list) {
-					amount = amount.add(shoppingCart.getPrice().multiply(shoppingCart.getProductNum()));
+					taxamount = taxamount.add(shoppingCart.getTaxmoney());
 				}
 			}
 			ActionContext.getContext().getSession().put(Constants.SESSION_SHOPPING_CART, list);
 		} catch(Exception e) {
 			log.error("addShoppingCart error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount) + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + calcMount(taxamount) + ",\"taxamount\":" + taxamount + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -287,21 +293,21 @@ public class ShoppingCartAction extends BaseAction {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		int count = 0;
-		BigDecimal amount = new BigDecimal(0);
-		BigDecimal curramount = new BigDecimal(0);
+		BigDecimal taxamount = new BigDecimal(0);
+		BigDecimal currtaxamount = new BigDecimal(0);
 		try {
 			this.clearMessages();
 			@SuppressWarnings("unchecked")
 			List<ShoppingCartDto> list = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
 			//解析productInfo
-			//格式：productid##amount##price
+			//格式：productid##amount
 			String ll[] = productInfo.split("##");
 			if(list != null && list.size() > 0) {
 				for(ShoppingCartDto shoppingCart : list) {
 					if(shoppingCart.getProductid().equals(ll[0])) {
 						//存在该产品，数量更改
 						shoppingCart.setProductNum(new BigDecimal(ll[1]));
-						curramount = shoppingCart.getMoney();
+						currtaxamount = shoppingCart.getTaxmoney();
 					}
 				}
 			} else {
@@ -312,7 +318,7 @@ public class ShoppingCartAction extends BaseAction {
 				count = list.size();
 				//计算总额
 				for(ShoppingCartDto shoppingCart : list) {
-					amount = amount.add(shoppingCart.getMoney());
+					taxamount = taxamount.add(shoppingCart.getTaxmoney());
 				}
 			}
 			
@@ -320,8 +326,8 @@ public class ShoppingCartAction extends BaseAction {
 		} catch(Exception e) {
 			log.error("changeProductAmount error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount)
-				+ ",\"curramount\":" + curramount + ",\"currtaxamount\":" + calcTaxMount(curramount) + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + calcMount(taxamount) + ",\"taxamount\":" + taxamount
+				+ ",\"curramount\":" + calcMount(currtaxamount) + ",\"currtaxamount\":" + currtaxamount + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -339,7 +345,7 @@ public class ShoppingCartAction extends BaseAction {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		int count = 0;
-		BigDecimal amount = new BigDecimal(0);
+		BigDecimal taxamount = new BigDecimal(0);
 		try {
 			this.clearMessages();
 			@SuppressWarnings("unchecked")
@@ -354,13 +360,18 @@ public class ShoppingCartAction extends BaseAction {
 					ActionContext.getContext().getSession().put(Constants.SESSION_SHOPPING_CART, list);
 				}
 			}
-			count = list.size();
-			//计算总额
-			amount = new BigDecimal(1);
+			if(list != null && list.size() > 0) {
+				count = list.size();
+				//计算总额
+				for(ShoppingCartDto shoppingCart : list) {
+					taxamount = taxamount.add(shoppingCart.getTaxmoney());
+				}
+			}
+			
 		} catch(Exception e) {
 			log.error("delShoppingCartAjax error:" + e);
 		}
-		String result = "{\"count\":" + count + ",\"amount\":" + amount + ",\"taxamount\":" + calcTaxMount(amount) + "}";
+		String result = "{\"count\":" + count + ",\"amount\":" + calcMount(taxamount) + ",\"taxamount\":" + taxamount + "}";
 		out = response.getWriter();
 		log.info(result);
 		out.write(result);
@@ -377,6 +388,9 @@ public class ShoppingCartAction extends BaseAction {
 	public String delShoppingCart() throws IOException {
 		try {
 			this.clearMessages();
+			totalMoney = new BigDecimal(0);
+			totalTaxMoney = new BigDecimal(0);
+			
 			List<ShoppingCartDto> list = (List<ShoppingCartDto>) ActionContext.getContext().getSession().get(Constants.SESSION_SHOPPING_CART);
 			if(StringUtil.isNotBlank(delProductID)) {
 				//从购物车中删除该产品
@@ -412,6 +426,8 @@ public class ShoppingCartAction extends BaseAction {
 			this.clearMessages();
 			initData();
 			delProductID = "";
+			totalMoney = new BigDecimal(0);
+			totalTaxMoney = new BigDecimal(0);
 			
 			//假登录
 //			ActionContext.getContext().getSession().put(Constants.SESSION_USER_ID, "100019");
@@ -449,12 +465,13 @@ public class ShoppingCartAction extends BaseAction {
 				shoppingCart.setUnit(product.getUnit());
 				shoppingCart.setMinnum(product.getItem12());
 				shoppingCart.setTradename(product.getTradename());
+				shoppingCart.setShowOnlinePriceTip(product.getShowOnlinePriceTip());
 				//含税金额
-				BigDecimal taxmoney = shoppingCart.getMoney().multiply(new BigDecimal(1).add(new BigDecimal(common_rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
-				shoppingCart.setTaxmoney(taxmoney);
-				totalMoney = totalMoney.add(shoppingCart.getMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+				BigDecimal taxmoney = shoppingCart.getTaxmoney();
+				shoppingCart.setMoney(calcMount(taxmoney));
 				totalTaxMoney = totalTaxMoney.add(shoppingCart.getTaxmoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
 			}
+			totalMoney = calcMount(totalTaxMoney);
 			//合计含税=合计*(1 + 税率)
 			//totalTaxMoney = totalMoney.multiply(new BigDecimal(1).add(new BigDecimal(common_rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
 		}
@@ -498,6 +515,7 @@ public class ShoppingCartAction extends BaseAction {
 	 * @param amount
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private BigDecimal calcTaxMount(BigDecimal amount) {
 		BigDecimal taxamount = new BigDecimal(0);
 		if(amount != null) {
@@ -507,9 +525,29 @@ public class ShoppingCartAction extends BaseAction {
 			if(listRate != null && listRate.size() > 0) {
 				rate = listRate.get(0).getCode();
 			}
-			taxamount = amount.multiply(new BigDecimal(1).add(new BigDecimal(rate)));
+			taxamount = amount.multiply(new BigDecimal(1).add(new BigDecimal(rate))).setScale(2, BigDecimal.ROUND_HALF_UP);
 		}
 		return taxamount;
+	}
+	
+	/**
+	 * 计算税前金额
+	 * @param taxamount
+	 * @return
+	 */
+	private BigDecimal calcMount(BigDecimal taxamount) {
+		BigDecimal amount = new BigDecimal(0);
+		if(taxamount != null) {
+			//税率
+			List<Dict01Dto> listRate = dict01Service.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			String rate = "0";
+			if(listRate != null && listRate.size() > 0) {
+				rate = listRate.get(0).getCode();
+			}
+			BigDecimal brate = new BigDecimal(1).add(new BigDecimal(rate));
+			amount = taxamount.divide(brate, 2, BigDecimal.ROUND_HALF_UP);
+		}
+		return amount;
 	}
 
 	public List<ShoppingCartDto> getShoppingCartList() {

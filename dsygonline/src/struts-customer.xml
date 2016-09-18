@@ -21,13 +21,12 @@
         </action>
         <!-- 预注册  -->
         <action name="addCustomerAction" class="customerAction" method="addCustomerAction">
-            <result name="success">/page/customer/preregistry.jsp</result>
-            <result name="*">/page/customer/registry.jsp</result>
+			<result type="json"></result>
         </action>
         <!-- 执行注册  -->
         <action name="doRegistryAction" class="customerAction" method="doRegistryAction">
             <result name="success">/page/customer/doregistry.jsp</result>
-            <result name="*" type="redirectAction">../product/showSearchProductAction.action</result>
+            <result name="*">/page/customer/doregistryfail.jsp</result>
         </action>
         <!-- 显示用户信息  -->
 		<action name="showUpdCustomerAction" class="customerAction" method="showUpdCustomerAction">
@@ -74,8 +73,10 @@
 			<result name="*">/page/customer/cancel.jsp</result>
 		</action>
 		<action name="delCustomerAction" class="customerAction" method="delCustomerAction">
-			<result name="success">/page/customer/docancel.jsp</result>
-			<result name="*">/page/customer/cancel.jsp</result>
+			<result type="json"></result>
+		</action>
+		<action name="showDocancel">
+			<result name="*">/page/customer/docancel.jsp</result>
 		</action>
         
 	</package>
