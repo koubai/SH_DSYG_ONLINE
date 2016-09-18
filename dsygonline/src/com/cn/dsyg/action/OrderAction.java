@@ -9,6 +9,9 @@ import org.apache.log4j.Logger;
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
+import com.cn.common.util.PropertiesConfig;
+import com.cn.dsyg.dto.Dict01Dto;
+import com.cn.dsyg.dto.FeatureDto;
 import com.cn.dsyg.dto.OrderDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.OrderService;
@@ -43,6 +46,19 @@ public class OrderAction extends BaseAction {
 	//订单明细
 	private OrderDto showOrderDto;
 	private String strOrderDetailId;
+	
+	//大分类（非多语言）
+	private List<Dict01Dto> goodsBaseList;
+	private List<Dict01Dto> goodsList;
+	//小分类列表
+	private List<FeatureDto> featureList;
+
+	//单位
+	private List<Dict01Dto> unitList;
+	//产地
+	private List<Dict01Dto> makeareaList;
+	//颜色
+	private List<Dict01Dto> colorList;
 
 	/**
 	 * 订单列表页面
@@ -104,6 +120,7 @@ public class OrderAction extends BaseAction {
 	public String showOrderDetailAction() {
 		try {
 			this.clearMessages();
+			initData();
 			//查询订单明细
 			showOrderDto = orderService.queryOrderByID(strOrderDetailId);
 		} catch(Exception e) {
@@ -111,6 +128,67 @@ public class OrderAction extends BaseAction {
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 订单取消
+	 * @return
+	 */
+	public String cancelOrderAction() {
+		try {
+			this.clearMessages();
+			initData();
+			
+			//客户ID
+			String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//查询订单明细
+			OrderDto order = orderService.queryOrderByID(strOrderDetailId);
+			//状态=取消
+			order.setStatus(Constants.ONLINE_ORDER_STATUS_CLOSE);
+			order.setUpdateip(this.getIP());
+			order.setUpdateuid(customerid);
+			orderService.updateOrder(order);
+			
+			//刷新页面数据
+			showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+		} catch(Exception e) {
+			log.error("cancelOrderAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	private void initData() {
+		String language = (String) ActionContext.getContext().getSession().get(Constants.SYSTEM_LANGUAGE);
+		goodsBaseList = dict01Service.queryGoodsNoOther(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		
+		//税率
+		List<Dict01Dto> listRate = dict01Service.queryDict01ByFieldcode(Constants.DICT_RATE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		if(listRate != null && listRate.size() > 0) {
+			common_rate = listRate.get(0).getCode();
+		}
+		//大分类列表
+		if("en".equals(language)) {
+			//英文系统
+			//产品类型
+			goodsList = dict01Service.queryGoodsNoOther(Constants.SYSTEM_LANGUAGE_ENGLISH);
+			//单位
+			unitList = dict01Service.queryDict01ByFieldcode(Constants.DICT_UNIT_TYPE, Constants.SYSTEM_LANGUAGE_ENGLISH);
+			//产地
+			makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, Constants.SYSTEM_LANGUAGE_ENGLISH);
+			//颜色
+			colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, Constants.SYSTEM_LANGUAGE_ENGLISH);
+		} else {
+			//默认读取配置文件
+			//产品类型
+			goodsList = dict01Service.queryGoodsNoOther(PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			//单位
+			unitList = dict01Service.queryDict01ByFieldcode(Constants.DICT_UNIT_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			//产地
+			makeareaList = dict01Service.queryDict01ByFieldcode(Constants.DICT_MAKEAREA, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+			//颜色
+			colorList = dict01Service.queryDict01ByFieldcode(Constants.DICT_COLOR_TYPE, PropertiesConfig.getPropertiesValueByKey(Constants.SYSTEM_LANGUAGE));
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -199,5 +277,53 @@ public class OrderAction extends BaseAction {
 
 	public void setDict01Service(Dict01Service dict01Service) {
 		this.dict01Service = dict01Service;
+	}
+
+	public List<Dict01Dto> getGoodsBaseList() {
+		return goodsBaseList;
+	}
+
+	public void setGoodsBaseList(List<Dict01Dto> goodsBaseList) {
+		this.goodsBaseList = goodsBaseList;
+	}
+
+	public List<Dict01Dto> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Dict01Dto> goodsList) {
+		this.goodsList = goodsList;
+	}
+
+	public List<FeatureDto> getFeatureList() {
+		return featureList;
+	}
+
+	public void setFeatureList(List<FeatureDto> featureList) {
+		this.featureList = featureList;
+	}
+
+	public List<Dict01Dto> getUnitList() {
+		return unitList;
+	}
+
+	public void setUnitList(List<Dict01Dto> unitList) {
+		this.unitList = unitList;
+	}
+
+	public List<Dict01Dto> getMakeareaList() {
+		return makeareaList;
+	}
+
+	public void setMakeareaList(List<Dict01Dto> makeareaList) {
+		this.makeareaList = makeareaList;
+	}
+
+	public List<Dict01Dto> getColorList() {
+		return colorList;
+	}
+
+	public void setColorList(List<Dict01Dto> colorList) {
+		this.colorList = colorList;
 	}
 }

@@ -9,10 +9,12 @@ import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.OrderDao;
 import com.cn.dsyg.dao.OrderDetailDao;
+import com.cn.dsyg.dao.ProductDao;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.OrderDetailDto;
 import com.cn.dsyg.dto.OrderDto;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.dto.ShoppingCartDto;
 import com.cn.dsyg.service.OrderService;
 
@@ -28,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDetailDao orderDetailDao;
 	private Dict01Dao dict01Dao;
 	private CustomerDao customerDao;
+	private ProductDao productDao;
 
 	@Override
 	public Page queryOrderByPage(String ordercode, String customerid,
@@ -48,6 +51,20 @@ public class OrderServiceImpl implements OrderService {
 			List<OrderDetailDto> orderDetailList = null;
 			for(OrderDto order : list) {
 				orderDetailList = orderDetailDao.queryOrderDetailByOrderid("" + order.getId());
+				if(orderDetailList != null && orderDetailList.size() > 0) {
+					ProductDto product = null;
+					for(OrderDetailDto detail : orderDetailList) {
+						product = productDao.queryProductByID("" + detail.getProductid());
+						detail.setFieldno(product.getFieldno());
+						detail.setTypeno(product.getTypeno());
+						detail.setColor(product.getColor());
+						detail.setBrand(product.getBrand());
+						detail.setMakearea(product.getMakearea());
+						detail.setPackaging(product.getPackaging());
+						detail.setUnit(product.getUnit());
+						detail.setTradename(product.getTradename());
+					}
+				}
 				order.setOrderDetailList(orderDetailList);
 			}
 		}
@@ -58,9 +75,27 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderDto queryOrderByID(String id) {
 		OrderDto order = orderDao.queryOrderByID(id);
-		//查询明细数据
 		if(order != null) {
+			//邮件地址
+			CustomerDto customer = customerDao.queryCustomerByID(order.getCustomerid());
+			order.setCustomeremail(customer.getCustomeremail());
+			//查询明细数据
 			List<OrderDetailDto> orderDetailList = orderDetailDao.queryOrderDetailByOrderid("" + order.getId());
+			if(orderDetailList != null && orderDetailList.size() > 0) {
+				ProductDto product = null;
+				for(OrderDetailDto detail : orderDetailList) {
+					product = productDao.queryProductByID("" + detail.getProductid());
+					detail.setFieldno(product.getFieldno());
+					detail.setTypeno(product.getTypeno());
+					detail.setColor(product.getColor());
+					detail.setBrand(product.getBrand());
+					detail.setMakearea(product.getMakearea());
+					detail.setPackaging(product.getPackaging());
+					detail.setUnit(product.getUnit());
+					detail.setTradename(product.getTradename());
+					detail.setMinnum(product.getItem12());
+				}
+			}
 			order.setOrderDetailList(orderDetailList);
 		}
 		return order;
@@ -72,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public OrderDto createOrder(CustomerDto customer, List<ShoppingCartDto> shoppingcartlist) throws Exception {
+	public OrderDto createOrder(CustomerDto customer, List<ShoppingCartDto> shoppingcartlist, String ip) throws Exception {
 		//计算金额
 		BigDecimal totalMoney = new BigDecimal(0);
 		BigDecimal totalTaxMoney = new BigDecimal(0);
@@ -92,6 +127,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setTaxamount(totalTaxMoney);
 		//状态=新增
 		order.setStatus(Constants.ONLINE_ORDER_STATUS_NEW);
+		order.setUpdateip(ip);
 		//客户信息
 		if(customer != null) {
 			order.setCustomerid(customer.getCustomerid());
@@ -295,5 +331,13 @@ public class OrderServiceImpl implements OrderService {
 
 	public void setCustomerDao(CustomerDao customerDao) {
 		this.customerDao = customerDao;
+	}
+
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
 	}
 }

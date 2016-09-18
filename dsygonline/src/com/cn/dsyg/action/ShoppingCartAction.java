@@ -142,7 +142,7 @@ public class ShoppingCartAction extends BaseAction {
 			}
 			
 			//创建订单
-			OrderDto order = orderService.createOrder(customerInfoDto, shoppingCartList);
+			OrderDto order = orderService.createOrder(customerInfoDto, shoppingCartList,this.getIP());
 			strOrderCode = order.getOrdercode();
 			
 			//清空购物车信息

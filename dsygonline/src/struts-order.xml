@@ -21,6 +21,10 @@
 		<action name="showOrderDetailAction" class="orderAction" method="showOrderDetailAction">
 			<result name="*">/page/order/orderdetail.jsp</result>
 		</action>
+		
+		<action name="cancelOrderAction" class="orderAction" method="cancelOrderAction">
+			<result name="*">/page/order/orderdetail.jsp</result>
+		</action>
         
 	</package>
 

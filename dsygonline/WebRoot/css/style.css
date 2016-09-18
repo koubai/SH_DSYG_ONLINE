@@ -10,7 +10,7 @@ img{ vertical-align:middle; border:none;}
 #top{ height:80px; background: url(../images/top_bg.png) bottom repeat-x #FDFDFD;}
 .top{ width:1000px; height:80px; margin:0 auto; position:relative;}
 .banner_bg{ background:url(../images/banner_bg.png) repeat-x;}
-.main{ height:100%; background:url(../images/bottom_bg.png) repeat-x left bottom; padding-bottom:40px;}
+.main{ height:100%; background:url(../images/bottom_bg.png) repeat-x left bottom; padding-bottom:70px;}
 .content{ width:1000px; margin:0 auto;}
 .banner{ width:1000px; height:520px; background:url(../images/banner.png) no-repeat; position:relative;}
 .menu{ position:absolute; top:50px; left:10px;}
