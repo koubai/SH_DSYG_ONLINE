@@ -258,10 +258,10 @@
 									<td><s:text name="specifications"/></td>
 									<td><s:text name="color"/></td>
 									<td>产地</td>
-									<td>单价</td>
+									<td>单价(含税)</td>
 									<td><s:text name="unit"/></td>
 									<td>最小单位</td>
-									<td>购买</td>
+									<td>购买数量</td>
 									<td></td>
 								</tr>
 								<s:iterator value="productList" id="productList" status="st2">
