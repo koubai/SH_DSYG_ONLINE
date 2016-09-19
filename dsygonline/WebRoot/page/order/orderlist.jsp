@@ -65,96 +65,108 @@
 </head>
 <body>
 <jsp:include page="../head_web.jsp" flush="true" />
-<div id="main">
-	<div class="main">
-		<div class="header_bg">
-			<div class="content">
-				<jsp:include page="../userinfo.jsp" flush="true" />
-				<s:form id="mainform" name="mainform" method="POST">
-					<s:hidden name="startIndex" id="startIndex"/>
-					<s:hidden name="strOrderDetailId" id="strOrderDetailId"/>
-					<div class="product_search">
-						<table>
-							<tr>
-								<td valign="middle" style="">订单号：</td>
-								<td valign="bottom"><input type="text" name="strOrdercode" id="strOrdercode" maxlength="32"/></td>
-								<td>
-									<div class="buttons">
-										<a href="#">
-											<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" />
-										</a>
-									</div>
-								</td>
-							</tr>
-						</table>
-						<div class="page">
-							<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
-							<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage();"><s:text name="go"/></a>　　
-							<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
-							<s:if test="%{page.startIndex <= 0}">
-								<a href="javascript:void(0);"><s:text name="previous"/></a>
-							</s:if>
-							<s:else>
-								<a href="#" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
-							</s:else>
-							<s:if test="%{page.nextIndex > page.totalPage - 1}">
-								<a href="javascript:void(0);"><s:text name="next"/></a>
-							</s:if>
-							<s:else>
-								<a href="#" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
-							</s:else>
-							<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
-						</div>
-						<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
-							<tr class="tab_tittle">
-								<td>&nbsp;</td>
-								<td>订单号</td>
-								<td>交期</td>
-								<td>金额</td>
-								<td>含税金额</td>
-								<td>订单状态</td>
-								<td>创建时间</td>
-							</tr>
-							<s:iterator value="orderList" id="orderList" status="st2">
-								<s:if test="#st2.odd==true">
-									<tr>
-								</s:if>
-								<s:else>
-									<tr class="bg2">
-								</s:else>
-									<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st2.index + 1"/></td>
-									<td>
-										<a href="#" onclick="showDetail('<s:property value="id"/>');"><s:property value="ordercode"/></a>
-									</td>
-									<td><s:date name="deliverydate" format="yyyy/MM/dd" /></td>
-									<td><s:property value="amount"/></td>
-									<td><s:property value="taxamount"/></td>
-									<td><s:property value="status"/></td>
-									<td><s:date name="createdate" format="yyyy/MM/dd" /></td>
-								</tr>
-							</s:iterator>
-						</table>
-						<div class="page">
-							<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
-							<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage();"><s:text name="go"/></a>　　
-							<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
-							<s:if test="%{page.startIndex <= 0}">
-								<a href="javascript:void(0);"><s:text name="previous"/></a>
-							</s:if>
-							<s:else>
-								<a href="#" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
-							</s:else>
-							<s:if test="%{page.nextIndex > page.totalPage - 1}">
-								<a href="javascript:void(0);"><s:text name="next"/></a>
-							</s:if>
-							<s:else>
-								<a href="#" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
-							</s:else>
-							<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
-						</div>
+<div class="main">
+	<div class="header_bg">
+		<div class="content">
+			<jsp:include page="../userinfo.jsp" flush="true" />
+			<s:form id="mainform" name="mainform" method="POST">
+				<s:hidden name="startIndex" id="startIndex"/>
+				<s:hidden name="strOrderDetailId" id="strOrderDetailId"/>
+				<div class="product_search">
+					<table style="margin-top: 15px;">
+						<tr>
+							<td valign="middle">订单号：</td>
+							<td valign="bottom">
+								<s:textfield name="strOrdercode" id="strOrdercode" cssStyle="width:150px; height:24px;" maxlength="20" theme="simple"></s:textfield>
+							</td>
+							<td>
+								<div class="buttons">
+									<a href="#">
+										<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" />
+									</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="page">
+						<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
+						<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage();"><s:text name="go"/></a>　　
+						<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
+						<s:if test="%{page.startIndex <= 0}">
+							<a href="javascript:void(0);"><s:text name="previous"/></a>
+						</s:if>
+						<s:else>
+							<a href="#" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
+						</s:else>
+						<s:if test="%{page.nextIndex > page.totalPage - 1}">
+							<a href="javascript:void(0);"><s:text name="next"/></a>
+						</s:if>
+						<s:else>
+							<a href="#" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
+						</s:else>
+						<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
 					</div>
-				</s:form>
-			</div>
+					<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
+						<tr class="tab_tittle">
+							<td>&nbsp;</td>
+							<td>订单号</td>
+							<td>交期</td>
+							<td>金额</td>
+							<td>含税金额</td>
+							<td>订单状态</td>
+							<td>创建时间</td>
+							<td>备注</td>
+						</tr>
+						<s:iterator value="orderList" id="orderList" status="st2">
+							<s:if test="#st2.odd==true">
+								<tr>
+							</s:if>
+							<s:else>
+								<tr class="bg2">
+							</s:else>
+								<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st2.index + 1"/></td>
+								<td>
+									<a href="#" onclick="showDetail('<s:property value="id"/>');"><s:property value="ordercode"/></a>
+								</td>
+								<td><s:date name="deliverydate" format="yyyy/MM/dd" /></td>
+								<td><s:property value="amount"/></td>
+								<td><s:property value="taxamount"/></td>
+								<td>
+									<s:if test="status == 10">询货中</s:if>
+									<s:elseif test="status == 20">交期确认，待回复</s:elseif>
+									<s:elseif test="status == 30">已回复，受理中</s:elseif>
+									<s:elseif test="status == 40">下单成功，待付款</s:elseif>
+									<s:elseif test="status == 50">已付款，待确认</s:elseif>
+									<s:elseif test="status == 60">已收款，待发货</s:elseif>
+									<s:elseif test="status == 70">已发货，待收货</s:elseif>
+									<s:elseif test="status == 80">已收货，订单完成</s:elseif>
+									<s:elseif test="status == 99">订单已关闭</s:elseif>
+								</td>
+								<td><s:date name="createdate" format="yyyy/MM/dd" /></td>
+								<td><s:property value="note"/></td>
+							</tr>
+						</s:iterator>
+					</table>
+					<div class="page">
+						<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
+						<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage();"><s:text name="go"/></a>　　
+						<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
+						<s:if test="%{page.startIndex <= 0}">
+							<a href="javascript:void(0);"><s:text name="previous"/></a>
+						</s:if>
+						<s:else>
+							<a href="#" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
+						</s:else>
+						<s:if test="%{page.nextIndex > page.totalPage - 1}">
+							<a href="javascript:void(0);"><s:text name="next"/></a>
+						</s:if>
+						<s:else>
+							<a href="#" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
+						</s:else>
+						<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
+					</div>
+				</div>
+			</s:form>
 		</div>
 	</div>
 </div>

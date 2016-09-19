@@ -43,10 +43,11 @@ public interface OrderService {
 	 * 生成订单数据
 	 * @param customer
 	 * @param shoppingcartlist
+	 * @param ip
 	 * @return
 	 * @throws Exception
 	 */
-	public OrderDto createOrder(CustomerDto customer, List<ShoppingCartDto> shoppingcartlist) throws Exception;
+	public OrderDto createOrder(CustomerDto customer, List<ShoppingCartDto> shoppingcartlist, String ip) throws Exception;
 	
 	/**
 	 * 新增数据

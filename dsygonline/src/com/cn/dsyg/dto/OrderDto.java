@@ -35,6 +35,11 @@ public class OrderDto extends BaseDto {
 	 * 线上客户ID
 	 */
 	private Integer customerid;
+	
+	/**
+	 * 邮件地址
+	 */
+	private String customeremail;
 
  	/**
 	 * 总金额
@@ -534,5 +539,13 @@ public class OrderDto extends BaseDto {
 
 	public void setPaytype(String paytype) {
 		this.paytype = paytype;
+	}
+
+	public String getCustomeremail() {
+		return customeremail;
+	}
+
+	public void setCustomeremail(String customeremail) {
+		this.customeremail = customeremail;
 	}
 }

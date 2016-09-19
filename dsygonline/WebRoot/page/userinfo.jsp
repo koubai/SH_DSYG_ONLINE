@@ -269,7 +269,7 @@
 		</s:else>
 	</span>
 </div>
-<div id="overlay" class="ui-widget-overlay" style="display:none"></div>
+<div id="overlay" class="ui-widget-overlay" style="display:none; z-index: 1000;"></div>
 <div id="divlogin" class="login_div">
 	<div class="login_header">
 		<span>登录</span>

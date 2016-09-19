@@ -34,6 +34,53 @@ public class OrderDetailDto extends BaseDto {
 	 * 产品ID
 	 */
 	private Integer productid;
+	
+	//产品信息START
+	/**
+	 * 最小包装
+	 */
+	private String minnum;
+	
+	/**
+	 * 产品名
+	 */
+	private String tradename;
+	
+	/**
+	 * 类型01：电线，02：套管，03：扁平线，04：线束，05：连接器，06：FPC
+	 */
+	private String fieldno;
+	
+	/**
+	 * 品牌
+	 */
+	private String brand;
+	
+	/**
+	 * 规格
+	 */
+	private String typeno;
+	
+	/**
+	 * 颜色
+	 */
+	private String color;
+	
+	/**
+	 * 产地
+	 */
+	private String makearea;
+	
+	/**
+	 * 形式
+	 */
+	private String packaging;
+	
+	/**
+	 * 单位
+	 */
+	private String unit;
+	//产品信息END
 
 	/**
 	 * 数量
@@ -273,5 +320,77 @@ public class OrderDetailDto extends BaseDto {
 
 	public void setTaxamount(BigDecimal taxamount) {
 		this.taxamount = taxamount;
+	}
+
+	public String getTradename() {
+		return tradename;
+	}
+
+	public void setTradename(String tradename) {
+		this.tradename = tradename;
+	}
+
+	public String getFieldno() {
+		return fieldno;
+	}
+
+	public void setFieldno(String fieldno) {
+		this.fieldno = fieldno;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getTypeno() {
+		return typeno;
+	}
+
+	public void setTypeno(String typeno) {
+		this.typeno = typeno;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getMakearea() {
+		return makearea;
+	}
+
+	public void setMakearea(String makearea) {
+		this.makearea = makearea;
+	}
+
+	public String getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(String packaging) {
+		this.packaging = packaging;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getMinnum() {
+		return minnum;
+	}
+
+	public void setMinnum(String minnum) {
+		this.minnum = minnum;
 	}
 }

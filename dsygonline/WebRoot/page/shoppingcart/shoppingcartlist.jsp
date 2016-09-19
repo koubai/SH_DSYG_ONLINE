@@ -191,7 +191,7 @@
 								</s:if>
 								<s:else>
 									<input type="button" value="新会员注册" onclick="register();"/>
-									<input type="button" value="登录后进入" onclick="login();"/>
+									<input type="button" value="登录后进入" onclick="showDiv();"/>
 								</s:else>
 							</div>
 						</div>

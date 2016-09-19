@@ -35,7 +35,6 @@
 			<div class="content">
 				<jsp:include page="../userinfo.jsp" flush="true" />
 				<s:form id="mainform" name="mainform" method="POST">
-					<s:hidden value="customerInfoDto.thesame" id="thesame"></s:hidden>
 					<table border="0" cellspacing="0" cellpadding="10" style="margin-top: 80px; margin-left: 95px;">
 						<tr>
 							<td><p style="font-size: 16px; font-weight: bold;">确认</p></td>
@@ -232,7 +231,6 @@
 		</div>
 	</div>
 </div>
-
 <jsp:include page="../foot_web.jsp" flush="true" />
 </body>
 </html>
