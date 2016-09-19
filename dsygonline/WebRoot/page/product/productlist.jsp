@@ -228,7 +228,7 @@
 							</s:if></s:iterator></tr>
 						</table>
 						<div class="buttons" style="float: left;">
-							<s:text name="keywordsearch"/><s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="16" theme="simple"></s:textfield>
+							<s:text name="keywordsearch"/>&nbsp&nbsp<s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="16" theme="simple"></s:textfield>
 							<a href="#">
 								<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" />
 							</a>
@@ -326,7 +326,7 @@
 											<input id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;"/>
 										</td>
 										<td>
-											<input type="button" value="Add" onclick="addToShoppingCart('<s:property value="id"/>');"/>
+											<input type="button" value="选购" onclick="addToShoppingCart('<s:property value="id"/>');"/>
 										</td>
 									</tr>
 								</s:iterator>

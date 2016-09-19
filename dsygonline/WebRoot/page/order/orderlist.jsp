@@ -108,14 +108,14 @@
 					</div>
 					<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
 						<tr class="tab_tittle">
-							<td>&nbsp;</td>
-							<td>订单号</td>
-							<td>交期</td>
-							<td>金额</td>
-							<td>含税金额</td>
-							<td>订单状态</td>
-							<td>创建时间</td>
-							<td>备注</td>
+							<td align="right">&nbsp;</td>
+							<td align="center">订单号</td>
+							<td align="center">交期</td>
+							<td align="center">金额</td>
+							<td align="center">含税金额</td>
+							<td align="center">订单状态</td>
+							<td align="center">创建时间</td>
+							<td align="center">备注</td>
 						</tr>
 						<s:iterator value="orderList" id="orderList" status="st2">
 							<s:if test="#st2.odd==true">
@@ -124,13 +124,13 @@
 							<s:else>
 								<tr class="bg2">
 							</s:else>
-								<td><s:property value="page.pageSize * (page.nextIndex - 1) + #st2.index + 1"/></td>
+								<td align="right"><s:property value="page.pageSize * (page.nextIndex - 1) + #st2.index + 1"/></td>
 								<td>
 									<a href="#" onclick="showDetail('<s:property value="id"/>');"><s:property value="ordercode"/></a>
 								</td>
 								<td><s:date name="deliverydate" format="yyyy/MM/dd" /></td>
-								<td><s:property value="amount"/></td>
-								<td><s:property value="taxamount"/></td>
+								<td align="right"><s:property value="amount"/></td>
+								<td align="right"><s:property value="taxamount"/></td>
 								<td>
 									<s:if test="status == 10">询货中</s:if>
 									<s:elseif test="status == 20">交期确认，待回复</s:elseif>

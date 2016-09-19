@@ -406,19 +406,11 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<div class="btn">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input class="input80" type="button" value="返回购物车" onclick=""/>
-						</div>
-						<div class="box1_right"></div>
+					<div>
+						<input type="button" class="search_btn" value="返回购物车" onclick=""/>
 					</div>
-					<div class="btn">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input class="input80" type="button" value="前往确认画面" onclick="upd();"/>
-						</div>
-						<div class="box1_right"></div>
+					<div>
+						<input type="button" class="search_btn" value="前往确认画面" onclick="upd();"/>
 					</div>
 				</td>
 			</tr>

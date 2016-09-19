@@ -172,7 +172,7 @@
 											（含增值税）<s:property value="taxmoney"/>元
 										</td>
 										<td>
-											<input type="button" value="Delete" onclick="deleteProduct('<s:property value="productid"/>');"/>
+											<input type="button" value="删除" onclick="deleteProduct('<s:property value="productid"/>');"/>
 										</td>
 									</tr>
 								</s:iterator>
@@ -184,14 +184,15 @@
 									</td>
 								</tr>
 							</table>
+							<br><br><br>
 							<div>
-								<input type="button" value="继续购买" onclick="goProductlist();"/>
+								<input type="button" class="search_btn" value="继续购买" onclick="goProductlist();"/>
 								<s:if test='#session.user_id != null && #session.user_id != ""'>
-									<input type="button" value="下一步" onclick="nextStep();"/>
+									<input type="button" class="search_btn" value="下一步" onclick="nextStep();"/>
 								</s:if>
 								<s:else>
-									<input type="button" value="新会员注册" onclick="register();"/>
-									<input type="button" value="登录后进入" onclick="showDiv();"/>
+									<input type="button" class="search_btn" value="新会员注册" onclick="register();"/>
+									<input type="button" class="search_btn" value="登录后进入" onclick="showDiv();"/>
 								</s:else>
 							</div>
 						</div>

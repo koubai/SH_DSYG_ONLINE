@@ -5,6 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" /> 
 <script type="text/javascript">
+function windowClose() {
+	window.close();
+}
+
+
 </script>
 <title><s:text name="dsyg"/>-OnlineReadMe</title>
 <head>
@@ -29,7 +34,7 @@
 								&nbsp&nbsp中国国内大陆地区<br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />交易币种<br>
-								&nbsp&nbsp元(RMB) (不含增值税)<br>
+								&nbsp&nbsp元(RMB) <br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />交易单位<br>
 								&nbsp&nbsp最小包装数<br>
@@ -90,6 +95,10 @@
 								&nbsp&nbsp受理时间: 08:30～12:00、12:45～17:15 (工作日)<br>
 								&nbsp&nbspE-mail地址: sales@shdsyg.com<br>			
 								</div>
+							</div>
+							<br><br><br>
+							<div align="middle">
+								<input type="button" class="search_btn" value="<s:text name="关闭"/>" onclick="windowClose();" />
 							</div>
 					</div>
 				</s:form>

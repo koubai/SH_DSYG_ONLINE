@@ -248,9 +248,9 @@
 						</tr>
 					</table>
 					<div align="center" style="margin-top: 40px;">
-						<input type="button" value="返回" onclick="goOrderList();"/>
+						<input type="button" class="search_btn"  value="返回" onclick="goOrderList();"/>
 						<s:if test="showOrderDto.status < 50">
-							<input type="button" value="取消" onclick="cancelOrder();"/>
+							<input type="button" class="search_btn" value="取消" onclick="cancelOrder();"/>
 						</s:if>
 					</div>
 				</s:form>
