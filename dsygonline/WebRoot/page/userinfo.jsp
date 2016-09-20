@@ -251,7 +251,7 @@
 </script>
 <div style="font-size: 18px; font-family:"微软雅黑"">
 	<span style="float: left; margin-top: 10px;">
-		东升盈港产品线上购买（DSYG online store）
+		<a href="../product/searchProductAction.action">东升盈港产品线上购买（DSYG online store）</a>
 	</span>
 	<span style="float: right; margin-top: 10px;">
 		<a href="#" name="shop_help" onclick="shop_help();">使用说明 </a> /
@@ -293,8 +293,8 @@
 			<tr>
 				<td colspan="2">
 					<div class="buttons" style="margin-top:30px;">
-							<input type="submit" class="search_btn" value="<s:text name="登录"/>" onclick="login();" />
-							<input type="button" class="search_btn" value="<s:text name="取消"/>" onclick="hideDiv();" />
+							<input type="submit" class="search_btn" value="登录" onclick="login();" />
+							<input type="button" class="search_btn" value="取消" onclick="hideDiv();" />
 					</div>
 				</td>
 			</tr>
@@ -345,8 +345,8 @@
 			<tr>
 				<td colspan="2">
 					<div class="buttons" style="margin-top:30px;">
-							<input type="submit" class="search_btn" value="<s:text name="发送邮件"/>" onclick="sendPreMail();" />
-							<input type="button" class="search_btn" value="<s:text name="取消"/>" onclick="hideRegister();" />
+							<input type="submit" class="search_btn" value="发送邮件" onclick="sendPreMail();" />
+							<input type="button" class="search_btn" value="取消" onclick="hideRegister();" />
 					</div>
 				</td>
 			</tr>
@@ -382,7 +382,7 @@
 			<tr>
 				<td colspan="2">
 					<div class="buttons" style="margin-top:30px;">
-						<input type="button" class="search_btn" value="<s:text name="OK"/>" onclick="hidePreRegister();" />
+						<input type="button" class="search_btn" value="OK" onclick="hidePreRegister();" />
 					</div>
 				</td>
 			</tr>
@@ -419,8 +419,8 @@
 			<tr>
 				<td colspan="2">
 					<div class="buttons" style="margin-top:30px;">
-							<input type="submit" class="search_btn" value="<s:text name="修改"/>" onclick="upd();" />
-							<input type="button" class="search_btn" value="<s:text name="取消"/>" onclick="hideUpdpsd();" />
+							<input type="submit" class="search_btn" value="修改" onclick="upd();" />
+							<input type="button" class="search_btn" value="取消" onclick="hideUpdpsd();" />
 					</div>
 				</td>
 			</tr>
@@ -449,8 +449,8 @@
 			<tr>
 				<td colspan="2">
 					<div class="buttons" style="margin-top:30px;">
-							<input type="submit" class="search_btn" value="<s:text name="同意"/>" onclick="cancel();" />
-							<input type="button" class="search_btn" value="<s:text name="取消"/>" onclick="hideCancel();" />
+							<input type="submit" class="search_btn" value="同意" onclick="cancel();" />
+							<input type="button" class="search_btn" value="取消" onclick="hideCancel();" />
 					</div>
 				</td>
 			</tr>

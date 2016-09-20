@@ -33,6 +33,13 @@ public interface OrderService {
 	public OrderDto queryOrderByID(String id);
 	
 	/**
+	 * 交期回复
+	 * @param order
+	 * @return
+	 */
+	public void refOrderDelivery(OrderDto order);
+	
+	/**
 	 * 根据逻辑主键查询数据
 	 * @param ordercode
 	 * @return

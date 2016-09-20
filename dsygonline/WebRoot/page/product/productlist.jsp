@@ -157,14 +157,14 @@
 							<tr>
 								<s:if test='stockfalg == "1"'>
 									<td>
-										<a href="#">
+										<a href="javascript:void(0);">
 											<div class="product product_cur" style="height: 30px;" onclick="search('1');">
 												<p>现货查询</p>
 											</div>
 										</a>
 									</td>
 									<td>
-										<a href="#">
+										<a href="javascript:void(0);">
 											<div class="product" style="height: 30px;" onclick="search('');">
 												<p>全部查询</p>
 											</div>
@@ -173,14 +173,14 @@
 								</s:if>
 								<s:else>
 									<td>
-										<a href="#">
+										<a href="javascript:void(0);">
 											<div class="product" style="height: 30px;" onclick="search('1');">
 												<p>现货查询</p>
 											</div>
 										</a>
 									</td>
 									<td>
-										<a href="#">
+										<a href="javascript:void(0);">
 											<div class="product product_cur" style="height: 30px;" onclick="search('');">
 												<p>全部查询</p>
 											</div>
@@ -192,7 +192,7 @@
 						<table width="80%" border="0" cellpadding="0" cellspacing="5">
 							<tr><s:iterator id="goodsBaseList" value="goodsBaseList" status="st1"><s:if test="#st1.index < 3">
 								<s:if test="%{goodsBaseList[#st1.index].code == fieldno}">
-									<td width="33.3%"><a href="#">
+									<td width="33.3%"><a href="javascript:void(0);">
 										<div class="product product_cur">
 											<p><s:property value="fieldname"/></p>
 											<p class="arial"><s:property value="mean"/></p>
@@ -200,7 +200,7 @@
 									</td>
 								</s:if>
 								<s:else>
-									<td width="33.3%"><a href="#" onclick="searchFieldno('<s:property value="code"/>');">
+									<td width="33.3%"><a href="javascript:void(0);" onclick="searchFieldno('<s:property value="code"/>');">
 										<div class="product">
 											<p><s:property value="fieldname"/></p>
 											<p class="arial"><s:property value="mean"/></p>
@@ -210,7 +210,7 @@
 							</s:if></s:iterator></tr>
 							<tr><s:iterator id="goodsBaseList" value="goodsBaseList" status="st1"><s:if test="#st1.index >= 3">
 								<s:if test="%{goodsBaseList[#st1.index].code == fieldno}">
-									<td width="33.3%"><a href="#">
+									<td width="33.3%"><a href="javascript:void(0);">
 										<div class="product product_cur">
 											<p><s:property value="fieldname"/></p>
 											<p class="arial"><s:property value="mean"/></p>
@@ -218,7 +218,7 @@
 									</td>
 								</s:if>
 								<s:else>
-									<td width="33.3%"><a href="#" onclick="searchFieldno('<s:property value="code"/>');">
+									<td width="33.3%"><a href="javascript:void(0);" onclick="searchFieldno('<s:property value="code"/>');">
 										<div class="product">
 											<p><s:property value="fieldname"/></p>
 											<p class="arial"><s:property value="mean"/></p>
@@ -228,8 +228,8 @@
 							</s:if></s:iterator></tr>
 						</table>
 						<div class="buttons" style="float: left;">
-							<s:text name="keywordsearch"/>&nbsp&nbsp<s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="16" theme="simple"></s:textfield>
-							<a href="#">
+							<s:text name="keywordsearch"/><s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="16" theme="simple"></s:textfield>
+							<a href="javascript:void(0);">
 								<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" />
 							</a>
 						</div>
@@ -237,20 +237,20 @@
 							<div class="page">
 								<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
 								<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage('pagenum1');"><s:text name="go"/></a>　　
-								<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
+								<a href="javascript:void(0);" onclick="changePage(0);"><s:text name="homepage"/></a>
 								<s:if test="%{page.startIndex <= 0}">
 									<a href="javascript:void(0);"><s:text name="previous"/></a>
 								</s:if>
 								<s:else>
-									<a href="#" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
+									<a href="javascript:void(0);" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
 								</s:else>
 								<s:if test="%{page.nextIndex > page.totalPage - 1}">
 									<a href="javascript:void(0);"><s:text name="next"/></a>
 								</s:if>
 								<s:else>
-									<a href="#" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
+									<a href="javascript:void(0);" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
 								</s:else>
-								<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
+								<a class="next" href="javascript:void(0);" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
 							</div>
 							<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
 								<tr class="tab_tittle">
@@ -261,10 +261,10 @@
 									<td><s:text name="specifications"/></td>
 									<td><s:text name="color"/></td>
 									<td>产地</td>
-									<td>单价(含税)</td>
+									<td>单价</td>
 									<td><s:text name="unit"/></td>
 									<td>最小单位</td>
-									<td>购买数量</td>
+									<td>购买</td>
 									<td></td>
 								</tr>
 								<s:iterator value="productList" id="productList" status="st2">
@@ -326,7 +326,7 @@
 											<input id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;"/>
 										</td>
 										<td>
-											<input type="button" value="选购" onclick="addToShoppingCart('<s:property value="id"/>');"/>
+											<input type="button" value="Add" onclick="addToShoppingCart('<s:property value="id"/>');"/>
 										</td>
 									</tr>
 								</s:iterator>
@@ -334,20 +334,20 @@
 							<div class="page">
 								<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
 								<span><s:text name="skiptopage"/><input class="num" id="pagenum2" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage('pagenum2');"><s:text name="go"/></a>　　
-								<a href="#" onclick="changePage(0);"><s:text name="homepage"/></a>
+								<a href="javascript:void(0);" onclick="changePage(0);"><s:text name="homepage"/></a>
 								<s:if test="%{page.startIndex <= 0}">
 									<a href="javascript:void(0);"><s:text name="previous"/></a>
 								</s:if>
 								<s:else>
-									<a href="#" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
+									<a href="javascript:void(0);" onclick="changePage('${page.previousIndex}');"><s:text name="previous"/></a>
 								</s:else>
 								<s:if test="%{page.nextIndex > page.totalPage - 1}">
 									<a href="javascript:void(0);"><s:text name="next"/></a>
 								</s:if>
 								<s:else>
-									<a href="#" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
+									<a href="javascript:void(0);" onclick="changePage('${page.nextIndex}');"><s:text name="next"/></a>
 								</s:else>
-								<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
+								<a class="next" href="javascript:void(0);" onclick="changePage('${page.totalPage - 1}');"><s:text name="lastpage"/></a>
 							</div>
 						</s:if>
 					</div>

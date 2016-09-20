@@ -35,6 +35,11 @@ public class OrderDetailDto extends BaseDto {
 	 */
 	private Integer productid;
 	
+	/**
+	 * 交期
+	 */
+	private Date deliverydate;
+	
 	//产品信息START
 	/**
 	 * 最小包装
@@ -392,5 +397,13 @@ public class OrderDetailDto extends BaseDto {
 
 	public void setMinnum(String minnum) {
 		this.minnum = minnum;
+	}
+
+	public Date getDeliverydate() {
+		return deliverydate;
+	}
+
+	public void setDeliverydate(Date deliverydate) {
+		this.deliverydate = deliverydate;
 	}
 }

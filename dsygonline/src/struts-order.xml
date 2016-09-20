@@ -25,6 +25,21 @@
 		<action name="cancelOrderAction" class="orderAction" method="cancelOrderAction">
 			<result name="*">/page/order/orderdetail.jsp</result>
 		</action>
+		
+		<action name="refDeliveryAction" class="orderAction" method="refDeliveryAction">
+			<result name="checkerror">/page/order/orderdetail.jsp</result>
+			<result name="*">/page/order/orderdetail.jsp</result>
+		</action>
+		
+		<action name="payMoneyAction" class="orderAction" method="payMoneyAction">
+			<result name="checkerror">/page/order/orderdetail.jsp</result>
+			<result name="*">/page/order/orderdetail.jsp</result>
+		</action>
+		
+		<action name="receiveProductAction" class="orderAction" method="receiveProductAction">
+			<result name="checkerror">/page/order/orderdetail.jsp</result>
+			<result name="*">/page/order/orderdetail.jsp</result>
+		</action>
         
 	</package>
 

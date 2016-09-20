@@ -9,6 +9,7 @@
 		<result property="orderid" column="orderid" />
 		<result property="batchno" column="batchno" />
 		<result property="productid" column="productid" />
+		<result property="deliverydate" column="deliverydate" />
 		<result property="num" column="num" />
 		<result property="price" column="price" />
 		<result property="taxprice" column="taxprice" />
@@ -37,9 +38,9 @@
 	</select>
 	
 	<insert id="insertOrderDetail" parameterClass="com.cn.dsyg.dto.OrderDetailDto">
-		insert into otb_orderdetail(orderid,batchno,productid,num,price,taxprice,amount,taxamount,status,
+		insert into otb_orderdetail(orderid,batchno,productid,deliverydate,num,price,taxprice,amount,taxamount,status,
 			res01,res02,res03,res04,res05,updateip,createuid,createdate,updateuid,updatedate)
-		values(#orderid#,#batchno#,#productid#,#num#,#price#,#taxprice#,#amount#,#taxamount#,#status#,
+		values(#orderid#,#batchno#,#productid#,#deliverydate#,#num#,#price#,#taxprice#,#amount#,#taxamount#,#status#,
 			#res01#,#res02#,#res03#,#res04#,#res05#,#updateip#,#createuid#,NOW(),#updateuid#,NOW())
 		<selectKey resultClass="int" keyProperty="id" >
 			select LAST_INSERT_ID() as value
@@ -62,6 +63,7 @@
 		update otb_orderdetail
 		set batchno = #batchno#,
 			productid = #productid#,
+			deliverydate = #deliverydate#,
 			num = #num#,
 			price = #price#,
 			taxprice = #taxprice#,

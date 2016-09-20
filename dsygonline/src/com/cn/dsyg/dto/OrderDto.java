@@ -27,6 +27,11 @@ public class OrderDto extends BaseDto {
 	private String ordercode;
 	
 	/**
+	 * 1为订单转移，其他为非转移订单
+	 */
+	private Integer transfer;
+	
+	/**
 	 * 订单产品明细
 	 */
 	private List<OrderDetailDto> orderDetailList;
@@ -39,7 +44,7 @@ public class OrderDto extends BaseDto {
 	/**
 	 * 邮件地址
 	 */
-	private String customeremail;
+	private String customermail;
 
  	/**
 	 * 总金额
@@ -541,11 +546,19 @@ public class OrderDto extends BaseDto {
 		this.paytype = paytype;
 	}
 
-	public String getCustomeremail() {
-		return customeremail;
+	public String getCustomermail() {
+		return customermail;
 	}
 
-	public void setCustomeremail(String customeremail) {
-		this.customeremail = customeremail;
+	public void setCustomermail(String customermail) {
+		this.customermail = customermail;
+	}
+
+	public Integer getTransfer() {
+		return transfer;
+	}
+
+	public void setTransfer(Integer transfer) {
+		this.transfer = transfer;
 	}
 }

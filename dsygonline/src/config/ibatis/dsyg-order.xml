@@ -7,7 +7,9 @@
 	<resultMap id="OrderDto" class="com.cn.dsyg.dto.OrderDto">
 		<result property="id" column="id" />
 		<result property="ordercode" column="ordercode" />
+		<result property="transfer" column="transfer" />
 		<result property="customerid" column="customerid" />
+		<result property="customermail" column="customermail" />
 		<result property="amount" column="amount" />
 		<result property="taxamount" column="taxamount" />
 		<result property="deliverydate" column="deliverydate" />
@@ -83,11 +85,11 @@
 	</select>
 	
 	<insert id="insertOrder" parameterClass="com.cn.dsyg.dto.OrderDto">
-		insert into otb_order(ordercode,customerid,amount,taxamount,deliverydate,cashdate,accounttype,
+		insert into otb_order(ordercode,transfer,customerid,customermail,amount,taxamount,deliverydate,cashdate,accounttype,
 			companytax,accountbank,accountid,receipttype,companycn,companyen,department,name,postcode,address,tell,
 			companycn2,companyen2,department2,name2,postcode2,address2,tell2,paytype,note,status,res01,
 			res02,res03,res04,res05,updateip,createuid,createdate,updateuid,updatedate)
-		values(#ordercode#,#customerid#,#amount#,#taxamount#,#deliverydate#,#cashdate#,#accounttype#,
+		values(#ordercode#,#transfer#,#customerid#,#customermail#,#amount#,#taxamount#,#deliverydate#,#cashdate#,#accounttype#,
 			#companytax#,#accountbank#,#accountid#,#receipttype#,#companycn#,#companyen#,#department#,#name#,#postcode#,#address#,#tell#,
 			#companycn2#,#companyen2#,#department2#,#name2#,#postcode2#,#address2#,#tell2#,#paytype#,#note#,#status#,#res01#,
 			#res02#,#res03#,#res04#,#res05#,#updateip#,#createuid#,NOW(),#updateuid#,NOW())
@@ -99,6 +101,8 @@
 	<update id="updateOrder" parameterClass="com.cn.dsyg.dto.OrderDto">
 		update otb_order
 		set amount = #amount#,
+			transfer = #transfer#,
+			customermail = #customermail#,
 			taxamount = #taxamount#,
 			deliverydate = #deliverydate#,
 			cashdate = #cashdate#,

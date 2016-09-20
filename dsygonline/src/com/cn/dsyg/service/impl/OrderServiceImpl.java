@@ -76,9 +76,6 @@ public class OrderServiceImpl implements OrderService {
 	public OrderDto queryOrderByID(String id) {
 		OrderDto order = orderDao.queryOrderByID(id);
 		if(order != null) {
-			//邮件地址
-			CustomerDto customer = customerDao.queryCustomerByID(order.getCustomerid());
-			order.setCustomeremail(customer.getCustomeremail());
 			//查询明细数据
 			List<OrderDetailDto> orderDetailList = orderDetailDao.queryOrderDetailByOrderid("" + order.getId());
 			if(orderDetailList != null && orderDetailList.size() > 0) {
@@ -139,6 +136,7 @@ public class OrderServiceImpl implements OrderService {
 //			order.setAccountbank(customer.getAccountbank());
 //			//开户行账号
 //			order.setAccountid(customer.getAccountid());
+			order.setCustomermail(customer.getCustomeremail());
 			order.setCompanycn(customer.getCompanycn());
 			order.setCompanyen(customer.getCompanyen());
 			order.setDepartment(customer.getDepartment());
@@ -256,6 +254,19 @@ public class OrderServiceImpl implements OrderService {
 		MailSender.send(from, to, subject, body, username, attachfile);
 		//*/
 		return order;
+	}
+	
+	@Override
+	public void refOrderDelivery(OrderDto order) {
+		//状态=交期已回复
+		order.setStatus(Constants.ONLINE_ORDER_STATUS_REF_DELIVERY);
+		orderDao.updateOrder(order);
+		//更新批号
+		for(OrderDetailDto detail : order.getOrderDetailList()) {
+			detail.setUpdateip(order.getUpdateip());
+			detail.setUpdateuid(order.getUpdateuid());
+			orderDetailDao.updateOrderDetail(detail);
+		}
 	}
 
 	@Override

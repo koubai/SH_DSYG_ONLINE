@@ -264,8 +264,8 @@
 						</tr>
 					</table>
 					<div align="center" style="margin-top: 40px;">
-						<input type="button" class="search_btn" value="返回购物车" onclick="goShoppingCart();"/>
-						<input type="button" class="search_btn" value="前往确认画面" onclick="confirmPage();"/>
+						<input type="button" value="返回购物车" onclick="goShoppingCart();"/>
+						<input type="button" value="前往确认画面" onclick="confirmPage();"/>
 					</div>
 				</s:form>
 			</div>

@@ -11,6 +11,7 @@
 <meta name="author" content="javascript:" />
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css<s:if test='#session.language == "en"'>/style_en.css</s:if><s:else>/style.css</s:else>" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <title><s:text name="dsyg"/>-Online</title>
 <script type="text/javascript">
@@ -19,9 +20,30 @@
 		document.mainform.submit();
 	}
 	
+	function refDelivery() {
+		if(confirm("确定提交吗？")) {
+			document.mainform.action = '<%=request.getContextPath()%>/order/refDeliveryAction.action';
+			document.mainform.submit();
+		}
+	}
+	
 	function cancelOrder() {
-		if(confirm("确定关闭该订单吗？")) {
+		if(confirm("确定取消该订单吗？")) {
 			document.mainform.action = '<%=request.getContextPath()%>/order/cancelOrderAction.action';
+			document.mainform.submit();
+		}
+	}
+	
+	function payMoney() {
+		if(confirm("确定已付款吗？")) {
+			document.mainform.action = '<%=request.getContextPath()%>/order/payMoneyAction.action';
+			document.mainform.submit();
+		}
+	}
+	
+	function receiveProduct() {
+		if(confirm("确定已收货吗？")) {
+			document.mainform.action = '<%=request.getContextPath()%>/order/receiveProductAction.action';
 			document.mainform.submit();
 		}
 	}
@@ -36,13 +58,45 @@
 				<jsp:include page="../userinfo.jsp" flush="true" />
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="strOrderDetailId" id="strOrderDetailId"></s:hidden>
-					<table class="input_table" border="1" cellspacing="5" cellpadding="10" style="margin-top: 80px;">
+					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 80px; width: 100%;">
+						<tr>
+							<td class="td_tittle" width="200">订单号：</td>
+							<td>
+								<s:property value="showOrderDto.ordercode"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">订单状态：</td>
+							<td>
+								<s:if test="showOrderDto.status == 10">询货中</s:if>
+								<s:elseif test="showOrderDto.status == 20">交期确认，待回复</s:elseif>
+								<s:elseif test="showOrderDto.status == 30">交期已回复，受理中</s:elseif>
+								<s:elseif test="showOrderDto.status == 40">下单成功，待付款</s:elseif>
+								<s:elseif test="showOrderDto.status == 50">已付款，待确认</s:elseif>
+								<s:elseif test="showOrderDto.status == 60">已收款，待发货</s:elseif>
+								<s:elseif test="showOrderDto.status == 70">已发货，待收货</s:elseif>
+								<s:elseif test="showOrderDto.status == 80">已收货，订单完成</s:elseif>
+								<s:elseif test="showOrderDto.status == 99">订单已关闭</s:elseif>
+							</td>
+						</tr>
+						<s:if test="showOrderDto.status >= 50 && showOrderDto.status != 99">
+							<tr>
+								<td class="td_tittle" width="200">付款日：</td>
+								<td>
+									<s:date name="showOrderDto.cashdate" format="yyyy/MM/dd"/>
+								</td>
+							</tr>
+						</s:if>
+					</table>
+					<table class="input_table" border="1" cellspacing="5" cellpadding="10" style="margin-top: 5px; width: 100%;">
 						<tr class="tab_tittle">
-							<td>&nbsp;</td>
-							<td>商品</td>
-							<td>单价</td>
-							<td>订单数</td>
-							<td>金额</td>
+							<td width="5%">&nbsp;</td>
+							<td width="35%">商品</td>
+							<td width="10%">单价</td>
+							<td width="10%">订单数</td>
+							<td width="15%">金额</td>
+							<td width="13%">交期</td>
+							<td width="12%">批号</td>
 						</tr>
 						<s:iterator value="showOrderDto.orderDetailList" id="orderDetailList" status="st2">
 							<s:if test="#st2.odd==true">
@@ -86,6 +140,37 @@
 									<s:property value="amount"/>元<br />
 									（含增值税）<s:property value="taxamount"/>元
 								</td>
+								<td>
+									<s:date name="deliverydate" format="yyyy/MM/dd" />
+								</td>
+								<td>
+									<s:if test="showOrderDto.status == 20">
+										<select name="showOrderDto.orderDetailList[<s:property value="#st2.index"/>].batchno">
+											<option value="001">第一批次</option>
+											<option value="002">第二批次</option>
+											<option value="003">第三批次</option>
+											<option value="004">第四批次</option>
+											<option value="005">第五批次</option>
+											<option value="006">第六批次</option>
+											<option value="007">第七批次</option>
+											<option value="008">第八批次</option>
+											<option value="009">第九批次</option>
+											<option value="010">第十批次</option>
+										</select>
+									</s:if>
+									<s:else>
+										<s:if test='batchno == "001"'>第一批次</s:if>
+										<s:elseif test='batchno == "002"'>第二批次</s:elseif>
+										<s:elseif test='batchno == "003"'>第三批次</s:elseif>
+										<s:elseif test='batchno == "004"'>第四批次</s:elseif>
+										<s:elseif test='batchno == "005"'>第五批次</s:elseif>
+										<s:elseif test='batchno == "006"'>第六批次</s:elseif>
+										<s:elseif test='batchno == "007"'>第七批次</s:elseif>
+										<s:elseif test='batchno == "008"'>第八批次</s:elseif>
+										<s:elseif test='batchno == "009"'>第九批次</s:elseif>
+										<s:elseif test='batchno == "010"'>第十批次</s:elseif>
+									</s:else>
+								</td>
 							</tr>
 						</s:iterator>
 						<tr style="height: 40px;">
@@ -96,39 +181,7 @@
 							</td>
 						</tr>
 					</table>
-					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 5px;">
-						<tr>
-							<td class="td_tittle" width="200">订单状态：</td>
-							<td>
-								<s:if test="showOrderDto.status == 10">询货中</s:if>
-								<s:elseif test="showOrderDto.status == 20">交期确认，待回复</s:elseif>
-								<s:elseif test="showOrderDto.status == 30">已回复，受理中</s:elseif>
-								<s:elseif test="showOrderDto.status == 40">下单成功，待付款</s:elseif>
-								<s:elseif test="showOrderDto.status == 50">已付款，待确认</s:elseif>
-								<s:elseif test="showOrderDto.status == 60">已收款，待发货</s:elseif>
-								<s:elseif test="showOrderDto.status == 70">已发货，待收货</s:elseif>
-								<s:elseif test="showOrderDto.status == 80">已收货，订单完成</s:elseif>
-								<s:elseif test="showOrderDto.status == 99">订单已关闭</s:elseif>
-							</td>
-						</tr>
-						<s:if test="showOrderDto.status >= 20 && showOrderDto.status != 99">
-							<tr>
-								<td class="td_tittle" width="200">交期：</td>
-								<td>
-									<s:date name="showOrderDto.deliverydate" format="yyyy/MM/dd"/>
-								</td>
-							</tr>
-						</s:if>
-						<s:if test="showOrderDto.status >= 50 && showOrderDto.status != 99">
-							<tr>
-								<td class="td_tittle" width="200">付款日：</td>
-								<td>
-									<s:date name="showOrderDto.cashdate" format="yyyy/MM/dd"/>
-								</td>
-							</tr>
-						</s:if>
-					</table>
-					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 5px;">
+					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 5px; width: 100%;">
 						<tr>
 							<td colspan="2"><p style="font-size: 16px; font-weight: bold;">购买方信息</p></td>
 						</tr>
@@ -177,11 +230,11 @@
 						<tr>
 							<td class="td_tittle" width="200">E-mail地址：</td>
 							<td>
-								<s:property value="showOrderDto.customeremail" />
+								<s:property value="showOrderDto.customermail" />
 							</td>
 						</tr>
 					</table>
-					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 40px;">
+					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 40px; width: 100%;">
 						<tr>
 							<td colspan="2">
 								<p style="font-size: 16px; font-weight: bold;">收件人信息</p>
@@ -232,7 +285,7 @@
 						<tr>
 							<td class="td_tittle" width="200">E-mail地址：</td>
 							<td>
-								<s:property value="showOrderDto.customeremail" />
+								<s:property value="showOrderDto.customermail" />
 							</td>
 						</tr>
 						<tr>
@@ -248,9 +301,18 @@
 						</tr>
 					</table>
 					<div align="center" style="margin-top: 40px;">
-						<input type="button" class="search_btn"  value="返回" onclick="goOrderList();"/>
+						<input type="button" value="返回" onclick="goOrderList();"/>
+						<s:if test="showOrderDto.status == 20">
+							<input type="button" value="交期回复" onclick="refDelivery();"/>
+						</s:if>
+						<s:if test="showOrderDto.status == 40">
+							<input type="button" value="已付款" onclick="payMoney();"/>
+						</s:if>
+						<s:if test="showOrderDto.status == 70">
+							<input type="button" value="确认收货" onclick="receiveProduct();"/>
+						</s:if>
 						<s:if test="showOrderDto.status < 50">
-							<input type="button" class="search_btn" value="取消" onclick="cancelOrder();"/>
+							<input type="button" value="订单取消" onclick="cancelOrder();"/>
 						</s:if>
 					</div>
 				</s:form>

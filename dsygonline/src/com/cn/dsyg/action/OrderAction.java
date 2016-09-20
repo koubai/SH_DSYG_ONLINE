@@ -131,6 +131,100 @@ public class OrderAction extends BaseAction {
 	}
 	
 	/**
+	 * 交期回复
+	 * @return
+	 */
+	public String refDeliveryAction() {
+		try {
+			this.clearMessages();
+			initData();
+			
+			//验证数据状态
+			OrderDto order = orderService.queryOrderByID(strOrderDetailId);
+			if(order.getStatus() == Constants.ONLINE_ORDER_STATUS_DELIVERY) {
+				//客户ID
+				String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+				showOrderDto.setUpdateip(getIP());
+				showOrderDto.setUpdateuid(customerid);
+				orderService.refOrderDelivery(showOrderDto);
+				
+				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+			} else {
+				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+				return "checkerror";
+			}
+		} catch(Exception e) {
+			log.error("refDeliveryAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 付款提交
+	 * @return
+	 */
+	public String payMoneyAction() {
+		try {
+			this.clearMessages();
+			initData();
+			
+			//验证数据状态
+			OrderDto order = orderService.queryOrderByID(strOrderDetailId);
+			if(order.getStatus() == Constants.ONLINE_ORDER_STATUS_ORDER) {
+				//客户ID
+				String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+				order.setUpdateip(getIP());
+				order.setUpdateuid(customerid);
+				//状态=已付款
+				order.setStatus(Constants.ONLINE_ORDER_STATUS_PAY);
+				orderService.updateOrder(order);
+				
+				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+			} else {
+				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+				return "checkerror";
+			}
+		} catch(Exception e) {
+			log.error("payMoneyAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 已收货
+	 * @return
+	 */
+	public String receiveProductAction() {
+		try {
+			this.clearMessages();
+			initData();
+			
+			//验证数据状态
+			OrderDto order = orderService.queryOrderByID(strOrderDetailId);
+			if(order.getStatus() == Constants.ONLINE_ORDER_STATUS_SEND) {
+				//客户ID
+				String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+				order.setUpdateip(getIP());
+				order.setUpdateuid(customerid);
+				//状态=已收货
+				order.setStatus(Constants.ONLINE_ORDER_STATUS_RECEIVE);
+				orderService.updateOrder(order);
+				
+				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+			} else {
+				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+				return "checkerror";
+			}
+		} catch(Exception e) {
+			log.error("receiveProductAction error:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 订单取消
 	 * @return
 	 */
