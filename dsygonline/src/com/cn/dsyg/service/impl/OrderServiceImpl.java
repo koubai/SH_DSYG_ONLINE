@@ -3,8 +3,11 @@ package com.cn.dsyg.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.cn.common.mail.MailSender;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
+import com.cn.common.util.StringUtil;
 import com.cn.dsyg.dao.CustomerDao;
 import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.OrderDao;
@@ -35,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Page queryOrderByPage(String ordercode, String customerid,
 			String status, Page page) {
+		ordercode = StringUtil.replaceDatabaseKeyword_mysql(ordercode);
 		//查询总记录数
 		int totalCount = orderDao.queryOrderCountByPage(ordercode, customerid, status);
 		page.setTotalCount(totalCount);
@@ -182,16 +186,16 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		
-		/*/邮件发送人，MailSender有默认发送人。
+		//邮件发送人，MailSender有默认发送人。
 		String from = "";
 		//收件人姓名，若不填则使用MailSender的默认收件人。
-		String to = customer.getCustomeremail();
+		String to = order.getCustomermail();
 		//发件人名
 		String username = "DSYG";
 		//附件，格式：filename1,filename2,filename3...（这里需要在global.properties配置文件中指定附件目录）
 		String attachfile = "";
 		//邮件标题
-		String subject = "【DSYG】受理交期确认（" + order.getOrdercode() + "）";
+		String subject = "【DSYG】询货（" + order.getOrdercode() + "）";
 		//邮件内容
 		String body = "";
 		body += "非常感谢本次与DSYG-Online确认交期。<br/>";
@@ -227,32 +231,31 @@ public class OrderServiceImpl implements OrderService {
 		}
 		body += "<br/>";
 		for(int i = 0; i < shoppingcartlist.size(); i++) {
-			ShoppingCartDto shoppingCart = shoppingcartlist.get(i);
+			ShoppingCartDto detail = shoppingcartlist.get(i);
 			body += "■商品 No." + (i + 1) + "<br/>";
 			body += "--------------------------------------------------------------------<br/>";
-			body += "商品            : " + shoppingCart.getTradename() + "<br/>";
-			body += "单价            : " + shoppingCart.getPrice() + "元<br/>";
-			body += "变更数量        : " + shoppingCart.getProductNum() + "个<br/>";
-			body += "合计            : " + shoppingCart.getMoney() + "元<br/>";
+			body += "商品            : " + detail.getTradename() + "<br/>";
+			body += "单价            : " + detail.getSaleprice() + "元<br/>";
+			body += "变更数量        : " + detail.getProductNum() + "个<br/>";
+			body += "合计            : " + detail.getTaxmoney() + "元<br/>";
 			body += "<br/>";
 		}
 		body += "<br/>";
 		body += "--------------------------------------------------------------------<br/>";
-		body += "合计            : " + totalMoney + "元<br/>";
-		body += "含增值税        : " + totalTaxMoney + "元<br/>";
+		body += "合计            : " + order.getAmount() + "元<br/>";
+		body += "含增值税        : " + order.getTaxamount() + "元<br/>";
 		body += "--------------------------------------------------------------------<br/>";
 		body += "<br/>";
 		body += "<br/>";
 		body += "===================================================<br/>";
 		body += "DSYG-Online<br/>";
-		body += "东升营港<br/>";
-		body += "手机号码: 13333333333<br/>";
+		body += "东升盈港企业发展有限公司<br/>";
+		body += "电话：021－65388038－0（总机）<br/>";
 		body += "受理时间: 08:30～12:00、12:45～17:15 (工作日)<br/>";
-		body += "E-mail地址: dsyg@dsyg.com.cn<br/>";
+		body += "Mail：sales@shdsyg.com<br/>";
 		body += "https://www.dsyg.com.cn/dsygonline/<br/>";
 		body += "===================================================<br/>";
 		MailSender.send(from, to, subject, body, username, attachfile);
-		//*/
 		return order;
 	}
 	

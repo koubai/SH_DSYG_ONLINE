@@ -65,6 +65,26 @@
 								<s:property value="showOrderDto.ordercode"/>
 							</td>
 						</tr>
+						<s:if test="showOrderDto.status > 30">
+							<tr>
+								<td class="td_tittle" width="200">公司税号：</td>
+								<td>
+									<s:property value="showOrderDto.companytax"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="td_tittle" width="200">公司开户行：</td>
+								<td>
+									<s:property value="showOrderDto.accountbank"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="td_tittle" width="200">开户行账号：</td>
+								<td>
+									<s:property value="showOrderDto.accountid"/>
+								</td>
+							</tr>
+						</s:if>
 						<tr>
 							<td class="td_tittle" width="200">订单状态：</td>
 							<td>
@@ -175,7 +195,7 @@
 						</s:iterator>
 						<tr style="height: 40px;">
 							<td align="right" colspan="4" style="font-size: 20px;font-weight: bold;">合计</td>
-							<td align="right" colspan="2" style="font-size: 20px;font-weight: bold;">
+							<td align="right" colspan="3" style="font-size: 20px;font-weight: bold;">
 								<s:property value="showOrderDto.amount"/>元<br />
 								（含增值税）<s:property value="showOrderDto.taxamount"/>元
 							</td>

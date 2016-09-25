@@ -1,6 +1,7 @@
 package com.cn.dsyg.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -178,6 +179,7 @@ public class OrderAction extends BaseAction {
 				order.setUpdateuid(customerid);
 				//状态=已付款
 				order.setStatus(Constants.ONLINE_ORDER_STATUS_PAY);
+				order.setCashdate(new Date());
 				orderService.updateOrder(order);
 				
 				showOrderDto = orderService.queryOrderByID(strOrderDetailId);

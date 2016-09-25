@@ -110,7 +110,6 @@
 						<tr class="tab_tittle">
 							<td>&nbsp;</td>
 							<td>订单号</td>
-							<td>交期</td>
 							<td>金额</td>
 							<td>含税金额</td>
 							<td>订单状态</td>
@@ -128,7 +127,6 @@
 								<td>
 									<a href="#" onclick="showDetail('<s:property value="id"/>');"><s:property value="ordercode"/></a>
 								</td>
-								<td><s:date name="deliverydate" format="yyyy/MM/dd" /></td>
 								<td><s:property value="amount"/></td>
 								<td><s:property value="taxamount"/></td>
 								<td>

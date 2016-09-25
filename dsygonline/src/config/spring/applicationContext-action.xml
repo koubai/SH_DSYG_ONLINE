@@ -46,6 +46,12 @@
 		<property name="mailAuthService">
 			<ref bean="mailAuthService" />
 		</property>
+		<property name="customerService">
+			<ref bean="customerService" />
+		</property>
+		<property name="orderService">
+			<ref bean="orderService" />
+		</property>
 	</bean>
 	
 	<!-- customer -->

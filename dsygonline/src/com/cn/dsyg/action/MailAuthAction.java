@@ -13,10 +13,12 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.EncryptionDecryption;
 import com.cn.common.util.MapUtil;
 import com.cn.common.util.StringUtil;
+import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.MailAuthDto;
-import com.cn.dsyg.dto.UserDto;
+import com.cn.dsyg.dto.OrderDto;
+import com.cn.dsyg.service.CustomerService;
 import com.cn.dsyg.service.MailAuthService;
-import com.cn.dsyg.service.UserService;
+import com.cn.dsyg.service.OrderService;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -32,11 +34,16 @@ public class MailAuthAction extends BaseAction {
 	private static final Logger log = LogManager.getLogger(MailAuthAction.class);
 	
 	private MailAuthService mailAuthService;
-	private UserService userService;
+	private CustomerService customerService;
+	private OrderService orderService;
 	
 	private String strUserid;
 	private String strAuthCode;
 
+	//订单明细
+	private OrderDto showOrderDto;
+	private String strOrderDetailId;
+		
 	/**
 	 * 订单确认
 	 * @return
@@ -63,17 +70,38 @@ public class MailAuthAction extends BaseAction {
 			Map<String, Object> map = getParamMap(params);
 			MapUtil.printMap(map);
 			
-			//逻辑删除MailAuth数据
-			mailAuthService.deleteMailAuth("" + mailAuth.getId(), ip, strUserid);
-			
 			//模拟登录
-			UserDto user = userService.queryUserByID(strUserid);
-			if(user != null) {
+			CustomerDto customer = customerService.queryCustomerByID(Integer.valueOf(strUserid));
+			if(customer != null) {
+				//用户登录Session信息
+				String username = "";
+				if(customer.getName() != null && !customer.getName().equals("")){
+					username = customer.getName();
+				} else {
+					username = customer.getCustomeremail().substring(0, customer.getCustomeremail().indexOf("@"));
+				}
 				ActionContext.getContext().getSession().put(Constants.SESSION_USER_ID, strUserid);
-				ActionContext.getContext().getSession().put(Constants.SESSION_USER_NAME, user.getUsername());
+				ActionContext.getContext().getSession().put(Constants.SESSION_USER_NAME, username);
 				ActionContext.getContext().getSession().put(Constants.SESSION_LOGIN_TIME, DateUtil.dateToLogintime(new Date()));
 				ActionContext.getContext().getSession().put(Constants.SESSION_ISLOGIN, Constants.SESSION_FLAG_IS_LOGIN);
 				//进入订单确认页面，此处暂略，等订单确认页面开发完成后，接入。
+				
+				String orderId = (String) map.get("orderId");
+				String orderStatus = (String) map.get("orderStatus");
+				OrderDto order = orderService.queryOrderByID(orderId);
+				
+				//逻辑删除MailAuth数据
+				mailAuthService.deleteMailAuth("" + mailAuth.getId(), ip, strUserid);
+				
+				if(!orderStatus.equals("" + order.getStatus())) {
+					//订单状态被更改
+					return "checkerror";
+				} else {
+					//查询订单明细
+					strOrderDetailId = orderId;
+					showOrderDto = orderService.queryOrderByID(orderId);
+					return "orderdetail";
+				}
 			} else {
 				//用户不存在
 				return "checkerror";
@@ -82,7 +110,6 @@ public class MailAuthAction extends BaseAction {
 			log.error("orderConfirm error:" + e);
 			return ERROR;
 		}
-		return SUCCESS;
 	}
 	
 	/**
@@ -128,11 +155,35 @@ public class MailAuthAction extends BaseAction {
 		this.mailAuthService = mailAuthService;
 	}
 
-	public UserService getUserService() {
-		return userService;
+	public CustomerService getCustomerService() {
+		return customerService;
 	}
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
+	public OrderDto getShowOrderDto() {
+		return showOrderDto;
+	}
+
+	public void setShowOrderDto(OrderDto showOrderDto) {
+		this.showOrderDto = showOrderDto;
+	}
+
+	public String getStrOrderDetailId() {
+		return strOrderDetailId;
+	}
+
+	public void setStrOrderDetailId(String strOrderDetailId) {
+		this.strOrderDetailId = strOrderDetailId;
 	}
 }

@@ -7,6 +7,7 @@
 	<package name="mailauth" extends="struts-default, json-default" namespace="/mailauth">
 	
 		<action name="orderConfirmAction" class="mailAuthAction" method="orderConfirmAction">
+			<result name="orderdetail">/page/order/orderdetail.jsp</result>
 			<result name="checkerror">/page/404_web.jsp</result>
 			<result name="success">/page/head_web.jsp</result>
 		</action>
