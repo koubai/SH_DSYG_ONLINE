@@ -129,6 +129,12 @@ public class OrderServiceImpl implements OrderService {
 		//状态=新增
 		order.setStatus(Constants.ONLINE_ORDER_STATUS_NEW);
 		order.setUpdateip(ip);
+		//开户行信息
+		order.setBankcompanytax(customer.getCompanytax());
+		order.setBankname(customer.getAccountbank());
+		order.setBankaccount(customer.getAccountid());
+		order.setBankreceipt(customer.getReceipttype());
+		
 		//客户信息
 		if(customer != null) {
 			order.setCustomerid(customer.getCustomerid());
@@ -255,7 +261,7 @@ public class OrderServiceImpl implements OrderService {
 		body += "Mail：sales@shdsyg.com<br/>";
 		body += "https://www.dsyg.com.cn/dsygonline/<br/>";
 		body += "===================================================<br/>";
-		MailSender.send(from, to, subject, body, username, attachfile);
+		//MailSender.send(from, to, subject, body, username, attachfile);
 		return order;
 	}
 	

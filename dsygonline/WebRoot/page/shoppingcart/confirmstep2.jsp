@@ -159,6 +159,39 @@
 					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 40px;">
 						<tr>
 							<td colspan="2">
+								<p style="font-size: 16px; font-weight: bold;">开户银行信息</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">公司税号：</td>
+							<td>
+								<s:property value="customerInfoDto.companytax" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">开户行：</td>
+							<td>
+								<s:property value="customerInfoDto.accountbank" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">帐号：</td>
+							<td>
+								<s:property value="customerInfoDto.accountid" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">发票：</td>
+							<td>
+								<s:if test='customerInfoDto.receipttype == "2"'>专用发票</s:if>
+								<s:elseif test='customerInfoDto.receipttype == "1"'>普通发票</s:elseif>
+								<s:else>aa</s:else>
+							</td>
+						</tr>
+					</table>
+					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 40px;">
+						<tr>
+							<td colspan="2">
 								<p style="font-size: 16px; font-weight: bold;">收件人信息</p>
 							</td>
 						</tr>

@@ -46,6 +46,25 @@
 		if(tell == "") {
 			msg += "（购买方）电话号码不能为空！\n";
 		}
+		
+		//开户行信息
+		var companytax = $("#companytax").val();
+		var accountbank = $("#accountbank").val();
+		var accountid = $("#accountid").val();
+		var tmpReceipttype = $("#tmpReceipttype").val();
+		if(companytax == "") {
+			msg += "（开户行）公司税号不能为空！\n";
+		}
+		if(accountbank == "") {
+			msg += "（开户行）开户行不能为空！\n";
+		}
+		if(accountid == "") {
+			msg += "（开户行）帐号不能为空！\n";
+		}
+		if(tmpReceipttype == "") {
+			msg += "（开户行）发票不能为空！\n";
+		}
+		
 		//收件人
 		if(!$("#thesamechk").attr("checked")) {
 			var companycn2 = $("#companycn2").val();
@@ -91,6 +110,7 @@
 			}
 		}
 		$("#paytype").val(paytype);
+		$("#receipttype").val(tmpReceipttype);
 		
 		if(confirm("确定提交吗？")) {
 			document.mainform.action = '<%=request.getContextPath()%>/shoppingcart/showOrderConfirm.action';
@@ -123,6 +143,7 @@
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="customerInfoDto.thesame" id="thesame"></s:hidden>
 					<s:hidden name="customerInfoDto.paytype" id="paytype"></s:hidden>
+					<s:hidden name="customerInfoDto.receipttype" id="receipttype"></s:hidden>
 					<table border="0" cellspacing="0" cellpadding="10" style="margin-top: 80px; margin-left: 95px;">
 						<tr>
 							<td><p style="font-size: 16px; font-weight: bold;">购买方、收件人</p></td>
@@ -188,6 +209,55 @@
 							</td>
 						</tr>
 					</table>
+					
+					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 40px;">
+						<tr>
+							<td colspan="2">
+								<p style="font-size: 16px; font-weight: bold;">开户银行信息</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">公司税号：</td>
+							<td>
+								<s:textfield name="customerInfoDto.companytax" id="companytax" cssStyle="width:200px;" maxlength="32" theme="simple"></s:textfield>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">开户行：</td>
+							<td>
+								<s:textfield name="customerInfoDto.accountbank" id="accountbank" cssStyle="width:200px;" maxlength="128" theme="simple"></s:textfield>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">帐号：</td>
+							<td>
+								<s:textfield name="customerInfoDto.accountid" id="accountid" cssStyle="width:200px;" maxlength="32" theme="simple"></s:textfield>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_tittle" width="200">发票：</td>
+							<td>
+								<select id="tmpReceipttype" style="width:200px;">
+									<s:if test='customerInfoDto.receipttype == "2"'>
+										<option value="">请选择</option>
+										<option value="1">普通发票</option>
+										<option value="2" selected="selected">专用发票</option>
+									</s:if>
+									<s:elseif test='showOrderDto.receipttype == "1"'>
+										<option value="">请选择</option>
+										<option value="1" selected="selected">普通发票</option>
+										<option value="2">专用发票</option>
+									</s:elseif>
+									<s:else>
+										<option value="" selected="selected">请选择</option>
+										<option value="1">普通发票</option>
+										<option value="2">专用发票</option>
+									</s:else>
+								</select>
+							</td>
+						</tr>
+					</table>
+					
 					<table class="input_table" border="0" cellspacing="0" cellpadding="10" style="margin-top: 40px;">
 						<tr>
 							<td colspan="2">
