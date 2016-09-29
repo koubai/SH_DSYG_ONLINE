@@ -223,8 +223,8 @@
 						</tr>
 					</table>
 					<div align="center" style="margin-top: 40px;">
-						<input type="button" value="返回" onclick="showCustomerInfo();"/>
-						<input type="button" value="确认" onclick="orderConfirm();"/>
+						<input type="button" class="search_btn" value="返回" onclick="showCustomerInfo();"/>
+						<input type="button" class="search_btn" value="确认" onclick="orderConfirm();"/>
 					</div>
 				</s:form>
 			</div>

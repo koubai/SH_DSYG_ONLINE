@@ -321,18 +321,18 @@
 						</tr>
 					</table>
 					<div align="center" style="margin-top: 40px;">
-						<input type="button" value="返回" onclick="goOrderList();"/>
+						<input type="button" class="search_btn" value="返回" onclick="goOrderList();"/>
 						<s:if test="showOrderDto.status == 20">
-							<input type="button" value="交期回复" onclick="refDelivery();"/>
+							<input type="button" class="search_btn" value="交期回复" onclick="refDelivery();"/>
 						</s:if>
 						<s:if test="showOrderDto.status == 40">
-							<input type="button" value="已付款" onclick="payMoney();"/>
+							<input type="button" class="search_btn" value="已付款" onclick="payMoney();"/>
 						</s:if>
 						<s:if test="showOrderDto.status == 70">
-							<input type="button" value="确认收货" onclick="receiveProduct();"/>
+							<input type="button" class="search_btn" value="确认收货" onclick="receiveProduct();"/>
 						</s:if>
 						<s:if test="showOrderDto.status < 50">
-							<input type="button" value="订单取消" onclick="cancelOrder();"/>
+							<input type="button" class="search_btn" value="订单取消" onclick="cancelOrder();"/>
 						</s:if>
 					</div>
 				</s:form>

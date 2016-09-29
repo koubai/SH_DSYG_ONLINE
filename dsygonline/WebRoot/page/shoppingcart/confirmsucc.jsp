@@ -38,7 +38,7 @@
 								<p style="font-size: 12px;">
 									感谢您发来询货请求。<br />
 									单号：<s:property value="strOrderCode"/>，我们会尽快处理！
-									<input type="button" onclick="goProductList();" value="继续购物"/>
+									<input type="button" class="search_btn" onclick="goProductList();" value="继续购物"/>
 								</p>
 							</td>
 						</tr>
