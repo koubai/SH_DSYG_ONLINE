@@ -85,6 +85,19 @@
 		</isNotEmpty>
 	</select>
 	
+	<select id="queryOrderBySchedule" parameterClass="java.util.Map" resultMap="OrderDto">
+		SELECT * FROM otb_order T WHERE 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deliverydate">
+			T.deliverydate <![CDATA[<]]> #deliverydate#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="updatedate">
+			T.updatedate <![CDATA[<]]> #updatedate#
+		</isNotEmpty>
+	</select>
+	
 	<select id="queryOrderByID" parameterClass="java.util.Map" resultMap="OrderDto">
 		select * from otb_order where id = #id#
 	</select>

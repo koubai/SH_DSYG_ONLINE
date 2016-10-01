@@ -75,6 +75,12 @@ public class OrderServiceImpl implements OrderService {
 		page.setItems(list);
 		return page;
 	}
+	
+	@Override
+	public List<OrderDto> queryOrderBySchedule(String status,
+			String deliverydate, String updatedate) {
+		return orderDao.queryOrderBySchedule(status, deliverydate, updatedate);
+	}
 
 	@Override
 	public OrderDto queryOrderByID(String id) {
@@ -261,7 +267,7 @@ public class OrderServiceImpl implements OrderService {
 		body += "Mail：sales@shdsyg.com<br/>";
 		body += "https://www.dsyg.com.cn/dsygonline/<br/>";
 		body += "===================================================<br/>";
-		//MailSender.send(from, to, subject, body, username, attachfile);
+		MailSender.send(from, to, subject, body, username, attachfile);
 		return order;
 	}
 	

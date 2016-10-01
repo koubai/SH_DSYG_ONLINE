@@ -1,5 +1,7 @@
 package com.cn.dsyg.service;
 
+import java.util.List;
+
 import com.cn.common.util.Page;
 import com.cn.dsyg.dto.MailAuthDto;
 
@@ -18,6 +20,14 @@ public interface MailAuthService {
 	 * @return
 	 */
 	public Page queryMailAuthByPage(String userid, Page page);
+	
+	/**
+	 * 定时任务查询数据
+	 * @param status
+	 * @param createdate
+	 * @return
+	 */
+	public List<MailAuthDto> queryMailAuthBySchedule(String status, String createdate);
 	
 	/**
 	 * 根据ID查询数据

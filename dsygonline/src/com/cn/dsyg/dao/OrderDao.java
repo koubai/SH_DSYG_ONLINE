@@ -31,6 +31,15 @@ public interface OrderDao {
 	 * @return
 	 */
 	public int queryOrderCountByPage(String ordercode, String customerid, String status);
+	
+	/**
+	 * 定时任务查询
+	 * @param status
+	 * @param deliverydate
+	 * @param updatedate
+	 * @return
+	 */
+	public List<OrderDto> queryOrderBySchedule(String status, String deliverydate, String updatedate);
 
 	/**
 	 * 根据ID查询数据

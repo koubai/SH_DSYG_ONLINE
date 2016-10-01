@@ -27,6 +27,14 @@ public interface MailAuthDao {
 	 * @return
 	 */
 	public int queryMailAuthCountByPage(String userid);
+	
+	/**
+	 * 定时任务查询数据
+	 * @param status
+	 * @param createdate
+	 * @return
+	 */
+	public List<MailAuthDto> queryMailAuthBySchedule(String status, String createdate);
 
 	/**
 	 * 根据ID查询数据

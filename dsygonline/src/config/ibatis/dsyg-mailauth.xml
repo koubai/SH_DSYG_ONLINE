@@ -34,6 +34,16 @@
 		LIMIT #start#, #end#
 	</select>
 	
+	<select id="queryMailAuthBySchedule" parameterClass="java.util.Map" resultMap="MailAuthDto">
+		select T.* from otb_mailauth T where 1 = 1
+		<isNotEmpty prepend="and" property="status">
+			T.status = #status#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="createdate">
+			T.createdate <![CDATA[<]]> #createdate#
+		</isNotEmpty>
+	</select>
+	
 	<select id="queryMailAuthByID" parameterClass="java.util.Map" resultMap="MailAuthDto">
 		select * from otb_mailauth where 
 			id = #id#

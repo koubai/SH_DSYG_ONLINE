@@ -39,6 +39,18 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		paramMap.put("status", status);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryOrderCountByPage", paramMap);
 	}
+	
+	@Override
+	public List<OrderDto> queryOrderBySchedule(String status,
+			String deliverydate, String updatedate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("deliverydate", deliverydate);
+		paramMap.put("updatedate", updatedate);
+		paramMap.put("status", status);
+		@SuppressWarnings("unchecked")
+		List<OrderDto> list = getSqlMapClientTemplate().queryForList("queryOrderBySchedule", paramMap);
+		return list;
+	}
 
 	@Override
 	public OrderDto queryOrderByID(String id) {
@@ -73,5 +85,4 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 	public void updateOrder(OrderDto order) {
 		getSqlMapClientTemplate().update("updateOrder", order);
 	}
-
 }

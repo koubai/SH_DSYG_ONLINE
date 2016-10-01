@@ -3,6 +3,22 @@
 
 <beans>
 
+	<!-- schedule -->
+	<bean id="scheduleService" class="com.cn.dsyg.service.impl.ScheduleServiceImpl" >
+		<property name="orderService">
+			<ref local="orderService"/>
+		</property>
+		<property name="orderDetailService">
+			<ref local="orderDetailService"/>
+		</property>
+		<property name="mailAuthService">
+			<ref local="mailAuthService"/>
+		</property>
+		<property name="customerService">
+			<ref local="customerService"/>
+		</property>
+	</bean>
+	
 	<!-- orderDetail -->
 	<bean id="orderDetailService" class="com.cn.dsyg.service.impl.OrderDetailServiceImpl" >
 		<property name="orderDetailDao">

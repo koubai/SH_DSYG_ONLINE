@@ -36,6 +36,12 @@ public class MailAuthServiceImpl implements MailAuthService {
 		page.setItems(list);
 		return page;
 	}
+	
+	@Override
+	public List<MailAuthDto> queryMailAuthBySchedule(String status,
+			String createdate) {
+		return mailAuthDao.queryMailAuthBySchedule(status, createdate);
+	}
 
 	@Override
 	public MailAuthDto queryMailAuthByID(String id) {
@@ -78,5 +84,4 @@ public class MailAuthServiceImpl implements MailAuthService {
 	public void setMailAuthDao(MailAuthDao mailAuthDao) {
 		this.mailAuthDao = mailAuthDao;
 	}
-
 }

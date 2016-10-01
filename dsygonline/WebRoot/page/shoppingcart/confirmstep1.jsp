@@ -217,25 +217,25 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200">公司税号：</td>
+							<td class="td_tittle" width="200"><span>*</span>公司税号：</td>
 							<td>
 								<s:textfield name="customerInfoDto.companytax" id="companytax" cssStyle="width:200px;" maxlength="32" theme="simple"></s:textfield>
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200">开户行：</td>
+							<td class="td_tittle" width="200"><span>*</span>开户行：</td>
 							<td>
 								<s:textfield name="customerInfoDto.accountbank" id="accountbank" cssStyle="width:200px;" maxlength="128" theme="simple"></s:textfield>
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200">帐号：</td>
+							<td class="td_tittle" width="200"><span>*</span>帐号：</td>
 							<td>
 								<s:textfield name="customerInfoDto.accountid" id="accountid" cssStyle="width:200px;" maxlength="32" theme="simple"></s:textfield>
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200">发票：</td>
+							<td class="td_tittle" width="200"><span>*</span>发票：</td>
 							<td>
 								<select id="tmpReceipttype" style="width:200px;">
 									<s:if test='customerInfoDto.receipttype == "2"'>

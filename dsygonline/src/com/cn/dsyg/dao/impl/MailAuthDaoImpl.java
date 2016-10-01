@@ -34,6 +34,17 @@ public class MailAuthDaoImpl extends BaseDao implements MailAuthDao {
 		paramMap.put("userid", userid);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryMailAuthCountByPage", paramMap);
 	}
+	
+	@Override
+	public List<MailAuthDto> queryMailAuthBySchedule(String status,
+			String createdate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("status", status);
+		paramMap.put("createdate", createdate);
+		@SuppressWarnings("unchecked")
+		List<MailAuthDto> list = getSqlMapClientTemplate().queryForList("queryMailAuthBySchedule", paramMap);
+		return list;
+	}
 
 	@Override
 	public MailAuthDto queryMailAuthByID(String id) {
