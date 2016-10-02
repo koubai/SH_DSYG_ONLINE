@@ -354,7 +354,7 @@
 					<div align="center" style="margin-top: 40px;">
 						<input type="button" class="search_btn" value="返回" onclick="goOrderList();"/>
 						<s:if test="showOrderDto.status == 20">
-							<input type="button" class="search_btn" value="交期回复" onclick="refDelivery();"/>
+							<input type="button" class="search_btn" value="订单提交" onclick="refDelivery();"/>
 						</s:if>
 						<s:if test="showOrderDto.status == 40">
 							<input type="button" class="search_btn" value="已付款" onclick="payMoney();"/>

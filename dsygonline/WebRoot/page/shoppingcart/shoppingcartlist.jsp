@@ -172,7 +172,7 @@
 											（含增值税）<s:property value="taxmoney"/>元
 										</td>
 										<td>
-											<input type="button" value="Delete" onclick="deleteProduct('<s:property value="productid"/>');"/>
+											<input type="button" value="删除" onclick="deleteProduct('<s:property value="productid"/>');"/>
 										</td>
 									</tr>
 								</s:iterator>

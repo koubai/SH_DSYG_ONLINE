@@ -326,7 +326,7 @@
 											<input id="buyNum_<s:property value="id"/>" type="text" style="width: 50px;"/>
 										</td>
 										<td>
-											<input type="button" value="Add" onclick="addToShoppingCart('<s:property value="id"/>');"/>
+											<input type="button" value="加入购物车" onclick="addToShoppingCart('<s:property value="id"/>');"/>
 										</td>
 									</tr>
 								</s:iterator>
