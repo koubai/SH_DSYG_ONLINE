@@ -235,7 +235,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200"><span>*</span>发票：</td>
+							<td class="td_tittle" width="200"><span>*</span>订单发票：</td>
 							<td>
 								<select id="tmpReceipttype" style="width:200px;">
 									<s:if test='customerInfoDto.receipttype == "2"'>

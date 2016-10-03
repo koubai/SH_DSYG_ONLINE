@@ -277,10 +277,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200">发票：</td>
+							<td class="td_tittle" width="200">订单发票：</td>
 							<td>
-								<s:if test='showOrderDto.bankreceipt == "2"'>专用发票</s:if>
-								<s:elseif test='showOrderDto.bankreceipt == "1"'>普通发票</s:elseif>
+								<s:if test='showOrderDto.receipttype == "2"'>专用发票</s:if>
+								<s:elseif test='showOrderDto.receipttype == "1"'>普通发票</s:elseif>
 								<s:else></s:else>
 							</td>
 						</tr>

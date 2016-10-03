@@ -181,11 +181,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200">发票：</td>
+							<td class="td_tittle" width="200">订单发票：</td>
 							<td>
 								<s:if test='customerInfoDto.receipttype == "2"'>专用发票</s:if>
 								<s:elseif test='customerInfoDto.receipttype == "1"'>普通发票</s:elseif>
-								<s:else>aa</s:else>
+								<s:else>其他</s:else>
 							</td>
 						</tr>
 					</table>

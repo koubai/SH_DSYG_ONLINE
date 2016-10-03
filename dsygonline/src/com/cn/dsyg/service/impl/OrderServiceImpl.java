@@ -1,6 +1,7 @@
 package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.cn.common.mail.MailSender;
@@ -139,7 +140,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setBankcompanytax(customer.getCompanytax());
 		order.setBankname(customer.getAccountbank());
 		order.setBankaccount(customer.getAccountid());
-		order.setBankreceipt(customer.getReceipttype());
+		order.setReceipttype( Integer.parseInt(customer.getReceipttype()));
 		
 		//客户信息
 		if(customer != null) {
@@ -171,6 +172,8 @@ public class OrderServiceImpl implements OrderService {
 			order.setPaytype(customer.getPaytype());
 			order.setCreateuid("" + customer.getCustomerid());
 			order.setUpdateuid("" + customer.getCustomerid());
+			
+			customerDao.updateCustomer(customer);
 		}
 		orderDao.insertOrder(order);
 		
@@ -213,7 +216,10 @@ public class OrderServiceImpl implements OrderService {
 		body += "非常感谢本次与DSYG-Online确认交期。<br/>";
 		body += "在确认在库状况后，会尽快答复您的。但是，根据产品不同，答复所需的时间也会不同，这一点还请理解。<br/>";
 		body += "<br/>";
-		body += "受理日期        : " + DateUtil.dateToShortStr(order.getDeliverydate()) + "<br/>";
+		if (order.getDeliverydate() == null )
+			body += "受理日期        : " + DateUtil.dateToShortStr(new Date()) + "<br/>";
+		else
+			body += "受理日期        : " + DateUtil.dateToShortStr(order.getDeliverydate()) + "<br/>";
 		body += "受理编号        : " + order.getOrdercode() + "<br/>";
 		body += "<br/>";
 		body += "■购买方<br/>";
@@ -257,6 +263,13 @@ public class OrderServiceImpl implements OrderService {
 		body += "合计            : " + order.getAmount() + "元<br/>";
 		body += "含增值税        : " + order.getTaxamount() + "元<br/>";
 		body += "--------------------------------------------------------------------<br/>";
+		if(order.getReceipttype()== 1) {
+			body += "发票        : 普通发票<br/>";
+		}else if(order.getReceipttype() == 2) {
+			body += "发票        : 专用发票<br/>";
+		}else {
+			body += "发票        : <br/>";
+		}
 		body += "<br/>";
 		body += "<br/>";
 		body += "===================================================<br/>";
@@ -265,7 +278,7 @@ public class OrderServiceImpl implements OrderService {
 		body += "电话：021－65388038－0（总机）<br/>";
 		body += "受理时间: 08:30～12:00、12:45～17:15 (工作日)<br/>";
 		body += "Mail：sales@shdsyg.com<br/>";
-		body += "https://www.dsyg.com.cn/dsygonline/<br/>";
+		body += "http://www.shdsyg.cn/dsygonline/<br/>";
 		body += "===================================================<br/>";
 		MailSender.send(from, to, subject, body, username, attachfile);
 		return order;
