@@ -150,6 +150,7 @@ public class OrderAction extends BaseAction {
 				orderService.refOrderDelivery(showOrderDto);
 				
 				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+				this.addActionMessage("订单提交成功！");
 			} else {
 				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
 				return "checkerror";
