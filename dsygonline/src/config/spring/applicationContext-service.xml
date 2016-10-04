@@ -91,12 +91,6 @@
 		<property name="mailAuthDao">
 			<ref local="mailAuthDao"/>
 		</property>
-		<property name="orderDao">
-			<ref local="orderDao"/>
-		</property>
-		<property name="orderDetailDao">
-			<ref local="orderDetailDao"/>
-		</property>
 	</bean>
 	
 	<bean id="mailAuthDao" class="com.cn.dsyg.dao.impl.MailAuthDaoImpl">
