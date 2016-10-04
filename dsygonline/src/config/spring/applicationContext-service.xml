@@ -3,6 +3,45 @@
 
 <beans>
 
+	<!-- warehouse -->
+	<bean id="warehouseService" class="com.cn.dsyg.service.impl.WarehouseServiceImpl" >
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
+		</property>
+	</bean>
+	
+	<bean id="warehouseDao" class="com.cn.dsyg.dao.impl.WarehouseDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- salesItem -->
+	<bean id="salesItemService" class="com.cn.dsyg.service.impl.SalesItemServiceImpl" >
+		<property name="salesItemDao">
+			<ref local="salesItemDao"/>
+		</property>
+	</bean>
+	
+	<bean id="salesItemDao" class="com.cn.dsyg.dao.impl.SalesItemDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- sales -->
+	<bean id="salesService" class="com.cn.dsyg.service.impl.SalesServiceImpl" >
+		<property name="salesDao">
+			<ref local="salesDao"/>
+		</property>
+	</bean>
+	
+	<bean id="salesDao" class="com.cn.dsyg.dao.impl.SalesDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	<!-- schedule -->
 	<bean id="scheduleService" class="com.cn.dsyg.service.impl.ScheduleServiceImpl" >
 		<property name="orderService">
@@ -48,6 +87,15 @@
 		</property>
 		<property name="productDao">
 			<ref local="productDao"/>
+		</property>
+		<property name="salesDao">
+			<ref local="salesDao"/>
+		</property>
+		<property name="salesItemDao">
+			<ref local="salesItemDao"/>
+		</property>
+		<property name="warehouseDao">
+			<ref local="warehouseDao"/>
 		</property>
 	</bean>
 	

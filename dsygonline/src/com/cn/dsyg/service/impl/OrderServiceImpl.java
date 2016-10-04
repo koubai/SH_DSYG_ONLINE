@@ -2,7 +2,9 @@ package com.cn.dsyg.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cn.common.mail.MailSender;
 import com.cn.common.util.Constants;
@@ -14,11 +16,15 @@ import com.cn.dsyg.dao.Dict01Dao;
 import com.cn.dsyg.dao.OrderDao;
 import com.cn.dsyg.dao.OrderDetailDao;
 import com.cn.dsyg.dao.ProductDao;
+import com.cn.dsyg.dao.SalesDao;
+import com.cn.dsyg.dao.SalesItemDao;
+import com.cn.dsyg.dao.WarehouseDao;
 import com.cn.dsyg.dto.CustomerDto;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.OrderDetailDto;
 import com.cn.dsyg.dto.OrderDto;
 import com.cn.dsyg.dto.ProductDto;
+import com.cn.dsyg.dto.SalesDto;
 import com.cn.dsyg.dto.ShoppingCartDto;
 import com.cn.dsyg.service.OrderService;
 
@@ -35,6 +41,10 @@ public class OrderServiceImpl implements OrderService {
 	private Dict01Dao dict01Dao;
 	private CustomerDao customerDao;
 	private ProductDao productDao;
+	
+	private WarehouseDao warehouseDao;
+	private SalesDao salesDao;
+	private SalesItemDao salesItemDao;
 
 	@Override
 	public Page queryOrderByPage(String ordercode, String customerid,
@@ -296,6 +306,38 @@ public class OrderServiceImpl implements OrderService {
 			orderDetailDao.updateOrderDetail(detail);
 		}
 	}
+	
+	@Override
+	public void cancelOrder(String customerid, OrderDto order) {
+		//状态=关闭
+		order.setStatus(Constants.ONLINE_ORDER_STATUS_CLOSE);
+		orderDao.updateOrder(order);
+		
+		//查询明细数据
+		List<OrderDetailDto> orderDetailList = orderDetailDao.queryOrderDetailByOrderid("" + order.getId());
+		Map<String, String> mapProductids = new HashMap<String, String>();
+		
+		//删除sales、salesitem和warehouse记录
+		for(OrderDetailDto detail : orderDetailList) {
+			//online订单号+批号
+			String theme2 = order.getOrdercode() + detail.getBatchno();
+			if(mapProductids.get(theme2) == null) {
+				mapProductids.put(theme2, "");
+			}
+		}
+		for(Map.Entry<String, String> entry : mapProductids.entrySet()) {
+			SalesDto sales = salesDao.querySalesByTheme2(customerid, entry.getKey(), "1");
+			if(sales != null) {
+				String salesno = sales.getSalesno();
+				//物理删除warehouse
+				warehouseDao.deleteWarehouseByParentid(salesno, "", "");
+				//物理删除明细数据
+				salesItemDao.deleteAllSalesItemBySalesno(salesno);
+				//物理删除销售单
+				salesDao.deleteSales("" + sales.getId());
+			}
+		}
+	}
 
 	@Override
 	public void insertOrder(OrderDto order) {
@@ -378,5 +420,29 @@ public class OrderServiceImpl implements OrderService {
 
 	public void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
+	}
+
+	public WarehouseDao getWarehouseDao() {
+		return warehouseDao;
+	}
+
+	public void setWarehouseDao(WarehouseDao warehouseDao) {
+		this.warehouseDao = warehouseDao;
+	}
+
+	public SalesDao getSalesDao() {
+		return salesDao;
+	}
+
+	public void setSalesDao(SalesDao salesDao) {
+		this.salesDao = salesDao;
+	}
+
+	public SalesItemDao getSalesItemDao() {
+		return salesItemDao;
+	}
+
+	public void setSalesItemDao(SalesItemDao salesItemDao) {
+		this.salesItemDao = salesItemDao;
 	}
 }

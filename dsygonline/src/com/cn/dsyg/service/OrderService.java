@@ -49,6 +49,13 @@ public interface OrderService {
 	public void refOrderDelivery(OrderDto order);
 	
 	/**
+	 * 订单取消
+	 * @param customerid
+	 * @param order
+	 */
+	public void cancelOrder(String customerid, OrderDto order);
+	
+	/**
 	 * 根据逻辑主键查询数据
 	 * @param ordercode
 	 * @return

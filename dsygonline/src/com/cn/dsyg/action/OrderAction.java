@@ -244,7 +244,7 @@ public class OrderAction extends BaseAction {
 			order.setStatus(Constants.ONLINE_ORDER_STATUS_CLOSE);
 			order.setUpdateip(this.getIP());
 			order.setUpdateuid(customerid);
-			orderService.updateOrder(order);
+			orderService.cancelOrder(customerid, order);
 			
 			//刷新页面数据
 			showOrderDto = orderService.queryOrderByID(strOrderDetailId);

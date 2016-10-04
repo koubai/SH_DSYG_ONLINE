@@ -12,5 +12,8 @@
 	<sqlMap resource="/config/ibatis/dsyg-customer.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-order.xml" />
 	<sqlMap resource="/config/ibatis/dsyg-orderdetail.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-sales.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-salesitem.xml" />
+	<sqlMap resource="/config/ibatis/dsyg-warehouse.xml" />
 	
 </sqlMapConfig>
