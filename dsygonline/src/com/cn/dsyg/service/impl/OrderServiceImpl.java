@@ -216,11 +216,11 @@ public class OrderServiceImpl implements OrderService {
 		//收件人姓名，若不填则使用MailSender的默认收件人。
 		String to = order.getCustomermail();
 		//发件人名
-		String username = "DSYG";
+		String username = "东升盈港";
 		//附件，格式：filename1,filename2,filename3...（这里需要在global.properties配置文件中指定附件目录）
 		String attachfile = "";
 		//邮件标题
-		String subject = "【DSYG】询货（" + order.getOrdercode() + "）";
+		String subject = "【东升盈港线上购买】询货（" + order.getOrdercode() + "）";
 		//邮件内容
 		String body = "";
 		body += "非常感谢本次与DSYG-Online确认交期。<br/>";
