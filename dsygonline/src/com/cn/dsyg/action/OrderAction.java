@@ -126,6 +126,12 @@ public class OrderAction extends BaseAction {
 			initData();
 			//查询订单明细
 			showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+			//客户ID
+			String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+			//防止用户自己输入不属于自己的订单ID
+			if(showOrderDto == null || !customerid.equals("" + showOrderDto.getCustomerid())) {
+				return "checkerror";
+			}
 		} catch(Exception e) {
 			log.error("showOrderDetailAction error:" + e);
 			return ERROR;

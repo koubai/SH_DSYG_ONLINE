@@ -100,8 +100,8 @@ public class MailAuthAction extends BaseAction {
 				} else {
 					//查询订单明细
 					strOrderDetailId = orderId;
-					showOrderDto = orderService.queryOrderByID(orderId);
-					System.out.println("orderdetail:" + orderId);
+					//showOrderDto = orderService.queryOrderByID(orderId);
+					//System.out.println("orderdetail:" + orderId);
 					return "orderdetail";
 				}
 			} else {

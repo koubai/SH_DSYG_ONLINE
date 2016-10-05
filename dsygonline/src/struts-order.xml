@@ -19,6 +19,7 @@
 		</action>
 		
 		<action name="showOrderDetailAction" class="orderAction" method="showOrderDetailAction">
+			<result name="checkerror">/page/error_web.jsp</result>
 			<result name="*">/page/order/orderdetail.jsp</result>
 		</action>
 		
