@@ -13,7 +13,9 @@ import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.dsyg.dto.Dict01Dto;
 import com.cn.dsyg.dto.FeatureDto;
+import com.cn.dsyg.dto.OrderDetailDto;
 import com.cn.dsyg.dto.OrderDto;
+import com.cn.dsyg.dto.ProductDto;
 import com.cn.dsyg.service.Dict01Service;
 import com.cn.dsyg.service.OrderService;
 import com.opensymphony.xwork2.ActionContext;
@@ -142,21 +144,25 @@ public class OrderAction extends BaseAction {
 			
 			//验证数据状态
 			OrderDto order = orderService.queryOrderByID(strOrderDetailId);
+			System.out.println("strOrderDetailId:" + strOrderDetailId);
 			if(order.getStatus() == Constants.ONLINE_ORDER_STATUS_DELIVERY) {
 				//客户ID
-				String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);
+				String customerid = (String) ActionContext.getContext().getSession().get(Constants.SESSION_USER_ID);				
 				showOrderDto.setUpdateip(getIP());
 				showOrderDto.setUpdateuid(customerid);
 				orderService.refOrderDelivery(showOrderDto);
-				
 				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+				
+				System.out.println("订单提交成功！");
 				this.addActionMessage("订单提交成功！");
 			} else {
 				showOrderDto = orderService.queryOrderByID(strOrderDetailId);
+				System.out.println("订单提交FAIL！"+strOrderDetailId);
 				return "checkerror";
 			}
 		} catch(Exception e) {
 			log.error("refDeliveryAction error:" + e);
+			System.out.println("订单提交ERROR！" + e);
 			return ERROR;
 		}
 		return SUCCESS;

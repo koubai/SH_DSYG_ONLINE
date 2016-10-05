@@ -95,11 +95,13 @@ public class MailAuthAction extends BaseAction {
 				
 				if(!orderStatus.equals("" + order.getStatus())) {
 					//订单状态被更改
+					System.out.println("checkerror");
 					return "checkerror";
 				} else {
 					//查询订单明细
 					strOrderDetailId = orderId;
 					showOrderDto = orderService.queryOrderByID(orderId);
+					System.out.println("orderdetail:" + orderId);
 					return "orderdetail";
 				}
 			} else {
