@@ -85,11 +85,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 					order.setStatus(Constants.ONLINE_ORDER_STATUS_CLOSE);
 					order.setNote("付款日已过。");
 					order.setUpdateuid("system");
-					orderService.updateOrder(order);
+					orderService.cancelOrder("", order);
 				}
 			}
 		} catch(Exception e) {
-			log.error("==============deliveryOrder error================" + e);
+			log.error("==============noPayOrder error================" + e);
 		}
 	}
 	
