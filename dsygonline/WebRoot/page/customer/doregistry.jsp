@@ -144,7 +144,8 @@
 		</div>
 		<div class="content" style="margin-top: 0px;">
 			<span id="content">
-				<a href="#" name="updCustomer" onclick="updCustomer();">确认并返回线上购买页面 </a>
+				<!-- <a href="#" name="updCustomer" onclick="updCustomer();">确认并返回线上购买页面 </a> -->
+				<input type="button" class="search_btn2" value="确认并返回线上购买页面" onclick="updCustomer();"/>
 			</span>
 		</div>
 	</div>

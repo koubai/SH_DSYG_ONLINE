@@ -112,7 +112,7 @@
 							<div style="margin-top: 60px; font-size: 18px;">
 								商品<br />
 								稍后会发送“交期说明”的邮件<br />
-								如果对交期说明邮件中所记录的交期没有疑问的话，请使用同一份邮件的订单手续进行下单。
+								如果对交期说明邮件中所记录的交期没有疑问的话，请继续订单手续进行下单。
 							</div>
 							<table class="product_tab" width="100%" border="1" cellspacing="5" cellpadding="10">
 								<tr class="tab_tittle">

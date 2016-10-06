@@ -217,6 +217,7 @@ ul.pagination li a:hover{background-position: 0px 100%; color: #fff; text-decora
 .keyword{ width:400px; height:30px; border-radius:5px; border:none; border:1px solid #dddddd;}
 .num{  width:30px; height:20px; margin:0 3px; border:none; border:1px solid #dddddd;}
 .search_btn{ width:136px; height:30px; background:url(../images/button.png) no-repeat; border:none; color:#ffffff;}
+.search_btn2{ width:160px; height:30px; background:url(../images/button.png) no-repeat; border:none; color:#ffffff;}
 .reset_btn{ width:136px; height:30px; background:url(../images/button_gray.png) no-repeat; border:none; color:#ffffff;}
 .buttons input:hover{ opacity:0.9;}
 .product_search .search_content h3{ height:30px; line-height:30px; font-size:16px; color:#037eb9;}
