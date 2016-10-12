@@ -39,7 +39,7 @@ public class DsygOnlineUtil {
 				}
 			}
 		}
-		result = baseprice.multiply(new BigDecimal(1).add(pecent.divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+		result = baseprice.multiply(pecent.divide(new BigDecimal(100))).setScale(6, BigDecimal.ROUND_HALF_UP);
 		return result;
 	}
 	

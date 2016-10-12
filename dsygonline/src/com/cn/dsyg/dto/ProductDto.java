@@ -1120,7 +1120,7 @@ public class ProductDto extends BaseDto {
 						//取上一个标签的内容
 						String[] startll = list[i - 1].split("-");
 						startnum = Integer.valueOf(startll[0]) * basenum;
-						BigDecimal price = basetaxprice.multiply(new BigDecimal(1).add(new BigDecimal(startll[1]).divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+						BigDecimal price = basetaxprice.multiply(new BigDecimal(startll[1]).divide(new BigDecimal(100))).setScale(6, BigDecimal.ROUND_HALF_UP);
 						
 						String[] ll = list[i].split("-");
 						int endnum = Integer.valueOf(ll[0]) * basenum;
@@ -1128,7 +1128,7 @@ public class ProductDto extends BaseDto {
 						showOnlinePriceTip += "" + startnum + "-" + endnum + "，单价：" + price + "&#13;";
 						if(i == list.length - 1) {
 							//最后一条记录
-							BigDecimal lastprice = basetaxprice.multiply(new BigDecimal(1).add(new BigDecimal(ll[1]).divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+							BigDecimal lastprice = basetaxprice.multiply(new BigDecimal(ll[1]).divide(new BigDecimal(100))).setScale(6, BigDecimal.ROUND_HALF_UP);
 							//showOnlinePriceTip += "" + endnum + "以上单价：" + lastprice + "[" + ll[1] + "]";
 							showOnlinePriceTip += "" + endnum + "以上单价：" + lastprice + "";
 						}
@@ -1149,7 +1149,7 @@ public class ProductDto extends BaseDto {
 			if(item13 != null && !"".equals(item13)) {
 				String[] list = item13.split(";");
 				String[] startll = list[0].split("-");
-				onlineprice = basetaxprice.multiply(new BigDecimal(1).add(new BigDecimal(startll[1]).divide(new BigDecimal(100)))).setScale(6, BigDecimal.ROUND_HALF_UP);
+				onlineprice = basetaxprice.multiply(new BigDecimal(startll[1]).divide(new BigDecimal(100))).setScale(6, BigDecimal.ROUND_HALF_UP);
 			}
 		}
 		return onlineprice;

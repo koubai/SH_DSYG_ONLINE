@@ -80,6 +80,7 @@
 		var minnum = $("#minNum_" + id).val();
 		var basetaxprice = $("#baseTaxPrice_" + id).val();
 		var pricelist = $("#onlinePriceList_" + id).val();
+		
 		if(price == "") {
 			alert("该产品单价为空！");
 			return;
