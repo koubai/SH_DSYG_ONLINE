@@ -91,13 +91,13 @@
 			$("#buyNum_" + id).focus();
 			return;
 		}
-		if(!iscInteger(amount)){
+		if(!isReal(amount)){
 			alert("购买数量必须是大于0的整数！");
 			$("#buyNum_" + id).focus();
 			return;
 		}
 		//验证公倍数
-		if(parseInt(amount) % parseInt(minnum) != 0) {
+		if(parseFloat(amount) % parseFloat(minnum) != 0) {
 			alert("购买数量必须是最小单位的整数倍！");
 			$("#buyNum_" + id).focus();
 			return;

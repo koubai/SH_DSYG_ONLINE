@@ -1112,18 +1112,18 @@ public class ProductDto extends BaseDto {
 		showOnlinePriceTip = "";
 		if(basetaxprice != null) {
 			if(item13 != null && !"".equals(item13) && item12 != null && !"".equals(item12)) {
-				int basenum = Integer.valueOf(item12);
-				int startnum = 0;
+				BigDecimal basenum = new BigDecimal(item12);
+				BigDecimal startnum = new BigDecimal(0);
 				String[] list = item13.split(";");
 				for(int i = 1; i < list.length; i++) {
 					if(!"".equals(list[i])) {
 						//取上一个标签的内容
 						String[] startll = list[i - 1].split("-");
-						startnum = Integer.valueOf(startll[0]) * basenum;
+						startnum = basenum.multiply(new BigDecimal(startll[0])) ;
 						BigDecimal price = basetaxprice.multiply(new BigDecimal(startll[1]).divide(new BigDecimal(100))).setScale(6, BigDecimal.ROUND_HALF_UP);
 						
 						String[] ll = list[i].split("-");
-						int endnum = Integer.valueOf(ll[0]) * basenum;
+						BigDecimal endnum = basenum.multiply(new BigDecimal(ll[0])) ;
 						//showOnlinePriceTip += "" + startnum + "-" + endnum + "，单价：" + price + "[" + startll[1] + "]&#13;";
 						showOnlinePriceTip += "" + startnum + "-" + endnum + "，单价：" + price + "&#13;";
 						if(i == list.length - 1) {

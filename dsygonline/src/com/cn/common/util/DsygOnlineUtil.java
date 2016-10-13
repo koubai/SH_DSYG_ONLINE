@@ -23,14 +23,15 @@ public class DsygOnlineUtil {
 		BigDecimal pecent = new BigDecimal(0);
 		if(baseprice != null) {
 			if(pricelist != null && !"".equals(pricelist) && basenum != null) {
-				int base = Integer.valueOf(basenum);
-				int n = buynum.intValue() / base;
+				BigDecimal base = new BigDecimal(basenum);
+				BigDecimal n = buynum.divide(base);
 				String[] list = pricelist.split(";");
 				for(int i = 0; i < list.length; i++) {
 					if(!"".equals(list[i])) {
 						//取上一个标签的内容
 						String[] ll = list[i].split("-");
-						if(n >= Integer.valueOf(ll[0])) {
+						BigDecimal lcmp = new BigDecimal(ll[0]);
+						if(n.compareTo(lcmp) >= 0 ) {
 							pecent = new BigDecimal(ll[1]);
 						} else {
 							break;
@@ -45,9 +46,10 @@ public class DsygOnlineUtil {
 	
 	public static void main(String[] args) {
 		BigDecimal baseprice = new BigDecimal(0.188955);
-		String pricelist = "1-55;20-50;40-48;60-46;80-44;100-42;120-40;140-38;160-36;180-34;200-32;";
-		String basenum = "500";
-		BigDecimal buynum = new BigDecimal(100000);
+//		String pricelist = "1-55;2-50;40-48;60-46;80-44;100-42;120-40;140-38;160-36;180-34;200-32;";
+		String pricelist = "1.22-55;2.44-50;305-48;1525-46;";
+		String basenum = "1.22";
+		BigDecimal buynum = new BigDecimal("2.44");
 		System.out.println(calcOnlinePrice(baseprice, pricelist, basenum, buynum));
 	}
 }
