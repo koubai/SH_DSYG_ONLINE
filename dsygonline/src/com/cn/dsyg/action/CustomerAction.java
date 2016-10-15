@@ -325,7 +325,7 @@ public class CustomerAction extends BaseAction {
 			List<CustomerDto> customerList = customerService.queryCustomerByMail(customeremailR);
 			for (CustomerDto customer : customerList){
 				if(customer.getStatus() == 1){
-					msg = "此邮件地址已被注册，请根据邮件内容激活正式会员！";
+					msg = "此邮件地址注册成功，请根据邮件内容激活正式会员！";
 					loginMsg(msg);
 					return null;
 				}
@@ -466,7 +466,7 @@ public class CustomerAction extends BaseAction {
 			body += "感谢您成为东升盈港正式会员<br/><br/>";
 			body += "用户登录EMAIL:[ " + email + " ]<br/>";
 			body += "登录密码是新会员在注册时所输入的密码。<br/><br/>";
-			body += hostInfo + "/dsygonline/customer/showShop.action<br/><br/><br/><br/><br/>";
+			body += hostInfo + "/dsygonline/customer/loginAction.action<br/><br/><br/><br/><br/>";
 			body += "==========================================<br/>";
 			body += "东升盈港企业发展有限公司<br/>";
 			body += "上海市杨浦区控江路760号<br/>";
