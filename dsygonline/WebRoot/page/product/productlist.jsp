@@ -97,7 +97,7 @@
 			return;
 		}
 		//验证公倍数
-		if(parseFloat(amount) % parseFloat(minnum) != 0) {
+		if((amount*1000) % (minnum*1000) != 0) {
 			alert("购买数量必须是最小单位的整数倍！");
 			$("#buyNum_" + id).focus();
 			return;

@@ -26,7 +26,7 @@ function windowClose() {
 							</div>
 							<div style="margin-top: 5px;">
 								<div class="pfont1">
-								东升盈港的网上商店成立了。 仅用于中国国内大陆地区销售。 旨在做到全球富有竞争力的单价<br>
+								东升盈港的网上商店成立了。 仅用于中国国内大陆地区销售。 旨在做到国内富有竞争力的现货供应及单价<br>
 								</div>
 								<div class="pfont2">
 								<br>
@@ -56,13 +56,13 @@ function windowClose() {
 								<br>
 								&nbsp&nbsp⑤自提、送货<br>
 								&nbsp&nbsp・指定是自提的情况下，本公司会发送可以自提的邮件给您。还请来本公司指定仓库进行自提。自提时请带好本公司发送给您的邮件。<br>
-								&nbsp&nbsp・指定是送货的情况下，本公司将以“到付（收件方付费）”形式发送货物给您。<br>
+								&nbsp&nbsp・指定是送货的情况下，本公司将以“快递/物流”形式发送货物给您。<br>
 								<br>
 								&nbsp&nbsp⑥发票<br>
 								&nbsp&nbsp事后邮递寄送。<br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />关于运费<br>
-								&nbsp&nbsp由客户自行承担<br>
+								&nbsp&nbsp我司承担运费(特殊情况除外)<br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />付款方式<br>
 								&nbsp&nbsp银行汇款<br>
@@ -70,29 +70,32 @@ function windowClose() {
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />关于取消订单<br>
 								&nbsp&nbsp因客户自身原因引起的订单取消我司一概不予以接受。请在下单时注意不要发生错误。<br>
-								&nbsp&nbsp我司不会予以退款。<br>
+								&nbsp&nbsp我司不会予以退货及退款。<br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />关于产品品质<br>
 								&nbsp&nbsp产品的生产实行最高的品质管理体制。<br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />关于售价<br>
-								&nbsp&nbsp售价会有浮动，且不会提前告知。<br>
+								&nbsp&nbsp售价会有浮动(例如铜价,汇率等因素变化)，我司网上商城系统会自行调整,且不会提前告知。<br>
 								<br>
-								 <img src="<%=request.getContextPath()%>/images/diamond.png" />关于产品换货<br>
-								&nbsp&nbsp万一购买的商品为不良品的情况下，我司接受不良返品，并且进行良品交换。<br>
-								&nbsp&nbsp但是，我司不提供产品不良解析及品质相关的报告书。<br>
-								&nbsp&nbsp此外，以下情况我司不接受返品交换，还请注意。<br>
-								&nbsp&nbsp・因客户的责任而引起的破损<br>
-								&nbsp&nbsp・完成交货后，超过1个月没有任何联系<br>
+								 <img src="<%=request.getContextPath()%>/images/diamond.png" />关于产品售后服务<br>
+								&nbsp&nbsp完成交货后,超过1个月没有任何联系的,视为合格品,<br>
+								&nbsp&nbsp我司不再提供任何售后服务。<br>
 								<br>
 								 <img src="<%=request.getContextPath()%>/images/diamond.png" />咨询联系方式<br>
 								&nbsp&nbsp上海東升盈港企业发展有限公司<br>
 								&nbsp&nbspShanghai DSYG Enterprise Development Co.<br>
 								&nbsp&nbsp上海市杨浦区控江路760号<br>
-								&nbsp&nbspNo.760 Kongjiang Road Yangpu District, Shanghai<br>
+								&nbsp&nbspNo.760 Kongjiang Road Yangpu District, Shanghai<br>																								
 								&nbsp&nbsp电话号码: 021－65388038－0（总机）<br>
 								&nbsp&nbsp传真：021－65387551
-								&nbsp&nbsp受理时间: 08:30～12:00、12:45～17:15 (工作日)<br>
+								&nbsp&nbsp深圳東升盈港科技有限公司<br>
+								&nbsp&nbspShenzhen DSYG Enterprise Development Co., Ltd.<br>
+								&nbsp&nbsp广东省深圳市西乡镇宝民二路臣田综合楼8号<br>
+								&nbsp&nbspNo.No 8 Chen Tian Building NO 2 Baomin Road Xixiang, Shenzhen City, Guangdong Province<br>
+								&nbsp&nbsp电话号码: 0755－61524201－0（总机）<br>
+								&nbsp&nbsp传真：0755－61524200
+								&nbsp&nbsp受理时间: 09:00～17:00 (工作日)<br>
 								&nbsp&nbspE-mail地址: sales@shdsyg.com<br>			
 								</div>
 							</div>

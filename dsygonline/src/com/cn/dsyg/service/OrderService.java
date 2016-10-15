@@ -53,7 +53,7 @@ public interface OrderService {
 	 * @param customerid
 	 * @param order
 	 */
-	public void cancelOrder(String customerid, OrderDto order);
+	public void cancelOrder(String customerid, OrderDto order) throws Exception;
 	
 	/**
 	 * 根据逻辑主键查询数据

@@ -87,7 +87,7 @@ a { color:#FFF}
 						<div class="box1">
 							<div class="box1_left"></div>
 							<div class="box1_center">
-								<input name="addCustomerDto.customeremail" type="text" style="width:200px;" maxlength="20" id="customeremail" value="<s:property value="addCustomerDto.customeremail"/>"/>
+								<input name="addCustomerDto.customeremail" type="text" style="width:200px;" maxlength="60" id="customeremail" value="<s:property value="addCustomerDto.customeremail"/>"/>
 							</div>
 							<div class="box1_right"></div>
 						</div>

@@ -281,7 +281,7 @@
 			<tr>
 				<td>邮件名</td>
 				<td>
-					<input name="" type="text" style="width:200px;" maxlength="20" id="customeremail" value="<s:property value="customeremail"/>"/>
+					<input name="" type="text" style="width:200px;" maxlength="60" id="customeremail" value="<s:property value="customeremail"/>"/>
 				</td>
 			</tr>
 			<tr>
@@ -327,7 +327,7 @@
 			<tr>
 				<td>邮件名</td>
 				<td>
-					<input name="" type="text" style="width:200px;" maxlength="20" id="customeremailR" value="<s:property value="customeremailR"/>"/>
+					<input name="" type="text" style="width:200px;" maxlength="60" id="customeremailR" value="<s:property value="customeremailR"/>"/>
 				</td>
 			</tr>
 			<tr>

@@ -284,9 +284,11 @@ public class OrderServiceImpl implements OrderService {
 		body += "<br/>";
 		body += "===================================================<br/>";
 		body += "DSYG-Online<br/>";
-		body += "东升盈港企业发展有限公司<br/>";
+		body += "上海东升盈港企业发展有限公司<br/>";
 		body += "电话：021－65388038－0（总机）<br/>";
-		body += "受理时间: 08:30～12:00、12:45～17:15 (工作日)<br/>";
+		body += "深圳东升盈港科技有限公司<br/>";
+		body += "电话：0755－61524201－0（总机）<br/>";
+		body += "受理时间: 09:00～17:00 (工作日)<br/>";
 		body += "Mail：sales@shdsyg.com<br/>";
 		body += "http://www.shdsyg.cn/dsygonline/<br/>";
 		body += "===================================================<br/>";
@@ -308,7 +310,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void cancelOrder(String customerid, OrderDto order) {
+	public void cancelOrder(String customerid, OrderDto order) throws Exception{
 		//状态=关闭
 		order.setStatus(Constants.ONLINE_ORDER_STATUS_CLOSE);
 		orderDao.updateOrder(order);
@@ -337,6 +339,33 @@ public class OrderServiceImpl implements OrderService {
 				salesDao.deleteSales("" + sales.getId());
 			}
 		}
+
+		//邮件发送人，MailSender有默认发送人。
+		String from = "";
+		//收件人姓名，若不填则使用MailSender的默认收件人。
+		String to = order.getCustomermail();
+		//发件人名
+		String username = "东升盈港";
+		//附件，格式：filename1,filename2,filename3...（这里需要在global.properties配置文件中指定附件目录）
+		String attachfile = "";
+		//邮件标题
+		String subject = "【东升盈港线上购买】订单已取消（" + order.getOrdercode() + "）";
+		//邮件内容
+		String body = "";
+		body += order.getCompanycn() + " 先生/女士<br/>";
+		body += "<br/>";
+		body += "订单[" + order.getOrdercode() + "] 已取消，欢迎您下次惠顾。<br/>";
+		body += "===================================================<br/>";
+		body += "DSYG-Online<br/>";
+		body += "上海东升盈港企业发展有限公司<br/>";
+		body += "电话：021－65388038－0（总机）<br/>";
+		body += "深圳东升盈港科技有限公司<br/>";
+		body += "电话：0755－61524201－0（总机）<br/>";
+		body += "受理时间: 09:00～17:00 (工作日)<br/>";
+		body += "Mail：sales@shdsyg.com<br/>";
+		body += "http://www.shdsyg.cn/dsygonline/<br/>";
+		body += "===================================================<br/>";
+		MailSender.send(from, to, subject, body, username, attachfile);
 	}
 
 	@Override
