@@ -26,7 +26,7 @@ function windowClose() {
 							</div>
 							<div style="margin-top: 5px;">
 								<div class="pfont1">
-								东升盈港的网上商店成立了。 仅用于中国国内大陆地区销售。 旨在做到国内富有竞争力的现货供应及单价<br>
+								东升盈港的网上商店成立了。 仅用于中国国内大陆地区销售。 旨在做到国内富有竞争力的现货供应及单价。<br>
 								</div>
 								<div class="pfont2">
 								<br>
