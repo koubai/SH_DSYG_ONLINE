@@ -228,8 +228,9 @@
 								</s:else>
 							</s:if></s:iterator></tr>
 						</table>
+						<div style="color:#636363; font-size:12px; font-family:"微软雅黑"" >例： 查询 电子线UL1571, 规格AWG30(7*0.10)*0.70 <br>&nbsp&nbsp&nbsp&nbsp&nbsp请输入：UL1571,AWG30(7*0.10)*0.70</div>						
 						<div class="buttons" style="float: left;">
-							<s:text name="keywordsearch"/><s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="16" theme="simple"></s:textfield>
+							<s:text name="keywordsearch"/><s:textfield name="strKeyword" id="strKeyword" cssClass="keyword" maxlength="100" theme="simple"></s:textfield>
 							<a href="javascript:void(0);">
 								<input type="button" class="search_btn" value="<s:text name="search"/>" onclick="queryList();" />
 							</a>
@@ -237,7 +238,7 @@
 						<s:if test='firstfalg != "1"'>
 							<div class="page">
 								<span><s:text name="page"/> ${page.startIndex + 1} <s:text name="pageunit"/>/<s:text name="pagesizetotal"/> ${page.totalPage==0?1:page.totalPage} <s:text name="pageunit"/>　<s:text name="total"/> ${page.totalCount} <s:text name="records"/></span>
-								<span><s:text name="skiptopage"/><input class="num" id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage('pagenum1');"><s:text name="go"/></a>　　
+								<span><s:text name="skiptopage"/><input class="num" 在`id="pagenum1" type="text" maxlength="6" /><s:text name="pageunit"/></span><a href="javascript:void(0);" onclick="javascript:turnPage('pagenum1');"><s:text name="go"/></a>　　
 								<a href="javascript:void(0);" onclick="changePage(0);"><s:text name="homepage"/></a>
 								<s:if test="%{page.startIndex <= 0}">
 									<a href="javascript:void(0);"><s:text name="previous"/></a>
