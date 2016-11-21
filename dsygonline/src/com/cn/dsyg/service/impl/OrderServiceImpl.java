@@ -262,7 +262,8 @@ public class OrderServiceImpl implements OrderService {
 			ShoppingCartDto detail = shoppingcartlist.get(i);
 			body += "■商品 No." + (i + 1) + "<br/>";
 			body += "--------------------------------------------------------------------<br/>";
-			body += "商品            : " + detail.getTradename() + "<br/>";
+//			body += "商品            : " + detail.getTradename() +" "+ detail.getTypeno() + " " + detail.getColor()+" "+ detail.getMakearea()+"<br/>";
+			body += "商品            : " + detail.getTradename() +" "+ detail.getTypeno() +"<br/>";
 			body += "单价            : " + detail.getSaleprice() + "元<br/>";
 			body += "变更数量        : " + detail.getProductNum() + "个<br/>";
 			body += "合计            : " + detail.getTaxmoney() + "元<br/>";
