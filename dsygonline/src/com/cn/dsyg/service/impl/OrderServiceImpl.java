@@ -263,7 +263,37 @@ public class OrderServiceImpl implements OrderService {
 			body += "■商品 No." + (i + 1) + "<br/>";
 			body += "--------------------------------------------------------------------<br/>";
 //			body += "商品            : " + detail.getTradename() +" "+ detail.getTypeno() + " " + detail.getColor()+" "+ detail.getMakearea()+"<br/>";
-			body += "商品            : " + detail.getTradename() +" "+ detail.getTypeno() +"<br/>";
+			
+			//查询颜色、产地
+			Dict01Dto colorDict = dict01Dao.queryDict01ByLogicId(Constants.DICT_COLOR_TYPE, detail.getColor(), Constants.SYSTEM_LANGUAGE_CHINESE);
+			Dict01Dto makeareaDict = dict01Dao.queryDict01ByLogicId(Constants.DICT_MAKEAREA_TYPE, detail.getMakearea(), Constants.SYSTEM_LANGUAGE_CHINESE);
+			String color = "";
+			String makearea = "";
+			String packaging = "";
+			//颜色
+			if(colorDict != null) {
+				color = colorDict.getFieldname();
+			} else {
+				//若没查到字典数据，则默认颜色CODE
+				color = detail.getColor();
+			}
+			//产地
+			if(makeareaDict != null) {
+				makearea = makeareaDict.getFieldname();
+			} else {
+				//若没查到字典数据，则默认产地CODE
+				makearea = detail.getMakearea();
+			}
+			//包装
+			if("0".equals(detail.getPackaging())) {
+				packaging = "整箱";
+			} else if("1".equals(detail.getPackaging())) {
+				packaging = "乱尺";
+			} else {
+				packaging = detail.getPackaging();
+			}
+			
+			body += "商品            : " + detail.getTradename() +" "+ detail.getTypeno() + " " + color + " " + makearea + " " + packaging + "<br/>";
 			body += "单价            : " + detail.getSaleprice() + "元<br/>";
 			body += "变更数量        : " + detail.getProductNum() + "个<br/>";
 			body += "合计            : " + detail.getTaxmoney() + "元<br/>";
