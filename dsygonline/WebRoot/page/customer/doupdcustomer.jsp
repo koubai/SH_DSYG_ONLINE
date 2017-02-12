@@ -62,7 +62,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>英文公司名或拼音</td>
+								<td><font color="black">&nbsp;</font>英文公司名或拼音</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -161,7 +161,7 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td><font color="red">*</font>英文公司名或拼音</td>
+								<td><font color="black">&nbsp;</font>英文公司名或拼音</td>
 								<td>
 									<div class="box1_left"></div>
 									<div class="box1_center">
@@ -274,3 +274,4 @@
 <jsp:include page="../foot_web.jsp" flush="true" />
 </body>
 </html>
+S

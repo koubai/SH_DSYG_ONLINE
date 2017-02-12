@@ -51,8 +51,9 @@
 				<li><a href="../../dsyg/companynews.shtml">公司新闻</a></li>
 				<li><a href="../../dsyg/qa.shtml">咨询信息Q/A</a></li>
 				<li><a href="../../dsyg/case_p01.shtml">案例介绍</a></li>
-				<li><a href="../../dsyg/showsearchsarehouse.shtml">库存信息</a></li>
-				<li><a href="../product/showSearchProductAction.action">线上购买</a></li>
+				<!-- <li><a href="../../dsyg/showsearchsarehouse.shtml">库存信息</a></li> -->
+				<!-- <li><a href="../product/showSearchProductAction.action">线上购买</a></li> -->
+				<li><a href="../../dsygonline/">线上购买</a></li>
 				<!--
 				<li><a href="<c:url value="/home/goHomeAction.action"></c:url>">首页</a></li>
 				<li><a href="<c:url value="/search/showSearchAction.action"></c:url>">产品信息</a></li>
@@ -67,9 +68,10 @@
 			</ul>
 		</div>
 		<div class="logo">
-			<a href="home.shtml"></a>			
+			<!-- <a href="home.shtml"></a> -->
+			<a href="../../dsyg/home.shtml"></a>			
 		</div>
-		<div class="test fr">试运行中...</div>
+		<!-- <div class="test fr">试运行中...</div> -->
 		<div style="float:right; margin-top: 10px;">
 			<select id="language" name="language" style="width: 100px;" onchange="changeLanguage();">
 				<s:if test='#session.language == "en"'>

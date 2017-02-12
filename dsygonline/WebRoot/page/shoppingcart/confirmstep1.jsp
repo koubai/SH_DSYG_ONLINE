@@ -31,9 +31,10 @@
 		if(companycn == "") {
 			msg += "（购买方）公司名不能为空！\n";
 		}
-		if(companyen == "") {
+/*		if(companyen == "") {
 			msg += "（购买方）英文公司名不能为空！\n";
 		}
+*/		
 		if(name == "") {
 			msg += "（购买方）姓名不能为空！\n";
 		}
@@ -77,9 +78,10 @@
 			if(companycn2 == "") {
 				msg += "（收件人）公司名不能为空！\n";
 			}
-			if(companyen2 == "") {
+/*			if(companyen2 == "") {
 				msg += "（收件人）英文公司名不能为空！\n";
 			}
+*/
 			if(name2 == "") {
 				msg += "（收件人）姓名不能为空！\n";
 			}
@@ -161,7 +163,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200"><span>*</span>英文公司名或拼音：</td>
+							<td class="td_tittle" width="200"><span>&nbsp;</span>英文公司名或拼音：</td>
 							<td>
 								<s:textfield name="customerInfoDto.companyen" id="companyen" cssStyle="width:360px;" maxlength="100" theme="simple"></s:textfield>
 								[半角100文字以内]
@@ -272,7 +274,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td_tittle" width="200"><span>*</span>英文公司名或拼音：</td>
+							<td class="td_tittle" width="200"><span>&nbsp;</span>英文公司名或拼音：</td>
 							<td>
 								<s:textfield name="customerInfoDto.companyen2" id="companyen2" cssStyle="width:360px;" maxlength="100" theme="simple"></s:textfield>
 								[半角100文字以内]
