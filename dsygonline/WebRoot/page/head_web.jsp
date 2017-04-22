@@ -45,8 +45,8 @@
 		<div class="menu">
 			<ul>
 				<li><a href="../../dsyg/home.shtml">首页</a></li>
+				<li><a href="../../dsyg/showInformation.shtml">产品简介</a></li>
 				<li><a href="../../dsyg/searchhome.shtml">产品信息</a></li>
-				<li><a href="../../dsyg/showInformation.shtml">相关技术情报</a></li>
 				<li><a href="../../dsyg/companyinfo.shtml">公司信息</a></li>
 				<li><a href="../../dsyg/companynews.shtml">公司新闻</a></li>
 				<li><a href="../../dsyg/qa.shtml">咨询信息Q/A</a></li>

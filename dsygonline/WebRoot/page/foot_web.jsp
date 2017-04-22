@@ -8,6 +8,9 @@
 	}
 </script>
 <div class="yzk_bottom">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td>
 	<p>上海東升盈港企業发展有限公司 <span style=" margin-left:40px; font-weight:normal; font-family:times; font-size:10px; color:#959595;">Copyright＠ D.S.Y.G Trade LTD. ALL Rights Reserved.</span></p>
 	<div class="contactus">
 		<ul>
@@ -19,4 +22,10 @@
 			<li style="padding-left:40px;"><a href="http://www.miitbeian.gov.cn/">沪ICP备16052635号</a></li>
 		</ul>
 	</div>
+	</td>
+	<td>
+		<a href="<%=request.getContextPath()%>/images/qrcode.jpg"><img alt="qrcode" src="<%=request.getContextPath()%>/images/qrcode_big.jpg" width="100" height="100"></a>	
+	</td>
+	</tr>
+	</table>
 </div>
