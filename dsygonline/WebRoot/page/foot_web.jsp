@@ -21,6 +21,9 @@
 		<ul>
 			<li style="padding-left:40px;"><a href="http://www.miitbeian.gov.cn/">沪ICP备16052635号</a></li>
 		</ul>
+		<ul>
+		 	<li style="padding-left:40px;"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011002002038" style="display:inline-block;text-decoration:none;"><img src="<%=request.getContextPath()%>/images/beian.png" style="float:left;"/>沪公网安备 31011002002038号</a></li>
+		</ul>
 	</div>
 	</td>
 	<td>
