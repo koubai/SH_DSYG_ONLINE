@@ -318,7 +318,7 @@ public class OrderServiceImpl implements OrderService {
 		body += "上海东升盈港企业发展有限公司<br/>";
 		body += "电话：021－65388038－0（总机）<br/>";
 		body += "深圳东升盈港科技有限公司<br/>";
-		body += "电话：0755－61524201－0（总机）<br/>";
+		body += "电话：0755－23319126－0（总机）<br/>";
 		body += "受理时间: 09:00～17:00 (工作日)<br/>";
 		body += "Mail：sales@shdsyg.com<br/>";
 		body += "http://www.shdsyg.cn/dsygonline/<br/>";
@@ -391,7 +391,7 @@ public class OrderServiceImpl implements OrderService {
 		body += "上海东升盈港企业发展有限公司<br/>";
 		body += "电话：021－65388038－0（总机）<br/>";
 		body += "深圳东升盈港科技有限公司<br/>";
-		body += "电话：0755－61524201－0（总机）<br/>";
+		body += "电话：0755－23319126－0（总机）<br/>";
 		body += "受理时间: 09:00～17:00 (工作日)<br/>";
 		body += "Mail：sales@shdsyg.com<br/>";
 		body += "http://www.shdsyg.cn/dsygonline/<br/>";
