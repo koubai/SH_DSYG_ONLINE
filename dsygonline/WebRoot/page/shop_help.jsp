@@ -91,10 +91,10 @@ function windowClose() {
 								&nbsp&nbsp传真：021－65387551<br><br>
 								&nbsp&nbsp深圳東升盈港科技有限公司<br>
 								&nbsp&nbspShenzhen DSYG Enterprise Development Co., Ltd.<br>
-								&nbsp&nbsp广东省深圳市西乡镇宝民二路臣田综合楼8号<br>
-								&nbsp&nbspNo.No 8 Chen Tian Building NO 2 Baomin Road Xixiang, Shenzhen City, Guangdong Province<br>
-								&nbsp&nbsp电话号码: 0755－23319126－0（总机）<br>
-								&nbsp&nbsp传真：0755－61524200<br><br>
+								&nbsp&nbsp广东省深圳市宝安区松岗街道华美路8号声宝佳信工业区 后二栋底楼<br>
+								&nbsp&nbspNo 2 BackBuilding First ground, ShengBao Jiaxin industrial estate, NO. 8 Huamei Road SongGang Lane, Baoan distinct, Shenzhen City, Guangdong Province<br>
+								&nbsp&nbsp电话号码: 0755－23576731（总机）<br>
+								&nbsp&nbsp传真：0755－23576732<br><br>
 								&nbsp&nbsp受理时间: 09:00～17:00 (工作日)<br>
 								&nbsp&nbspE-mail地址: sales@shdsyg.com<br>			
 								</div>
